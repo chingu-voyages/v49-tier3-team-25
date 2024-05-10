@@ -37,5 +37,6 @@ coding!
 - Teammate name #1: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
 - Ivor: [GitHub](https://github.com/atmaxstar) / [LinkedIn](https://www.linkedin.com/in/atsutoshi)
 - Jess: [GitHub](https://github.com/jessabc)
+- Dickymr: [GitHub](https://github.com/dickymr) / [LinkedIn](https://www.linkedin.com/in/dickymr)
   
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
