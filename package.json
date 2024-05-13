@@ -9,13 +9,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "fe": "cd client && npm run dev",
-    "be":  "cd server && npm run dev",
+    "be": "cd server && npm run dev",
     "dev": "concurrently \"npm run fe\" \"npm run be\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "@types/node": "^20.12.11",
+    "concurrently": "^8.2.2",
+    "express": "^4.19.2",
+    "mongodb": "^6.6.1",
+    "mongoose": "^8.3.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
   }
 }
