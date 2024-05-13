@@ -5,7 +5,7 @@ import "dotenv/config";
 import mongoose, { Mongoose } from "mongoose";
 import { router as AuthRouter } from "./routes/auth";
 
-const MONGODB_URI = 'mongodb+srv://user:2tdk4aFuqjIppYfY@cluster0.y2bazek.mongodb.net/bookstore?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = 'http://localhost/database';
 
 const app = express();
 
