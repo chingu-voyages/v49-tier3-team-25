@@ -5,9 +5,27 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmitSignup = (e: FormEvent) => {
+  const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(name, email, password);
+    const data = { username: name, email, password };
+    const signupURL = `${import.meta.env.VITE_SERVER_URL}/signup`;
+    const response = await fetch(signupURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error("Something went wrong");
+    }
+    const responseData = await response.json();
+    if (response.status !== 201) {
+      console.error(responseData.message);
+    }
+    console.log(responseData);
+    console.log("Account created")
   };
 
   return (
