@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import db from './config/db';
 import 'dotenv/config';
 
@@ -8,6 +9,7 @@ import { router as HealthRouter } from './routes/healthcheck';
 const app = express();
 
 app.use(express.json());
+app.use(morgan('dev'));
 
 app.use('/', AuthRouter);
 app.use('/health', HealthRouter);
