@@ -5,7 +5,7 @@ import { authValidation } from '../validations';
 
 const router = Router();
 
-router.put('/signup', validate(authValidation.signUp), signUp);
+router.post('/signup', validate(authValidation.signUp), signUp);
 router.post('/login', validate(authValidation.login), login);
 
 export { router };

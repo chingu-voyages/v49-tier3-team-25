@@ -3,16 +3,27 @@ import morgan from 'morgan';
 import db from './config/db';
 import 'dotenv/config';
 
+import { errorConverter, errorHandler } from './middleware/error';
+
 import { router as AuthRouter } from './routes/auth';
 import { router as HealthRouter } from './routes/healthcheck';
 
 const app = express();
 
 app.use(express.json());
+
+// logging HTTP requests
 app.use(morgan('dev'));
 
+// api routes
 app.use('/', AuthRouter);
 app.use('/health', HealthRouter);
+
+// convert error to ApiError, if needed
+app.use(errorConverter);
+
+// handle error
+app.use(errorHandler);
 
 const PORT = process.env.PORT;
 db.once('open', () => {
