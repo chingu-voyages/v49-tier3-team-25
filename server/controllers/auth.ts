@@ -5,14 +5,10 @@ import jwt from "jsonwebtoken";
 
 export const signUp = (req: Request, res: Response, next: NextFunction) => {
     const email = req.body.email;
-    const userName = req.body.userName;
+    const fullName = req.body.fullName;
     const password = req.body.password
 
-    const user = new User({
-        username: userName,
-        email: email,
-        password: password
-    });
+    const user = new User({ fullName, email, password });
     return user.save()
         .then(result => {
             res.status(201).json({
@@ -27,7 +23,6 @@ export const signUp = (req: Request, res: Response, next: NextFunction) => {
 }
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
-    console.log('hoi');
     const email = req.body.email;
     const password = req.body.password
 
