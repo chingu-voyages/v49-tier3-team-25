@@ -3,7 +3,7 @@ import httpStatus from "http-status";
 
 import { User } from "../models";
 
-import { comparePassword } from "../helpers";
+import { encryptPassword, comparePassword } from "../helpers";
 import { ApiError, catchAsync } from "../utils";
 
 export const signUp = catchAsync(async (req, res) => {
@@ -14,7 +14,9 @@ export const signUp = catchAsync(async (req, res) => {
     const foundUser = await User.findOne({ email });
     if (foundUser) throw new ApiError(httpStatus.BAD_REQUEST, 'Email already registered');
 
-    const user = new User({ fullName, email, password });
+    const encryptedPassword = await encryptPassword(password);
+    
+    const user = new User({ fullName, email, password: encryptedPassword });
     const result = await user.save();
 
     const response = { 
@@ -35,8 +37,8 @@ export const login = catchAsync(async (req, res) => {
     const foundUser = await User.findOne({ email });
     if (!foundUser) throw new ApiError(httpStatus.NOT_FOUND, "Email not found");
     
-    const authenticated = comparePassword(foundUser.password, password);
-    if (!authenticated) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
+    const isAuthenticated = await comparePassword(foundUser.password, password);
+    if (!isAuthenticated) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
 
     const token = jwt.sign({ 
         email: foundUser.email, 
