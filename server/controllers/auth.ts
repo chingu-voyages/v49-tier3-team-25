@@ -1,9 +1,8 @@
-import jwt from "jsonwebtoken";
 import httpStatus from "http-status";
 
 import { User } from "../models";
 
-import { encryptPassword, comparePassword } from "../helpers";
+import { encryptPassword, comparePassword, createToken } from "../helpers";
 import { ApiError, catchAsync } from "../utils";
 
 export const signUp = catchAsync(async (req, res) => {
@@ -40,11 +39,7 @@ export const login = catchAsync(async (req, res) => {
     const isAuthenticated = await comparePassword(foundUser.password, password);
     if (!isAuthenticated) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
 
-    const token = jwt.sign({ 
-        email: foundUser.email, 
-        userId: foundUser._id.toString()
-    }, 'supersecretkey', 
-    { expiresIn: '1h' });
+    const token = createToken(foundUser._id.toString(), foundUser.email);
 
     const response = {
         message: "Login successful.",
