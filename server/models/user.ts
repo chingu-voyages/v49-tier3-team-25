@@ -2,19 +2,30 @@ import mongoose from "mongoose";
 
 // Modify as needed
 const userSchema = new mongoose.Schema({
-  username: {
+  fullName: {
     type: String,
-    unique: true,
     required: true,
+  },
+  email:{
+    type: String,
+    unique:true,
+    required:true
   },
   password: {
     type: String,
     required: true,
   },
-  role: {
-    type: String,
-    enum: ["admin", "buyer"],
+  cart: {
+    items:[{
+      bookId:mongoose.Schema.ObjectId,
+      quantity:Number
+    }]
   },
+  wishList:{
+    items:[{
+      bookId:mongoose.Schema.ObjectId
+    }]
+  }
 });
 
 export const User = mongoose.model("User", userSchema);
