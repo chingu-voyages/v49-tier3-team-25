@@ -1,5 +1,6 @@
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -7,12 +8,13 @@ const Signin = () => {
 
   const onSubmitSignin = async (e: FormEvent) => {
     e.preventDefault();
-    const data = { username: name, email, password };
+    const data = { email, password };
     console.log(data);
   };
 
   return (
     <>
+      <Header />
       <div className="flex w-screen">
         <div className="w-full">
           <img src="/book.jpeg" className="rounded-r-2xl h-[700px]" />
