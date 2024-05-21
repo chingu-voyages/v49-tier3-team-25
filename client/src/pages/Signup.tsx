@@ -3,13 +3,13 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export const Signup = () => {
-  const [name, setName] = useState("");
+  const [fullName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
-    const data = { username: name, email, password };
+    const data = { fullName, email, password };
     const signupURL = `${import.meta.env.VITE_SERVER_URL}/signup`;
     const response = await fetch(signupURL, {
       method: "POST",
@@ -18,11 +18,11 @@ export const Signup = () => {
       },
       body: JSON.stringify(data),
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error("Something went wrong");
     }
     const responseData = await response.json();
+    console.log(responseData)
     if (response.status !== 201) {
       console.error(responseData.message);
     }
