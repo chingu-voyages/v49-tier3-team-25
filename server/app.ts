@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 import { errorConverter, errorHandler } from './middleware/error';
 
-import { router as AuthRouter } from './routes/auth';
+import { router as UserRouter } from './routes/user';
 import { router as HealthRouter } from './routes/healthcheck';
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // api routes
-app.use('/', AuthRouter);
+app.use('/users', UserRouter);
 app.use('/health', HealthRouter);
 
 // convert error to ApiError, if needed

@@ -43,10 +43,10 @@ export const login = catchAsync(async (req, res) => {
 
     const response = {
         message: "Login successful.",
-        token,
         data: {
             fullName: foundUser.fullName,
-            email: foundUser.email
+            email: foundUser.email,
+            token,
         }
     }
     
