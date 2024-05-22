@@ -1,4 +1,4 @@
-// react router - change a tags to links
+import { NavLink, Link } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -28,6 +28,9 @@ export default function Header() {
     isOpen ? "my-1" : "my-[2px]"
   }  rounded-full bg-black transition ease transform duration-300 `;
 
+  const activeLink =
+    "relative  before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-accent ";
+
   // mimic backend
   const userLoggedIn = true;
 
@@ -41,9 +44,9 @@ export default function Header() {
       <nav className="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center px-4 md:px-8 mx-auto">
         <div className="md:col-span-3">
           {/* <!-- Logo --> */}
-          <a
-            className="flex justify-center items-center text-xl font-semibold "
-            href="/"
+          <Link
+            className="flex justify-center items-center text-xl font-semibold"
+            to="/"
             aria-label="Brand"
           >
             <svg
@@ -67,20 +70,23 @@ export default function Header() {
               <path d="M14 9l4 -1" />
               <path d="M16 16l3.923 -.98" />
             </svg>
-            <span>BRAND</span>
-          </a>
+            <div className="flex flex-col  -ml-[2px] font-bold">
+              <span className="-mb-[5px] tracking-widest  text-sm">BOOK</span>
+              <span className="tracking-tighter text-xs -mt-[2px]">CORNER</span>
+            </div>
+          </Link>
           {/* <!-- End Logo --> */}
         </div>
 
         {/* <!-- Icon Links Group --> */}
         <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
           {/* heart icon */}
-          <a
-            href="" // link to wishlist page
+          <Link
+            to="" // link to wishlist page
             className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
           >
             {/* count only visible when logged in and counter higher than 0 */}
-            <div className="w-4 h-4 bg-red-400 text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+            <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
               1
             </div>
             <svg
@@ -98,14 +104,14 @@ export default function Header() {
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
             </svg>
-          </a>
+          </Link>
           {/* cart icon */}
-          <a
-            href="" // link to cart page
+          <Link
+            to="" // link to cart page
             className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
           >
             {/* count only visible when logged in and counter higher than 0 */}
-            <div className="w-4 h-4 bg-red-400 text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+            <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
               1
             </div>
             <svg
@@ -126,13 +132,13 @@ export default function Header() {
               <path d="M17 17h-11v-14h-2" />
               <path d="M6 5l14 1l-1 7h-13" />
             </svg>
-          </a>
+          </Link>
           {/* user icon */}
           <button
             onClick={handleUserIconClick}
             type="button"
             className={`py-1 px-1 inline-flex items-center gap-x-2  text-black ${
-              userLoggedIn && "bg-red-400 rounded-full text-white"
+              userLoggedIn && "bg-accent rounded-full text-white"
             }`}
           >
             <svg
@@ -192,17 +198,20 @@ export default function Header() {
         >
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
             {links.map((link) => (
-              <div>
-                <a
-                  /*react router - add these classes when link is active: relative  before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-red-400 */
-                  className="group transition-all duration-300 ease-in-out inline-block text-black hover:text-gray-600"
-                  href={link.link}
+              <div key={link.link}>
+                <NavLink
+                  to={link.link}
                   aria-current="page"
+                  className={({ isActive }) =>
+                    isActive
+                      ? activeLink
+                      : "group transition-all duration-300 ease-in-out inline-block text-black hover:text-gray-600"
+                  }
                 >
-                  <span className="bg-left-bottom bg-gradient-to-l from-red-400 to-red-400 bg-[length:0%_4px] bg-no-repeat group-hover:bg-[length:100%_4px] transition-all duration-500 ease-out">
+                  <span className="bg-left-bottom bg-gradient-to-l from-accent to-accent bg-[length:0%_4px] bg-no-repeat group-hover:bg-[length:100%_4px] transition-all duration-500 ease-out">
                     {link.text}
                   </span>
-                </a>
+                </NavLink>
               </div>
             ))}
           </div>
