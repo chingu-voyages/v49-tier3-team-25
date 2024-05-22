@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -24,6 +24,8 @@ const links = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const genericHamburgerLine = `h-1 w-5 ${
     isOpen ? "my-1" : "my-[2px]"
   }  rounded-full bg-black transition ease transform duration-300 `;
@@ -36,6 +38,7 @@ export default function Header() {
 
   const handleUserIconClick = () => {
     // if no user redirect to sign in,
+    navigate("/signin");
     // if user logged in, redirect to manage accounts page
   };
 
