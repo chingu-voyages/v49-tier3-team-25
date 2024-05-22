@@ -36,8 +36,8 @@ export const login = catchAsync(async (req, res) => {
     const foundUser = await User.findOne({ email });
     if (!foundUser) throw new ApiError(httpStatus.NOT_FOUND, "Email not found");
     
-    const isAuthenticated = await comparePassword(foundUser.password, password);
-    if (!isAuthenticated) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
+    const isMatched  = await comparePassword(foundUser.password, password);
+    if (!isMatched ) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
 
     const token = createToken(foundUser._id.toString(), foundUser.email);
 
@@ -48,6 +48,19 @@ export const login = catchAsync(async (req, res) => {
             email: foundUser.email,
             token,
         }
+    }
+    
+    res.status(httpStatus.OK).send(response);
+});
+
+export const getMyProfile = catchAsync(async (req, res) => {
+    const decodedUser = (req as any).decoded;
+
+    const foundUser = await User.findById(decodedUser._id, '-password -__v -cart -wishList')
+
+    const response = {
+        message: "Get my profile successful.",
+        data: foundUser,
     }
     
     res.status(httpStatus.OK).send(response);
