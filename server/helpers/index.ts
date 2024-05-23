@@ -14,8 +14,8 @@ export const comparePassword = async (encryptedPassword: string, plainPassword: 
     return isAuthenticated;
 };
 
-export const createToken = (userId: string, email: string): string => {    
-    const payload = { _id: userId, email };
+export const createToken = (userId: string, email: string, role: 'user' | 'admin'): string => {    
+    const payload = { _id: userId, email, role };
     const token = jwt.sign(payload, 'supersecretkey', { expiresIn: '1h' });
 
     return token;

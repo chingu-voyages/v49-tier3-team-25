@@ -1,3 +1,4 @@
+import { adminValidation } from './admin';
 import { userValidation } from './user';
 
-export { userValidation };
+export { adminValidation, userValidation };

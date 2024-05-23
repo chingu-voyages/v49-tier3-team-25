@@ -1,3 +1,4 @@
+import { Admin } from "./admin"
 import { User } from "./user";
 
-export { User };
+export { Admin, User };
