@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 import db from './config/db';
 import 'dotenv/config';
@@ -10,7 +11,11 @@ import { router as HealthRouter } from './routes/healthcheck';
 
 const app = express();
 
+// parse JSON requests
 app.use(express.json());
+
+// enable CORS
+app.use(cors());
 
 // logging HTTP requests
 app.use(morgan('dev'));
