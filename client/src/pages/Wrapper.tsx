@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 
-export default function Layout() {
+export default function Wrapper() {
   const location = useLocation();
   return (
     <div className="flex flex-col min-h-screen gap-5 ">
