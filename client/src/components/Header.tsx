@@ -48,7 +48,7 @@ export default function Header() {
         <div className="md:col-span-3">
           {/* <!-- Logo --> */}
           <Link
-            className="flex justify-center items-center text-xl font-semibold"
+            className="flex  items-center text-xl font-semibold"
             to="/"
             aria-label="Brand"
           >
