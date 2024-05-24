@@ -2,6 +2,24 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
+const userLinks = [
+  {
+    text: "My Profile",
+    link: "/my-profile",
+    icon: "profileIcon",
+  },
+  {
+    text: "Order History",
+    link: "/order-history",
+    icon: "historyIcon",
+  },
+  {
+    text: "Wishlist",
+    link: "/wishlist",
+    icon: "wishlistIcon",
+  },
+];
+
 const links = [
   {
     text: "Home",
@@ -22,12 +40,13 @@ const links = [
 ];
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  console.log(isUserDropdownOpen);
   const navigate = useNavigate();
 
   const genericHamburgerLine = `h-1 w-5 ${
-    isOpen ? "my-1" : "my-[2px]"
+    isMenuOpen ? "my-1" : "my-[2px]"
   }  rounded-full bg-black transition ease transform duration-300 `;
 
   const activeLink =
@@ -38,8 +57,13 @@ export default function Header() {
 
   const handleUserIconClick = () => {
     // if no user redirect to sign in,
-    navigate("/signin");
-    // if user logged in, redirect to manage accounts page
+    if (!userLoggedIn) {
+      navigate("/signin");
+    }
+    // if user logged in, show dropdown
+    if (userLoggedIn) {
+      setIsUserDropdownOpen((prev) => !prev);
+    }
   };
 
   return (
@@ -82,7 +106,7 @@ export default function Header() {
         </div>
 
         {/* <!-- Icon Links Group --> */}
-        <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
+        <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3 ">
           {/* heart icon */}
           <Link
             to="" // link to wishlist page
@@ -137,53 +161,99 @@ export default function Header() {
             </svg>
           </Link>
           {/* user icon */}
-          <button
-            onClick={handleUserIconClick}
-            type="button"
-            className={`py-1 px-1 inline-flex items-center gap-x-2  text-black ${
-              userLoggedIn && "bg-accent rounded-full text-white"
-            }`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="icon icon-tabler icons-tabler-outline icon-tabler-user"
+          <div className="relative">
+            <button
+              onClick={handleUserIconClick}
+              type="button"
+              className={`py-1 px-1 inline-flex items-center gap-x-2  text-black  ${
+                userLoggedIn && "bg-accent rounded-full text-white"
+              }`}
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="icon icon-tabler icons-tabler-outline icon-tabler-user"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+              </svg>
+            </button>
+            {/* <!-- User Links --> */}
+            <div
+              className={` ${
+                isUserDropdownOpen ? "block" : "hidden"
+              }  overflow-hidden transition-all duration-300 basis-full grow bg-accent absolute top-10 right-0 p-3 rounded-xl `}
+            >
+              <div className="flex flex-col gap-y-4 gap-x-0 w-max">
+                {userLinks.map((link) => (
+                  <div key={link.link}>
+                    <Link
+                      to={link.link}
+                      aria-current="page"
+                      className="text-white flex gap-1 hover:scale-105"
+                    >
+                      <img src={`/${link.icon}.svg`} alt="" />
+                      <span>{link.text}</span>
+                    </Link>
+                  </div>
+                ))}
+                <div className="text-white flex gap-1 hover:scale-105">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="icon icon-tabler icons-tabler-outline icon-tabler-logout-2"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" />
+                    <path d="M15 12h-12l3 -3" />
+                    <path d="M6 15l-3 -3" />
+                  </svg>
+                  <button className="text-left">Logout</button>
+                </div>
+              </div>
+            </div>
+            {/* <!-- End User Links --> */}
+          </div>
 
           {/* hamburger on mobile screen */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsOpen((prev) => !prev)}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
               type="button"
               className="flex flex-col h-10 w-10 group size-[38px]  justify-center items-center text-sm font-semibold rounded-xl border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
             >
               <div
                 className={`${genericHamburgerLine} ${
-                  isOpen
+                  isMenuOpen
                     ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
                     : "opacity-50 group-hover:opacity-100"
                 }`}
               />
               <div
                 className={`${genericHamburgerLine} ${
-                  isOpen ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                  isMenuOpen
+                    ? "opacity-0"
+                    : "opacity-50 group-hover:opacity-100"
                 }`}
               />
               <div
                 className={`${genericHamburgerLine} ${
-                  isOpen
+                  isMenuOpen
                     ? "-rotate-45 -translate-y-3 opacity-50 group-hover:opacity-100"
                     : "opacity-50 group-hover:opacity-100"
                 }`}
@@ -196,7 +266,7 @@ export default function Header() {
         {/* <!-- Links --> */}
         <div
           className={` ${
-            isOpen ? "block" : "hidden"
+            isMenuOpen ? "block" : "hidden"
           }  overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
         >
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
