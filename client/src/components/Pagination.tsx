@@ -47,21 +47,22 @@ export default function Pagination({ handlePageClick, pageCount }) {
       }
       renderOnZeroPageCount={null}
       //   styles
+      containerClassName="flex justify-center items-center gap-2"
       pageClassName="bg-gray-100 h-10 w-10 border border-gray-300 rounded-full  flex justify-center items-center "
       pageLinkClassName="bg-gray-50 h-10 w-10 border border-gray-300 rounded-full  flex justify-center items-center"
       previousClassName="bg-white py-1.5 px-1.5 border-2 border-[#DB4444] rounded-full text-[#DB4444]"
-      // previousLinkClassName=""
       nextClassName="bg-white py-1.5 px-1.5 border-2 border-[#DB4444] rounded-full text-[#DB4444]"
+      // for activelinkclassname below for some reason not picking up on custom colors ie bg-[#DB4444] border-[#DB4444] so have used red for now
+      activeLinkClassName="text-white bg-red-400 border-red-400"
+      disabledClassName="border-gray-400 opacity-50 border-1"
+      disabledLinkClassName="text-gray-400"
+      // previousLinkClassName=""
       // nextLinkClassName=
       // breakLabel="..."
       // breakClassName=
       // breakLinkClassName=
-      containerClassName="flex justify-center items-center gap-2"
       // activeClassName=
-      activeLinkClassName="text-white bg-[#DB4444] border-[#DB4444]"
       // renderOnZeroPageCount={null}
-      disabledClassName="border-gray-400 opacity-50 border-1"
-      disabledLinkClassName="text-gray-400"
     />
   );
 }
