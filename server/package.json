@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc && nodemon --exec node build/app.js"
+    "dev": "nodemon app.ts"
   },
   "author": "",
   "license": "ISC",
