@@ -25,7 +25,7 @@ const menuLinks = [
   },
   {
     text: "Order History",
-    link: "/order-history",
+    link: "/my-orders",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
