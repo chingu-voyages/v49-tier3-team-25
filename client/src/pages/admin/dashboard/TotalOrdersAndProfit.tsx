@@ -1,4 +1,3 @@
-import React from 'react'
 import upIcon from '/dashboard/up.svg'
 // import downIcon from '/dashboard/down.svg'
 

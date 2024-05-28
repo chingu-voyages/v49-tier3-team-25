@@ -1,5 +1,4 @@
 import { ApexOptions } from 'apexcharts';
-import React from 'react'
 import ReactApexChart from 'react-apexcharts';
 // import upIcon from '/dashboard/up.svg'
 import downIcon from '/dashboard/down.svg'

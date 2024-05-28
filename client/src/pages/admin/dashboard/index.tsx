@@ -1,4 +1,3 @@
-import React from 'react'
 import TotalSalesAndCosts from './TotalSalesAndCosts'
 import TotalOrdersAndProfit from './TotalOrdersAndProfit'
 import TopSellingGenre from './TopSellingGenre'
