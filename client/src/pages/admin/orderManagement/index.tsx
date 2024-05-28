@@ -1,8 +1,9 @@
+import Table from "./Table"
 
 const OrderManagement = () => {
   return (
-    <div>
-      
+    <div className="w-full">
+        <Table/>
     </div>
   )
 }
