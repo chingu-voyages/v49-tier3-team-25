@@ -56,30 +56,74 @@ export const getBooks = catchAsync(async (req: Request, res: Response, next: Nex
 
 export const getBookById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-    const bookId=req.params.bookId;
+    const bookId = req.params.bookId;
 
-    const book= await Book.findById(bookId);
+    const book = await Book.findById(bookId);
 
-    const response={
-        message:"Get Book Data Successfull",
-        data:book
+    const response = {
+        message: "Get Book Data Successfull",
+        data: book
     }
 
     res.status(200).send(response);
 
 });
 
-export const deleteBook=catchAsync(async(req: Request, res: Response, next: NextFunction)=>{
+export const deleteBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-    const bookId=req.params.bookId;
+    const bookId = req.params.bookId;
 
-    const deleted=await Book.deleteOne({_id:bookId});
+    const deleted = await Book.deleteOne({ _id: bookId });
 
-    const response={
-        message:'Deletion is Successfull',
-        data:deleted
+    const response = {
+        message: 'Deletion is Successfull',
+        data: deleted
     }
 
     res.status(200).send(response);
+
+});
+
+export const updateBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    // console.log('boom boom bomm');
+    const bookId = req.params.bookId;
+
+    const updatedBook = {
+        title: req.body.title,
+        author: req.body.author,
+        description: req.body.description,
+        imageUrls: req.body.imageUrls,
+        isbn: req.body.isbn,
+        publisher: req.body.publisher,
+        published_date: req.body.published_date,
+        language: req.body.language,
+        pages: req.body.pages,
+        genre: req.body.genre,
+        formats: req.body.formats
+    }
+
+    try{
+
+        const newBook = await Book.findByIdAndUpdate(bookId, { $set: updatedBook }, { new: true });
+    
+        // console.log(newBook);
+        if(!newBook){
+            return res.status(404).send({ message: "Book not found" });
+        }
+    
+        const response = {
+            message: "Book successfully updated",
+            data: newBook
+        }
+    
+        res.status(200).send(response);
+    }
+    catch(error){
+        console.log("errors here",error);
+        res.status(500).send({message:"An error occurred while updating the book"});
+
+    }
+
 
 });

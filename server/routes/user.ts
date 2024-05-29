@@ -1,4 +1,4 @@
-import { Router } from 'express';
+    import { Router } from 'express';
 import { signUp, login, getMyProfile } from '../controllers/user';
 import { validate } from '../middleware/validate';
 import { isAuthenticated } from '../middleware/isAuthenticated';
