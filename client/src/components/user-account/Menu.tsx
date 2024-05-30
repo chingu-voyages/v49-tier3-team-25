@@ -71,6 +71,11 @@ const menuLinks = [
 export default function Menu() {
   const activeLink =
     "inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium  border border-gray-200 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg text-white bg-accent";
+
+  const logout = () => {
+    // add logout out logic
+  };
+
   return (
     <div className="max-w-xs flex flex-col">
       {menuLinks.map((link) => (
@@ -105,7 +110,9 @@ export default function Menu() {
           <path d="M15 12h-12l3 -3" />
           <path d="M6 15l-3 -3" />
         </svg>
-        <button className="text-left">Logout</button>
+        <button onClick={logout} className="text-left">
+          Logout
+        </button>
       </div>
     </div>
   );

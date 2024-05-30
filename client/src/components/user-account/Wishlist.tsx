@@ -73,9 +73,14 @@ export default function Wishlist() {
     3
   );
 
-  const handleClick = () => {
+  const addAllToCart = () => {
     // logic add to cart
   };
+
+  const removeFromWishlist = () => {
+    // logic to remove from cart
+  };
+
   return (
     <>
       <div>
@@ -84,7 +89,7 @@ export default function Wishlist() {
             Wishlist ({placeholderBooks.length})
           </span>
           <button
-            onClick={handleClick}
+            onClick={addAllToCart}
             type="button"
             className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none "
           >
@@ -95,7 +100,29 @@ export default function Wishlist() {
         {/* book cards */}
         <div className="grid grid-cols-3 gap-2 mt-2">
           {currentItems.map((book) => (
-            <div className="flex flex-col bg-white border shadow-sm rounded-xl ">
+            <div className="flex flex-col bg-white border shadow-sm rounded-xl relative">
+              <button
+                onClick={removeFromWishlist}
+                className="absolute top-3 right-0 sm:right-2 md:right-3 p-[2px] rounded-full bg-accent flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="icon icon-tabler icons-tabler-outline icon-tabler-x"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M18 6l-12 12" />
+                  <path d="M6 6l12 12" />
+                </svg>
+              </button>
+
               <div className="flex justify-center items-center">
                 <img
                   className="w-1/2 h-auto mt-3 "
@@ -103,6 +130,7 @@ export default function Wishlist() {
                   alt="Image Description"
                 />
               </div>
+
               <div className="flex flex-col gap-1 p-4 md:p-5">
                 <h3 className="font-bold text-gray-800 ">{book.title}</h3>
                 <p className="text-sm text-gray-500 ">{book.author}</p>
@@ -114,7 +142,7 @@ export default function Wishlist() {
                 <div className="flex items-center">
                   {Array(book.rating)
                     .fill(0)
-                    .map((star) => (
+                    .map(() => (
                       <svg
                         className="flex-shrink-0 size-3 text-yellow-400 dark:text-yellow-600"
                         xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +157,7 @@ export default function Wishlist() {
 
                   {Array(5 - book.rating)
                     .fill(0)
-                    .map((star) => (
+                    .map(() => (
                       <svg
                         className="flex-shrink-0 size-3 text-gray-300 dark:text-neutral-600"
                         xmlns="http://www.w3.org/2000/svg"
