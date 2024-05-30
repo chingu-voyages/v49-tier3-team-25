@@ -55,7 +55,7 @@ export default function Breadcrumb({
   const pathNames = paths.pathname.split("/").filter((path: string) => path);
 
   return (
-    <div className="pl-4 md:pl-8">
+    <div className="">
       <ul className={containerClasses}>
         <li className={listClasses}>
           <Link to={"/"}>{homeElement}</Link>
