@@ -6,3 +6,11 @@ export type Transaction = {
   //   why doesnt work with union?
   //   status: "Completed" | "In Progress" | "Cancelled";
 };
+
+export type Book = {
+  title: string;
+  author: string;
+  image: string;
+  price: number;
+  rating: number;
+};

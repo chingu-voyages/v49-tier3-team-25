@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Pagination from "../Pagination";
 import usePagination from "../../hooks/usePagination";
-import { Transaction } from "../../lib/types";
 
 const transactionData = [
   {
@@ -132,8 +131,8 @@ export default function OrderHistory() {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                  {currentItems.map((transaction: Transaction) => (
-                    <tr>
+                  {currentItems.map((transaction) => (
+                    <tr key={transaction.order}>
                       <td className="size-px whitespace-nowrap">
                         <div className="ps-6 py-2"></div>
                       </td>

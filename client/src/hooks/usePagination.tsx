@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { Transaction } from "../lib/types";
+import { Book, Transaction } from "../lib/types";
 
-export default function usePagination(
-  items: Transaction[],
-  itemsPerPage: number
-) {
+export default function usePagination(items, itemsPerPage: number) {
   const [itemOffset, setItemOffset] = useState(0);
 
   // Simulate fetching items from another resources.
