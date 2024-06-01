@@ -18,10 +18,10 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // api routes
+app.use('/health', HealthRouter);
 app.use('/admins', AdminRouter);
 app.use('/users', UserRouter);
-app.use('/health', HealthRouter);
-app.use('/admin', BookRouter);
+app.use('/books', BookRouter);
 
 // convert error to ApiError, if needed
 app.use(errorConverter);

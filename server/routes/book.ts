@@ -4,14 +4,10 @@ import { createBook, getBooks, getBookById, deleteBook, updateBook } from "../co
 
 const router = Router();
 
-router.post('/createbook', createBook);
-
-router.get('/getbooks', getBooks);
-
-router.get('/getbook/:bookId', getBookById);
-
-router.delete('/deletebook/:bookId', deleteBook);
-
-router.put('/updatebook/:bookId', updateBook);
+router.post('/', createBook);
+router.get('/', getBooks);
+router.get('/:bookId', getBookById);
+router.delete('/:bookId', deleteBook);
+router.put('/:bookId', updateBook);
 
 export { router };
