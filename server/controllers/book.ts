@@ -4,7 +4,6 @@ import { Request, Response, NextFunction } from "express";
 import { catchAsync } from "../utils";
 
 export const createBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
@@ -16,7 +15,7 @@ export const createBook = catchAsync(async (req: Request, res: Response, next: N
     const pages = req.body.pages;
     const genre = req.body.genre;
     const formats = req.body.formats;
-
+    const decodedAdmin = (req as any).decoded;
 
     const book = new Book({
         title: title,
@@ -29,7 +28,8 @@ export const createBook = catchAsync(async (req: Request, res: Response, next: N
         language: language,
         pages: pages,
         genre: genre,
-        formats: formats
+        formats: formats,
+        createdBy: decodedAdmin._id,
     });
 
     const result = await book.save();
@@ -85,9 +85,8 @@ export const deleteBook = catchAsync(async (req: Request, res: Response, next: N
 });
 
 export const updateBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
-    // console.log('boom boom bomm');
     const bookId = req.params.bookId;
+    const decodedAdmin = (req as any).decoded;
 
     const updatedBook = {
         title: req.body.title,
@@ -100,7 +99,8 @@ export const updateBook = catchAsync(async (req: Request, res: Response, next: N
         language: req.body.language,
         pages: req.body.pages,
         genre: req.body.genre,
-        formats: req.body.formats
+        formats: req.body.formats,
+        createdBy: decodedAdmin._id,
     }
 
     try{

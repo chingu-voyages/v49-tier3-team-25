@@ -87,7 +87,14 @@ const bookSchema = new Schema({
     required: true,
     enum: ["Fiction", "Non-fiction", "Science Fiction", "Fantasy", "Mystery", "Horror", "Romance", "Thriller", "Historical", "Biography", "Self-help", "Young Adult", "Children's", "Poetry", "Drama", "Comics & Graphic Novels"]
   }],
-  formats: [formatSchema]
+  formats: [formatSchema],
+
+  // Reference to Admin who created the book
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'Admin',
+    required: true
+  },
 });
 
 
