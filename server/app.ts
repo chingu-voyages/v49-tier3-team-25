@@ -10,6 +10,7 @@ import { router as AdminRouter } from './routes/admin';
 import { router as UserRouter } from './routes/user';
 import { router as BookRouter } from './routes/book';
 import { router as WishlistRouter } from './routes/wishlist';
+import { router as CartRouter } from './routes/cart';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/admins', AdminRouter);
 app.use('/users', UserRouter);
 app.use('/books', BookRouter);
 app.use('/wishlists', WishlistRouter);
+app.use('/carts', CartRouter);
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
