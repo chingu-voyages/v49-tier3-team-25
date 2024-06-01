@@ -56,7 +56,7 @@ export const login = catchAsync(async (req, res) => {
 export const getMyProfile = catchAsync(async (req, res) => {
     const decodedUser = (req as any).decoded;
 
-    const foundUser = await User.findById(decodedUser._id, '-password -cart -wishList')
+    const foundUser = await User.findById(decodedUser._id, '_id fullName email');
 
     const response = {
         message: "Get my profile successful.",
