@@ -18,15 +18,15 @@ export const comparePassword = async (encryptedPassword: string, plainPassword: 
     return isAuthenticated;
 };
 
-export const createToken = (userId: string, email: string, role: 'user' | 'admin'): string => {    
-    const payload = { _id: userId, email, role };
-    const token = jwt.sign(payload, 'supersecretkey', { expiresIn: '1h' });
+export const createToken = (userId: string, email: string): string => {    
+    const payload = { _id: userId, email };
+    const token = jwt.sign(payload, String(process.env.JWT_SECRET), { expiresIn: '24h' });
 
     return token;
 };
 
 export const verifyToken = (token: string): string | JwtPayload => {
-    const decodedToken =  jwt.verify(token, 'supersecretkey');
+    const decodedToken =  jwt.verify(token, String(process.env.JWT_SECRET));
     return decodedToken;
 }
 
