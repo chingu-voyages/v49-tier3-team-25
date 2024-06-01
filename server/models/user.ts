@@ -15,17 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cart: {
-    items:[{
-      bookId:mongoose.Schema.ObjectId,
-      quantity:Number
-    }]
-  },
-  wishList:{
-    items:[{
-      bookId:mongoose.Schema.ObjectId
-    }]
-  }
+  wishlists: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Book' 
+  }],
 });
 
 export const User = mongoose.model("User", userSchema);
