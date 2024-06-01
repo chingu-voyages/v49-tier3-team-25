@@ -8,6 +8,6 @@ const router = Router();
 
 router.post('/signup', validate(userValidation.signUp), signUp);
 router.post('/login', validate(userValidation.login), login);
-router.get('/profile', isAuthenticated, getMyProfile);
+router.get('/profile', isAuthenticated('user'), getMyProfile);
 
 export { router };

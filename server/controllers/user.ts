@@ -39,7 +39,7 @@ export const login = catchAsync(async (req, res) => {
     const isMatched  = await comparePassword(foundUser.password, password);
     if (!isMatched ) throw new ApiError(httpStatus.UNAUTHORIZED, "Invalid password");
 
-    const token = createToken(foundUser._id.toString(), foundUser.email);
+    const token = createToken(foundUser._id.toString(), foundUser.email, 'user');
 
     const response = {
         message: "Login successful.",
@@ -56,7 +56,7 @@ export const login = catchAsync(async (req, res) => {
 export const getMyProfile = catchAsync(async (req, res) => {
     const decodedUser = (req as any).decoded;
 
-    const foundUser = await User.findById(decodedUser._id, '-password -__v -cart -wishList')
+    const foundUser = await User.findById(decodedUser._id, '-password -cart -wishList')
 
     const response = {
         message: "Get my profile successful.",
