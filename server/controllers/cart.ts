@@ -32,7 +32,7 @@ export const addOrUpdateCartItem = catchAsync(async (req, res) => {
     const cartItem = foundUser.carts.find(item => item.item.equals(bookId));
 
     if (cartItem) {
-        if (cartItem.quantity = Number(quantity)) throw new ApiError(httpStatus.NOT_FOUND, 'Quantity remains unchanged. No update needed.');
+        if (cartItem.quantity === Number(quantity)) throw new ApiError(httpStatus.NOT_FOUND, 'Quantity remains unchanged. No update needed.');
         cartItem.quantity = Number(quantity);
     } else {
         foundUser.carts.push({ item: bookId, quantity: Number(quantity) });
