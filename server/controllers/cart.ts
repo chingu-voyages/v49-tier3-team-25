@@ -12,16 +12,19 @@ export const getMyCarts = catchAsync(async (req, res) => {
     if (!foundUser) throw new ApiError(httpStatus.BAD_REQUEST, 'User not found.');
     
     let total = 0;
-    const items = foundUser.carts.map((cart) => {   
-        const price = 50; //! NEED TO UPDATE LATER
-        const subtotal = price * cart.quantity;
-        total += subtotal; 
-        
-        return {
-            book: cart.toObject().item, 
-            quantity: cart.toObject().quantity, 
-            subtotal 
-        };
+    const items = foundUser.carts
+        // Ensure that the book referenced by this cart item still exists in the database
+        .filter(cart => cart.item)
+        .map((cart) => {   
+            const price = 50; //! NEED TO UPDATE LATER
+            const subtotal = price * cart.quantity;
+            total += subtotal; 
+            
+            return {
+                book: cart.toObject().item, 
+                quantity: cart.toObject().quantity, 
+                subtotal 
+            };
     });
 
     const response = { 
