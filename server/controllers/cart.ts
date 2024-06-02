@@ -9,10 +9,24 @@ export const getMyCarts = catchAsync(async (req, res) => {
     const decodedUser = (req as any).decoded;
 
     const foundUser = await User.findById(decodedUser._id).populate('carts.item');
+    if (!foundUser) throw new ApiError(httpStatus.BAD_REQUEST, 'User not found.');
+    
+    let total = 0;
+    const items = foundUser.carts.map((cart) => {   
+        const price = 50; //! NEED TO UPDATE LATER
+        const subtotal = price * cart.quantity;
+        total += subtotal; 
+        
+        return {
+            book: cart.toObject().item, 
+            quantity: cart.toObject().quantity, 
+            subtotal 
+        };
+    });
 
     const response = { 
         message: 'Get all my carts successful.',
-        data: foundUser?.carts,
+        data: { items, total }
     };
 
     res.status(httpStatus.OK).send(response);
