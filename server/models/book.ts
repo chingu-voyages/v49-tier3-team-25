@@ -14,6 +14,11 @@ const formatSchema = new Schema({
     max: 1000.00,
     required: true
   },
+  discount: {
+    type: Number,
+    min: 0,
+    max: 1,
+  },
   quantity: {
     type: Number,
     min: 1,
@@ -82,10 +87,14 @@ const bookSchema = new Schema({
     min: 1,
     max: 10000
   },
-  genre: [{
+  genres: [{
     type: String,
     required: true,
     enum: ["Fiction", "Non-fiction", "Science Fiction", "Fantasy", "Mystery", "Horror", "Romance", "Thriller", "Historical", "Biography", "Self-help", "Young Adult", "Children's", "Poetry", "Drama", "Comics & Graphic Novels"]
+  }],
+  tags: [{
+    type: String,
+    required: true,
   }],
   formats: [formatSchema],
 

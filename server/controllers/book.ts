@@ -13,7 +13,8 @@ export const createBook = catchAsync(async (req: Request, res: Response, next: N
     const published_date = req.body.published_date;
     const language = req.body.language;
     const pages = req.body.pages;
-    const genre = req.body.genre;
+    const genres = req.body.genres;
+    const tags = req.body.tags;
     const formats = req.body.formats;
     const decodedAdmin = (req as any).decoded;
 
@@ -27,7 +28,8 @@ export const createBook = catchAsync(async (req: Request, res: Response, next: N
         published_date: published_date,
         language: language,
         pages: pages,
-        genre: genre,
+        genres: genres,
+        tags: tags,
         formats: formats,
         createdBy: decodedAdmin._id,
     });
@@ -98,7 +100,8 @@ export const updateBook = catchAsync(async (req: Request, res: Response, next: N
         published_date: req.body.published_date,
         language: req.body.language,
         pages: req.body.pages,
-        genre: req.body.genre,
+        genres: req.body.genres,
+        tags: req.body.tags,
         formats: req.body.formats,
         createdBy: decodedAdmin._id,
     }
