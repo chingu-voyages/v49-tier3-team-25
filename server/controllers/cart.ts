@@ -13,11 +13,14 @@ export const getMyCarts = catchAsync(async (req, res) => {
     
     let total = 0;
     const items = foundUser.carts
-        // Ensure that the book referenced by this cart item still exists in the database
         .filter(cart => cart.item)
         .map((cart) => {   
-            const price = 50; //! NEED TO UPDATE LATER
-            const subtotal = price * cart.quantity;
+            const item = cart.toObject().item as any; 
+            // Assume the price and discount are for the hardcover variant
+            const { price, discount } = item.formats[1]
+
+            const discountedPrice = price - (price * discount);
+            const subtotal = discountedPrice * cart.quantity;
             total += subtotal; 
             
             return {
