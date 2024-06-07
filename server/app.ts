@@ -6,10 +6,11 @@ import 'dotenv/config';
 
 import { errorConverter, errorHandler } from './middleware/error';
 
+import { router as HealthRouter } from './routes/healthcheck';
 import { router as AdminRouter } from './routes/admin';
 import { router as UserRouter } from './routes/user';
-import { router as HealthRouter } from './routes/healthcheck';
 import { router as BookRouter } from './routes/book';
+import { router as WishlistRouter } from './routes/wishlist';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/health', HealthRouter);
 app.use('/admins', AdminRouter);
 app.use('/users', UserRouter);
 app.use('/books', BookRouter);
+app.use('/wishlists', WishlistRouter);
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
