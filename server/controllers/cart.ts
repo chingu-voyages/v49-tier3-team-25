@@ -11,7 +11,6 @@ export const getMyCarts = catchAsync(async (req, res) => {
     const foundUser = await User.findById(decodedUser._id).populate('carts.item');
     if (!foundUser) throw new ApiError(httpStatus.BAD_REQUEST, 'User not found.');
     
-    
     let total = 0;
     const items = foundUser.carts
         .filter(cart => cart.item)
