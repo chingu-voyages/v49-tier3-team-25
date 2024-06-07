@@ -5,6 +5,7 @@ import Admin from "./pages/admin";
 import Dashboard from "./pages/admin/dashboard";
 import OrderManagement from "./pages/admin/orderManagement";
 import Customers from "./pages/admin/customers";
+import CustomerDetail from "./pages/admin/customers/CustomerDetail";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route index path="order-management" element={<OrderManagement />} />
           <Route index path="customers" element={<Customers />} />
+          <Route path="customers/:name" element={<CustomerDetail />} />
         </Route>
       </Routes>
     </Router>
