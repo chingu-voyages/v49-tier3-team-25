@@ -5,17 +5,17 @@ import { useState } from "react";
 const userLinks = [
   {
     text: "My Profile",
-    link: "/my-profile",
+    link: "profile",
     icon: "profileIcon",
   },
   {
     text: "Order History",
-    link: "/order-history",
+    link: "orders",
     icon: "historyIcon",
   },
   {
     text: "Wishlist",
-    link: "/wishlist",
+    link: "wishlist",
     icon: "wishlistIcon",
   },
 ];
@@ -109,7 +109,7 @@ export default function Header() {
         <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3 ">
           {/* heart icon */}
           <Link
-            to="" // link to wishlist page
+            to="/account/wishlist" // link to wishlist page
             className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
           >
             {/* count only visible when logged in and counter higher than 0 */}
@@ -196,7 +196,7 @@ export default function Header() {
                 {userLinks.map((link) => (
                   <div key={link.link}>
                     <Link
-                      to={link.link}
+                      to={`account/${link.link}`}
                       aria-current="page"
                       className="text-white flex gap-1 hover:scale-105"
                     >
