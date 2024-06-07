@@ -1,3 +1,4 @@
-import { authValidation } from './auth';
+import { adminValidation } from './admin';
+import { userValidation } from './user';
 
-export { authValidation };
+export { adminValidation, userValidation };

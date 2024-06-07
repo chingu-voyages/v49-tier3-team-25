@@ -1,6 +1,4 @@
 import { FormEvent, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 
 export const Signup = () => {
   const [name, setName] = useState("");
@@ -32,7 +30,6 @@ export const Signup = () => {
 
   return (
     <>
-      <Header />
       <div className="flex w-screen">
         <div className="w-full">
           <img src="/book.jpeg" className="rounded-r-2xl h-[700px]" />
@@ -73,7 +70,6 @@ export const Signup = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
