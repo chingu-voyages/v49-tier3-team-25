@@ -4,6 +4,7 @@ import Signin from "./pages/Signin";
 import Admin from "./pages/admin";
 import Dashboard from "./pages/admin/dashboard";
 import OrderManagement from "./pages/admin/orderManagement";
+import Customers from "./pages/admin/customers";
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/admin" element={<Admin />} >
-          <Route index element={<Dashboard/>}/>
-          <Route index path="order-management" element={<OrderManagement/>}/>
+        <Route path="/admin" element={<Admin />}>
+          <Route index element={<Dashboard />} />
+          <Route index path="order-management" element={<OrderManagement />} />
+          <Route index path="customers" element={<Customers />} />
         </Route>
       </Routes>
     </Router>
