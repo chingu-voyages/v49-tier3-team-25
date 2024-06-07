@@ -4,8 +4,8 @@ import Breadcrumb from "../Breadcrumb";
 
 export default function UserAccountLayout() {
   return (
-    <div>
-      <div className="flex justify-between">
+    <div className="px-4 md:px-8 mx-auto">
+      <div className="flex justify-between items-center">
         <Breadcrumb
           homeElement={"Home"}
           separator={
@@ -21,7 +21,7 @@ export default function UserAccountLayout() {
               <path
                 d="M6 13L10 3"
                 stroke="currentColor"
-                stroke-linecap="round"
+                strokeLinecap="round"
               ></path>
             </svg>
           }
@@ -37,8 +37,8 @@ export default function UserAccountLayout() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mt-5">
-        <div className="col-span-1 ">
+      <div className="md:grid grid-cols-3 gap-4 mt-5">
+        <div className="col-span-1 hidden md:block">
           <Menu />
         </div>
         <div className="col-span-2 ">
