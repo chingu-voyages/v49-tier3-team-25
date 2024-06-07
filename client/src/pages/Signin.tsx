@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +13,6 @@ const Signin = () => {
 
   return (
     <>
-      <Header />
       <div className="flex w-screen">
         <div className="w-full">
           <img src="/book.jpeg" className="rounded-r-2xl h-[700px]" />
@@ -53,17 +51,16 @@ const Signin = () => {
             </div>
             <div className="flex">
               <div>Don't have an account?</div>
-              <a
-                href="#"
+              <Link
+                to="/signup"
                 className="ml-3 font-bold underline underline-offset-4"
               >
                 Sign up
-              </a>
+              </Link>
             </div>
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
