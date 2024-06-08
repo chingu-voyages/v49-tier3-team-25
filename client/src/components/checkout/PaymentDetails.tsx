@@ -1,4 +1,5 @@
 import React from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function PaymentDetails() {
   return (
@@ -128,12 +129,8 @@ export default function PaymentDetails() {
           >
             Cancel
           </button>
-          <button
-            type="button"
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
-          >
-            Make Payment
-          </button>
+
+          <ConfirmationModal />
         </div>
       </div>
       {/* <!-- End Card --> */}
