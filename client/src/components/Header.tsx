@@ -197,6 +197,7 @@ export default function Header() {
                   <div key={link.link}>
                     <Link
                       to={`account/${link.link}`}
+                      onClick={() => setIsUserDropdownOpen(false)}
                       aria-current="page"
                       className="text-white flex gap-1 hover:scale-105"
                     >
