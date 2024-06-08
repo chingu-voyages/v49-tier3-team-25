@@ -293,7 +293,8 @@ export default function Shop() {
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      <div className="">
+      <span className="text-xl font-bold text-accent mb-5 ">Explore Books</span>
+      <div className="mt-5">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700 p-5 flex flex-col ">
           <SearchSortFilter
             handleOnChange={(e) => handleOnChange(e)}

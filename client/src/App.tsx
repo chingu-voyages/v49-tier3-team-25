@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import BookDetail from "./pages/BookDetail";
 import ScrollToTop from "./hooks/useScrollToTop";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:title" element={<BookDetail />} />
+            <Route path="/cart" element={<Cart />} />
 
             <Route path="/account" element={<UserAccountLayout />}>
               <Route index path="profile" element={<ProfilePage />} />
