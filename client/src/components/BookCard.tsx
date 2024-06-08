@@ -64,7 +64,12 @@ export default function BookCard({ book }) {
       </Link>
 
       <div className="flex flex-col gap-1 p-4 md:p-5">
-        <h3 className="font-bold text-gray-800 ">{book.title}</h3>
+        <Link
+          to={`/shop/${book.title}`}
+          className="cursor-pointer font-bold text-gray-800"
+        >
+          {book.title}
+        </Link>
         <p className="text-sm text-gray-500 ">{book.author}</p>
         <p className=" text-xs font-medium uppercase text-gray-500 ">
           ${book.price}
