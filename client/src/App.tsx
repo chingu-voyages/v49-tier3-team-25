@@ -9,12 +9,14 @@ import UserAccountLayout from "./components/user-account/UserAccountLayout";
 import ProfilePage from "./pages/user-account/ProfilePage";
 import OrdersPage from "./pages/user-account/OrdersPage";
 import OrderDetailPage from "./pages/user-account/OrderDetailPage";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Wrapper />}>
+          <Route index element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/contact" element={<Contact />} />
