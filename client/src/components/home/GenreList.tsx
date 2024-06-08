@@ -1,5 +1,6 @@
 import React from "react";
 import GenreCard from "./GenreCard";
+import { Link } from "react-router-dom";
 
 const genres = [
   {
@@ -188,13 +189,12 @@ export default function GenreList() {
       <div>
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-accent pb-2 ">Genres</span>
-          <button
-            //   onClick={addAllToCart}
-            type="button"
+          <Link
+            to={"/shop"}
             className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none "
           >
             View All
-          </button>
+          </Link>
         </div>
 
         {/* book cards */}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BookCard({ book }) {
   const [isFav, setIsFav] = useState(false);
@@ -53,13 +53,15 @@ export default function BookCard({ book }) {
         </button>
       )}
 
-      <div className="flex justify-center items-center">
-        <img
-          className="w-1/2 h-auto mt-3 "
-          src={`/${book.image}`}
-          alt="Image Description"
-        />
-      </div>
+      <Link to={`/shop/${book.title}`} className="cursor-pointer">
+        <div className="flex justify-center items-center ">
+          <img
+            className="w-1/2 h-auto mt-3 "
+            src={`/${book.image}`}
+            alt="Image Description"
+          />
+        </div>
+      </Link>
 
       <div className="flex flex-col gap-1 p-4 md:p-5">
         <h3 className="font-bold text-gray-800 ">{book.title}</h3>
@@ -102,12 +104,9 @@ export default function BookCard({ book }) {
         </div>
         {/* <!-- End Rating --> */}
 
-        <a
-          className="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
-          href="#"
-        >
+        <button className="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none">
           Add to Cart
-        </a>
+        </button>
       </div>
     </div>
   );
