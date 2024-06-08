@@ -30,7 +30,7 @@ export default function BookCard({ book }) {
         </button>
       )}
 
-      {location.pathname === "/" && (
+      {(location.pathname === "/" || location.pathname === "/shop") && (
         <button
           onClick={() => setIsFav((prev) => !prev)}
           className="absolute top-3 right-0 sm:right-2 md:right-3 p-[2px]  flex items-center justify-center"

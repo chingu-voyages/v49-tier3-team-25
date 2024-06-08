@@ -10,6 +10,7 @@ import ProfilePage from "./pages/user-account/ProfilePage";
 import OrdersPage from "./pages/user-account/OrdersPage";
 import OrderDetailPage from "./pages/user-account/OrderDetailPage";
 import Home from "./pages/Home";
+import Shop from "./pages/Shop";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/shop" element={<Shop />} />
 
           <Route path="/account" element={<UserAccountLayout />}>
             <Route index path="profile" element={<ProfilePage />} />
