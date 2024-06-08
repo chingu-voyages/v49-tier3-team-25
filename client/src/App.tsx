@@ -6,6 +6,9 @@ import Dashboard from "./pages/admin/dashboard";
 import OrderManagement from "./pages/admin/orderManagement";
 import Customers from "./pages/admin/customers";
 import CustomerDetail from "./pages/admin/customers/CustomerDetail";
+import Products from "./pages/admin/products";
+import ProductDetail from "./pages/admin/products/ProductDetail";
+import AddNew from "./pages/admin/products/AddNew";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           <Route index path="order-management" element={<OrderManagement />} />
           <Route index path="customers" element={<Customers />} />
           <Route path="customers/:name" element={<CustomerDetail />} />
+          <Route index path="products" element={<Products />} />
+          <Route path="products/:title" element={<ProductDetail />} />
+          <Route path="products/add" element={<AddNew />} />
         </Route>
       </Routes>
     </Router>
