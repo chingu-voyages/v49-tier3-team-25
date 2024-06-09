@@ -13,7 +13,7 @@ const Dashboard = () => {
           {/* <TotalSalesAndCosts /> */}
         </div>
         <div className="lg:col-span-4 bg-white shadow-sm rounded-xl">
-          {/* <TotalOrdersAndProfit /> */}
+          <TotalOrdersAndProfit />
         </div>
       </div>
 
@@ -28,7 +28,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-3">
         <div className="lg:col-span-2 bg-white shadow-sm rounded-xl">
-          {/* <RecentOrders /> */}
+          <RecentOrders />
         </div>
         <div className="lg:col-span-1 bg-white shadow-sm rounded-xl">
           {/* <TodayOrder /> */}
