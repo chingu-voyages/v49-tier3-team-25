@@ -134,7 +134,7 @@ export default function Header() {
           </Link>
           {/* cart icon */}
           <Link
-            to="" // link to cart page
+            to="/cart" // link to cart page
             className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
           >
             {/* count only visible when logged in and counter higher than 0 */}
@@ -197,6 +197,7 @@ export default function Header() {
                   <div key={link.link}>
                     <Link
                       to={`account/${link.link}`}
+                      onClick={() => setIsUserDropdownOpen(false)}
                       aria-current="page"
                       className="text-white flex gap-1 hover:scale-105"
                     >

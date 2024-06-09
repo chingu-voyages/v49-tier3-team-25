@@ -10,7 +10,9 @@ export default function About() {
         <div className="mt-5 sm:mt-10 lg:mt-0">
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-2 md:space-y-4">
-              <h2 className=" text-3xl lg:text-4xl ">About Us</h2>
+              <h2 className=" text-3xl lg:text-4xl font-bold text-accent   ">
+                About Us
+              </h2>
               <p className="text-md">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
                 atque quasi, sit expedita adipisci facilis repudiandae
