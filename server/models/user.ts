@@ -1,5 +1,18 @@
 import mongoose from "mongoose";
 
+const cartSchema = new mongoose.Schema({
+  item: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Book', 
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    min: 1,
+    required: true
+  },
+}, { _id: false });
+
 // Modify as needed
 const userSchema = new mongoose.Schema({
   fullName: {
@@ -15,17 +28,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cart: {
-    items:[{
-      bookId:mongoose.Schema.ObjectId,
-      quantity:Number
-    }]
-  },
-  wishList:{
-    items:[{
-      bookId:mongoose.Schema.ObjectId
-    }]
-  }
+  wishlists: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Book' 
+  }],
+  carts: [cartSchema],
 });
 
 export const User = mongoose.model("User", userSchema);
