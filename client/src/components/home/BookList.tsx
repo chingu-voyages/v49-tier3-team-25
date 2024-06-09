@@ -3,9 +3,9 @@ import BookCard from "../BookCard";
 import { Link } from "react-router-dom";
 
 export default function BookList({ title, bookData }) {
-  const mobileSlicedBookData = bookData.slice(1, 4);
-  const tabletSlicedBookData = bookData.slice(1, 5);
-  const desktopSlicedBookData = bookData.slice(1, 6);
+  const mobileSlicedBookData = bookData.slice(0, 3);
+  const tabletSlicedBookData = bookData.slice(0, 4);
+  const desktopSlicedBookData = bookData.slice(0, 5);
 
   return (
     <>

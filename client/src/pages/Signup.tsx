@@ -1,31 +1,37 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setCredentials } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { useDispatch } from "react-redux";
 
 export const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
-    const data = { username: name, email, password };
-    const signupURL = `${import.meta.env.VITE_SERVER_URL}/signup`;
-    const response = await fetch(signupURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(response);
-    if (!response.ok) {
-      throw new Error("Something went wrong");
+    const data = { fullName: name, email, password };
+    console.log(data);
+    try {
+      const res = await axios.post(
+        "https://chingu-bookstore.up.railway.app/users/signup",
+        data
+      );
+      console.log(res);
+      if (res.status === 201) {
+        localStorage.setItem("user", JSON.stringify(res.data.data));
+
+        dispatch(setCredentials(res.data.data));
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
-    const responseData = await response.json();
-    if (response.status !== 201) {
-      console.error(responseData.message);
-    }
-    console.log(responseData);
-    console.log("Account created");
   };
 
   return (

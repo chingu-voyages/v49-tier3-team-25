@@ -1,14 +1,35 @@
+import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { setCredentials } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const onSubmitSignin = async (e: FormEvent) => {
     e.preventDefault();
     const data = { email, password };
     console.log(data);
+    try {
+      const res = await axios.post(
+        "https://chingu-bookstore.up.railway.app/users/login",
+        data
+      );
+      console.log(res);
+      localStorage.setItem("user", JSON.stringify(res.data.data));
+
+      dispatch(setCredentials(res.data.data));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

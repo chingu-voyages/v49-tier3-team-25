@@ -1,6 +1,9 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import { logout } from "../redux/features/auth/authSlice";
+
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const userLinks = [
   {
@@ -40,9 +43,12 @@ const links = [
 ];
 
 export default function Header() {
+  const dispatch = useAppDispatch();
+  const isUserLoggedIn = useAppSelector((state) => state.auth.value);
+  console.log(isUserLoggedIn);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  console.log(isUserDropdownOpen);
   const navigate = useNavigate();
 
   const genericHamburgerLine = `h-1 w-5 ${
@@ -52,16 +58,20 @@ export default function Header() {
   const activeLink =
     "relative  before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-accent ";
 
-  // mimic backend
-  const userLoggedIn = true;
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch(logout());
+    setIsUserDropdownOpen(false);
+    navigate("/signin");
+  };
 
   const handleUserIconClick = () => {
     // if no user redirect to sign in,
-    if (!userLoggedIn) {
+    if (!isUserLoggedIn) {
       navigate("/signin");
     }
     // if user logged in, show dropdown
-    if (userLoggedIn) {
+    if (isUserLoggedIn) {
       setIsUserDropdownOpen((prev) => !prev);
     }
   };
@@ -108,65 +118,69 @@ export default function Header() {
         {/* <!-- Icon Links Group --> */}
         <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3 ">
           {/* heart icon */}
-          <Link
-            to="/account/wishlist" // link to wishlist page
-            className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
-          >
-            {/* count only visible when logged in and counter higher than 0 */}
-            <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-              1
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="icon icon-tabler icons-tabler-outline icon-tabler-heart"
+          {isUserLoggedIn && (
+            <Link
+              to="/account/wishlist" // link to wishlist page
+              className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-            </svg>
-          </Link>
+              {/* count only visible when logged in and counter higher than 0 */}
+              <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+                1
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="icon icon-tabler icons-tabler-outline icon-tabler-heart"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            </Link>
+          )}
           {/* cart icon */}
-          <Link
-            to="/cart" // link to cart page
-            className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
-          >
-            {/* count only visible when logged in and counter higher than 0 */}
-            <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-              1
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart"
+          {isUserLoggedIn && (
+            <Link
+              to="/cart" // link to cart page
+              className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-              <path d="M17 17h-11v-14h-2" />
-              <path d="M6 5l14 1l-1 7h-13" />
-            </svg>
-          </Link>
+              {/* count only visible when logged in and counter higher than 0 */}
+              <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+                1
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M17 17h-11v-14h-2" />
+                <path d="M6 5l14 1l-1 7h-13" />
+              </svg>
+            </Link>
+          )}
           {/* user icon */}
           <div className="relative">
             <button
               onClick={handleUserIconClick}
               type="button"
               className={`py-1 px-1 inline-flex items-center gap-x-2  text-black  ${
-                userLoggedIn && "bg-accent rounded-full text-white"
+                isUserLoggedIn && "bg-accent rounded-full text-white"
               }`}
             >
               <svg
@@ -224,7 +238,9 @@ export default function Header() {
                     <path d="M15 12h-12l3 -3" />
                     <path d="M6 15l-3 -3" />
                   </svg>
-                  <button className="text-left">Logout</button>
+                  <button className="text-left" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </div>
               </div>
             </div>

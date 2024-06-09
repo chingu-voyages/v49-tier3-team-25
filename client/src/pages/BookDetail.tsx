@@ -1,29 +1,25 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
-const dummyBook = {
-  title: "title 1",
-  author: "author 1",
-  summary:
-    "Besides working with start-up enterprises as a partner for digitalization, we have built enterprise products for common pain points that we have encountered in various products and projects.",
-  image: "/placeholder-book-cover.jpg",
-  price: 25,
-  rating: 3,
-};
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 
 export default function BookDetail() {
+  const { title } = useParams();
+  const allBooks = useAppSelector((state: RootState) => state.books.value);
+
+  const thisBook = allBooks.find((book) => book.title == title);
   const [isFav, setIsFav] = useState(false);
 
-  const { title } = useParams();
+  console.log(thisBook);
   return (
     // <!-- Features -->
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       {/* <!-- Grid --> */}
-      <div className="md:grid md:grid-cols-2 md:items-center md:gap-2">
+      <div className="md:grid md:grid-cols-2 md:items-center gap-6">
         <div className="flex items-center justify-center">
           <img
             className="rounded-xl"
-            src={dummyBook.image}
+            src={thisBook.imageUrls[2]}
             alt="Image Description"
           />
         </div>
@@ -34,14 +30,14 @@ export default function BookDetail() {
             {/* <!-- Title --> */}
             <div className="space-y-2 md:space-y-4">
               <h2 className="font-bold text-3xl lg:text-4xl text-gray-800 dark:text-neutral-200">
-                {dummyBook.title}
+                {thisBook.title}
               </h2>
               <span className="text-sm sm:text-base text-gray-500 dark:text-neutral-500">
-                {dummyBook.author}
+                {thisBook.author}
               </span>
 
               <p className="text-gray-500 dark:text-neutral-500">
-                {dummyBook.summary}
+                {thisBook.description}
               </p>
             </div>
             {/* <!-- End Title --> */}
