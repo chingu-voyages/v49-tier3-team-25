@@ -9,17 +9,19 @@ export const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
+    setError("");
     const data = { fullName: name, email, password };
     console.log(data);
     try {
       const res = await axios.post(
-        "https://chingu-bookstore.up.railway.app/users/signup",
+        `${import.meta.env.VITE_BACKEND_URL}/users/signup`,
         data
       );
       console.log(res);
@@ -31,6 +33,7 @@ export const Signup = () => {
       }
     } catch (err) {
       console.log(err);
+      setError(err.response.data.error);
     }
   };
 
@@ -61,12 +64,24 @@ export const Signup = () => {
               className="border-b-2 border-neutral-400 outline-none py-3"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="border-b-2 border-neutral-400 outline-none py-3"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="flex flex-col">
+              <input
+                type="password"
+                placeholder="Password"
+                className="border-b-2 border-neutral-400 outline-none py-3"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span className="text-xs text-gray-500">
+                Password must be at least 8 characters
+              </span>
+            </div>
+
+            {error && (
+              <p className="text-red-500 text-sm">
+                Data is invalid, please try again.
+              </p>
+            )}
+
             <button
               type="submit"
               className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"

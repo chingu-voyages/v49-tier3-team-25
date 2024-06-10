@@ -9,17 +9,20 @@ import { useAppDispatch } from "../redux/hooks";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmitSignin = async (e: FormEvent) => {
     e.preventDefault();
+    setError("");
+
     const data = { email, password };
     console.log(data);
     try {
       const res = await axios.post(
-        "https://chingu-bookstore.up.railway.app/users/login",
+        `${import.meta.env.VITE_BACKEND_URL}/users/login`,
         data
       );
       console.log(res);
@@ -29,6 +32,7 @@ const Signin = () => {
       navigate("/");
     } catch (err) {
       console.log(err);
+      setError(err.response.data.message);
     }
   };
 
@@ -59,16 +63,23 @@ const Signin = () => {
               className="border-b-2 border-neutral-400 outline-none py-3"
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            {error && (
+              <p className="text-red-500 text-sm">
+                Email and password combination is wrong, please try again.
+              </p>
+            )}
+
             <div className="flex justify-between items-center">
               <button
                 type="submit"
-                className="w-2/5 mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
+                className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
               >
                 Log In
               </button>
-              <a href="#" className="text-accent text-lg">
+              {/* <a href="#" className="text-accent text-lg">
                 Forget Password?
-              </a>
+              </a> */}
             </div>
             <div className="flex">
               <div>Don't have an account?</div>

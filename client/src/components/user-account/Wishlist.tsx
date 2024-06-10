@@ -1,105 +1,61 @@
+import { useEffect } from "react";
 import usePagination from "../../hooks/usePagination";
 import BookCard from "../BookCard";
 import Pagination from "../Pagination";
-
-const placeholderBooks = [
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-  {
-    title: "this is a title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 15,
-    rating: 1,
-  },
-  {
-    title: "lorem",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 40,
-    rating: 4,
-  },
-];
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setWishlist } from "../../redux/features/wishlist/wishlistSlice";
 
 export default function Wishlist() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.value);
+  const wishlist = useAppSelector((state) => state.wishlist.value);
+  console.log(wishlist);
   const { currentItems, pageCount, handlePageClick } = usePagination(
-    placeholderBooks,
+    wishlist,
     3
   );
 
-  const addAllToCart = () => {
-    // logic add to cart
-  };
+  useEffect(() => {
+    const getWishlist = async () => {
+      try {
+        const res = await axios(
+          `${import.meta.env.VITE_BACKEND_URL}/wishlists`,
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        );
 
-  const removeFromWishlist = () => {
-    // logic to remove from cart
-  };
+        console.log(res);
+        dispatch(setWishlist(res.data.data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getWishlist();
+  }, []);
 
   return (
     <>
       <div>
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-accent pb-2 ">
-            Wishlist ({placeholderBooks.length})
+            Wishlist ({wishlist.length})
           </span>
-          <button
+          {/* <button
             onClick={addAllToCart}
             type="button"
             className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none "
           >
             Add All To Cart
-          </button>
+          </button> */}
         </div>
 
         {/* book cards */}
-        <div className="grid grid-cols-3 gap-2 mt-2">
+        <div className="flex gap-2 flex-wrap">
           {currentItems.map((book) => (
             <BookCard book={book} />
           ))}

@@ -45,6 +45,7 @@ const links = [
 export default function Header() {
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
+  const wishlist = useAppSelector((state) => state.wishlist.value);
   console.log(isUserLoggedIn);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -77,7 +78,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
+    <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7 ">
       <nav className="relative max-w-7xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center px-4 md:px-8 mx-auto">
         <div className="md:col-span-3">
           {/* <!-- Logo --> */}
@@ -125,7 +126,7 @@ export default function Header() {
             >
               {/* count only visible when logged in and counter higher than 0 */}
               <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-                1
+                {wishlist.length}
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

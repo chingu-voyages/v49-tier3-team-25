@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "../components/home/Carousel";
 import BookList from "../components/home/BookList";
 import GenreList from "../components/home/GenreList";
@@ -9,7 +9,12 @@ import { RootState } from "../redux/store";
 import { setCredentials } from "../redux/features/auth/authSlice";
 
 export default function Home() {
+  const [error, setError] = useState("");
   const allBooks = useAppSelector((state: RootState) => state.books.value);
+  const wishlistBooks = useAppSelector(
+    (state: RootState) => state.wishlist.value
+  );
+
   const dispatch = useAppDispatch();
   console.log(allBooks);
 
@@ -19,28 +24,44 @@ export default function Home() {
     if (user) {
       dispatch(setCredentials(user));
     }
+  }, [dispatch]);
 
+  useEffect(() => {
+    console.log("fetched");
     const getAllBooks = async () => {
       try {
-        const books = await axios(
-          "https://chingu-bookstore.up.railway.app/books"
-        );
-        console.log(books.data.data);
-        dispatch(setAllBooks(books.data.data));
+        const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
+        // const allBooks = res.data.data.map((book) => ({
+        //   ...book,
+        //   isFav: false,
+        // }));
+        const allBooks = [...wishlistBooks, ...res.data.data];
+        console.log(allBooks);
+        dispatch(setAllBooks(allBooks));
       } catch (err) {
         console.log(err);
+        setError("Sorry, books cannot be viewed at this time.");
       }
     };
 
-    getAllBooks();
+    if (allBooks.length === 0) {
+      getAllBooks();
+    }
   }, []);
 
   return (
     <div className="px-4 md:px-8 mx-auto flex flex-col gap-12">
       <Carousel />
       <GenreList />
-      <BookList title={"Best Selling Books"} bookData={allBooks} />
-      <BookList title={"Explore Our Books"} bookData={allBooks} />
+      {error ? (
+        <p className="text-accent text-center">{error}</p>
+      ) : (
+        <div>
+          {" "}
+          <BookList title={"Best Selling Books"} bookData={allBooks} />
+          <BookList title={"Explore Our Books"} bookData={allBooks} />
+        </div>
+      )}
     </div>
   );
 }

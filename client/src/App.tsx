@@ -16,6 +16,7 @@ import ScrollToTop from "./hooks/useScrollToTop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { ReduxProvider } from "./redux/provider";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
@@ -34,11 +35,13 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
 
-              <Route path="/account" element={<UserAccountLayout />}>
-                <Route index path="profile" element={<ProfilePage />} />
-                <Route path="wishlist" element={<WishlistPage />} />
-                <Route path="orders" element={<OrdersPage />} />
-                <Route path="orders/:id" element={<OrderDetailPage />} />
+              <Route path="/account" element={<ProtectedRoute />}>
+                <Route path="/account" element={<UserAccountLayout />}>
+                  <Route index path="profile" element={<ProfilePage />} />
+                  <Route path="wishlist" element={<WishlistPage />} />
+                  <Route path="orders" element={<OrdersPage />} />
+                  <Route path="orders/:id" element={<OrderDetailPage />} />
+                </Route>
               </Route>
             </Route>
           </Routes>

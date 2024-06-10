@@ -4,6 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // import cardReducer from "./features/card/cardSlice";
 import booksReducer from "./features/books/booksSlice";
 import authReducer from "./features/auth/authSlice";
+import wishlistReducer from "./features/wishlist/wishlistSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     // card: cardReducer,
     books: booksReducer,
     auth: authReducer,
+    wishlist: wishlistReducer,
   },
 });
 
