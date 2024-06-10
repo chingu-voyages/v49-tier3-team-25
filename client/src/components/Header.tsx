@@ -46,7 +46,8 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
   const wishlist = useAppSelector((state) => state.wishlist.value);
-  console.log(isUserLoggedIn);
+  const cart = useAppSelector((state) => state.cart.value);
+  // console.log(isUserLoggedIn);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -153,7 +154,7 @@ export default function Header() {
             >
               {/* count only visible when logged in and counter higher than 0 */}
               <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-                1
+                {cart.length}
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

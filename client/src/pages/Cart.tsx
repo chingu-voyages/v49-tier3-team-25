@@ -1,32 +1,79 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-const dummyData = [
-  {
-    item: "book 1",
-    price: 20,
-    quantity: 1,
-  },
-  {
-    item: "book 2",
-    price: 40,
-    quantity: 2,
-  },
-  {
-    item: "book 3",
-    price: 25,
-    quantity: 1,
-  },
-];
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import axios from "axios";
+import {
+  removeProductFromCart,
+  setCart,
+} from "../redux/features/cart/cartSlice";
+import { HSInputNumber } from "preline";
+import Count from "../components/Count";
 
 export default function Cart() {
-  const subtotal = dummyData.reduce((acc, curr) => {
-    return (acc = acc + curr.quantity * curr.price);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.value);
+  const cart = useAppSelector((state) => state.cart.value);
+  console.log(cart);
+
+  const isUserLoggedIn = user?.token;
+  // const [count, setCount] = useState(0);
+  const subtotal = cart?.reduce((acc, curr) => {
+    return (acc = acc + curr.quantity * 25);
   }, 0);
+  const inputRef = useRef(null);
+  // const removeFromCart = async (id) => {
+  //   console.log(id);
+  //   try {
+  //     const res = await axios.delete(
+  //       `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${isUserLoggedIn?.token}`,
+  //         },
+  //       }
+  //     );
+
+  //     console.log(res);
+  //     const updatedCart = cart.filter((item) => item._id !== id);
+  //     console.log(updatedCart);
+  //     dispatch(removeProductFromCart(updatedCart));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const remove = async () => {
+    // console.log(id);
+    try {
+      const res = await axios.delete(
+        "https://chingu-bookstore.up.railway.app/carts/665b4bb7cf33c8adf0b5a5d6",
+        {
+          headers: {
+            Authorization: `Bearer ${isUserLoggedIn?.token}`,
+          },
+        }
+      );
+
+      console.log(res);
+      // const updatedCart = cart.filter((item) => item._id !== id);
+      // console.log(updatedCart);
+      // dispatch(removeProductFromCart(updatedCart));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // function handleonclick() {
+  //   console.log("ccc");
+  //   console.log(inputRef.current);
+  //   // const count = HSInputNumber.getInstance(inputRef.current);
+  //   // console.log(count);
+  // }
   return (
     // <!-- Invoice -->
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
       <div className="sm:w-11/12 lg:w-3/4 mx-auto">
+        <button onClick={remove}>del</button>
         <span className="text-xl font-bold text-accent pb-2 ">Your Cart</span>
         {/* <!-- Table --> */}
         <div className="mt-6">
@@ -48,98 +95,61 @@ export default function Cart() {
 
             <div className="hidden sm:block border-b border-gray-200 dark:border-neutral-700"></div>
 
-            {dummyData.map((item) => (
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                <div className="col-span-full sm:col-span-2">
-                  <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Item
-                  </h5>
-                  <p className="font-medium text-gray-800 dark:text-neutral-200">
-                    {item.item}
-                  </p>
-                </div>
-                <div>
-                  <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Price
-                  </h5>
-                  <p className="text-gray-800 dark:text-neutral-200">
-                    ${item.price}
-                  </p>
-                </div>
-                <div>
-                  <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Quantity
-                  </h5>
-                  <p className="text-gray-800 dark:text-neutral-200">
-                    {/* <!-- Input Number --> */}
-                    <div
-                      className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700"
-                      data-hs-input-number=""
-                    >
-                      <div className="flex items-center gap-x-1.5">
-                        <button
-                          type="button"
-                          className="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                          data-hs-input-number-decrement=""
+            {cart.length > 0 &&
+              cart.map((item) => (
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  <div className="col-span-full sm:col-span-2">
+                    <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                      Item
+                    </h5>
+                    <div className="flex gap-1">
+                      <button
+                        className="flex-shrink-0"
+                        onClick={() => remove(item.book._id)}
+                      >
+                        <svg
+                          className="flex-shrink-0 size-3 text-red-500 mt-0.5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          fill="currentColor"
+                          viewBox="0 0 16 16"
                         >
-                          <svg
-                            className="flex-shrink-0 size-3.5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M5 12h14"></path>
-                          </svg>
-                        </button>
-                        <input
-                          className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
-                          type="text"
-                          //   value="0"
-                          data-hs-input-number-input=""
-                          defaultValue={item.quantity}
-                        />
-                        <button
-                          type="button"
-                          className="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                          data-hs-input-number-increment=""
-                        >
-                          <svg
-                            className="flex-shrink-0 size-3.5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                          </svg>
-                        </button>
-                      </div>
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
+                        </svg>
+                      </button>
+                      <p className="font-medium text-gray-800 dark:text-neutral-200">
+                        {item.book.title}
+                      </p>
                     </div>
-                    {/* <!-- End Input Number --> */}
-                  </p>
+                  </div>
+                  <div>
+                    <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                      Price
+                    </h5>
+                    <p className="text-gray-800 dark:text-neutral-200">
+                      {/* ${item.price} */}
+                      $25
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                      Quantity
+                    </h5>
+                    <p className="text-gray-800 dark:text-neutral-200">
+                      <Count item={item} />
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                      Subtotal
+                    </h5>
+                    <p className="sm:text-end text-gray-800 dark:text-neutral-200">
+                      ${item.quantity * 25}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Subtotal
-                  </h5>
-                  <p className="sm:text-end text-gray-800 dark:text-neutral-200">
-                    ${item.price}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
 
             <div className="sm:hidden border-b border-gray-200 dark:border-neutral-700"></div>
           </div>

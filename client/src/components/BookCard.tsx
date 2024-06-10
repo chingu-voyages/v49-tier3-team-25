@@ -7,31 +7,63 @@ import { setAllBooks } from "../redux/features/books/booksSlice";
 import { removeBookFromWishlist } from "../redux/features/wishlist/wishlistSlice";
 import { useNavigate } from "react-router-dom";
 import Success from "./modals/Success";
+import { addProductToCart } from "../redux/features/cart/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BookCard({ book }) {
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
   const allBooks = useAppSelector((state) => state.books.value);
   const wishlist = useAppSelector((state) => state.wishlist.value);
-  console.log(isUserLoggedIn);
+  const cart = useAppSelector((state) => state.cart.value);
+  // console.log(isUserLoggedIn);
   const [showSuccessToast, setSuccessToast] = useState(false);
-  const [showWarningToast, setWarningToast] = useState(false);
-  const [showErrorToast, setErrorToast] = useState(false);
+  const [showWarningToast, setWarningToast] = useState("");
+  const [showErrorToast, setErrorToast] = useState("");
 
-  const [error, setText] = useState(false);
+  const [error, setText] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const warningToast = (text) => toast.warn(text);
+  const errorToast = (text) => toast.error(text);
+  const successToast = (text) => toast.info(text);
 
-  const addToCart = () => {
-    // if (isUserLoggedIn) {
-    //   setIsFav((prev) => !prev);
-    // } else {
-    //   setText("Cart");
-    //   setShowToast(true);
-    //   setTimeout(() => {
-    //     setShowToast(false);
-    //   }, 1000);
-    // }
+  const addToCart = async () => {
+    const alreadyInCart = cart.find((item) => item.book._id == book._id);
+    if (alreadyInCart) {
+      warningToast("Book already in cart. Go to cart to change quantity");
+      return;
+    }
+    if (isUserLoggedIn) {
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/carts/${book._id}/1`,
+          {},
+
+          {
+            headers: {
+              Authorization: `Bearer ${isUserLoggedIn?.token}`,
+            },
+          }
+        );
+
+        console.log(res);
+        dispatch(addProductToCart(book));
+        successToast("Book has been added to cart!");
+      } catch (err) {
+        console.log(err);
+        console.log(err.response.data.message);
+        if (
+          err.response.data.message ===
+          "Quantity remains unchanged. No update needed."
+        ) {
+          errorToast("Book already in cart. Go to cart to change quantity");
+        }
+      }
+    } else {
+      warningToast("Please login to add to cart");
+    }
   };
 
   const addToWishlist = async () => {
@@ -50,22 +82,18 @@ export default function BookCard({ book }) {
 
         console.log(res);
         dispatch(addBookToWishlist(book));
-        setSuccessToast(true);
-        setTimeout(() => {
-          setSuccessToast(false);
-        }, 1000);
+
+        successToast("book added to wishlist");
       } catch (err) {
         console.log(err);
-        setErrorToast(true);
-        setTimeout(() => {
-          setErrorToast(false);
-        }, 1000);
+
+        errorToast("Book already in Wishlist");
+        // setTimeout(() => {
+        //   setErrorToast("");
+        // }, 2000);
       }
     } else {
-      setWarningToast(true);
-      setTimeout(() => {
-        setWarningToast(false);
-      }, 1000);
+      warningToast("Login to add to Wishlist");
     }
   };
 
@@ -113,7 +141,7 @@ export default function BookCard({ book }) {
             </div>
             <div className="ms-3">
               <p className="text-sm text-gray-700 dark:text-neutral-400">
-                Book already in Wishlist
+                {showErrorToast}
               </p>
             </div>
           </div>
@@ -142,7 +170,7 @@ export default function BookCard({ book }) {
             </div>
             <div className="ms-3">
               <p className="text-sm text-gray-700 dark:text-neutral-400">
-                Please Login to add
+                Please Login to add to {showWarningToast}
               </p>
             </div>
           </div>

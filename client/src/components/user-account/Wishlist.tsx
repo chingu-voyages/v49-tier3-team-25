@@ -17,25 +17,23 @@ export default function Wishlist() {
   );
 
   useEffect(() => {
-    const getWishlist = async () => {
-      try {
-        const res = await axios(
-          `${import.meta.env.VITE_BACKEND_URL}/wishlists`,
-          {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          }
-        );
-
-        console.log(res);
-        dispatch(setWishlist(res.data.data));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getWishlist();
+    // const getWishlist = async () => {
+    //   try {
+    //     const res = await axios(
+    //       `${import.meta.env.VITE_BACKEND_URL}/wishlists`,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${user?.token}`,
+    //         },
+    //       }
+    //     );
+    //     console.log(res);
+    //     dispatch(setWishlist(res.data.data));
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // getWishlist();
   }, []);
 
   return (
