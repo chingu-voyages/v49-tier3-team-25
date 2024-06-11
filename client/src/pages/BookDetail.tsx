@@ -1,30 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
-import {
-  addProductToCart,
-  updateProductQuantityInCart,
-} from "../redux/features/cart/cartSlice";
+import { updateProductQuantityInCart } from "../redux/features/cart/cartSlice";
 import axios from "axios";
-import Count from "../components/Count";
 import { toast } from "react-toastify";
 
 export default function BookDetail() {
   const { title } = useParams();
   const allBooks = useAppSelector((state: RootState) => state.books.value);
+  const cart = useAppSelector((state: RootState) => state.cart.value);
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(0);
-  const cart = useAppSelector((state: RootState) => state.cart.value);
   const thisBook = allBooks.find((book) => book.title == title);
-  const [isFav, setIsFav] = useState(false);
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
-  console.log(thisBook);
-  // const item = {
-  //   book: thisBook,
-  // };
+
   const warningToast = (text) => toast.warn(text);
-  const errorToast = (text) => toast.error(text);
   const successToast = (text) => toast.info(text);
 
   const addToCart = async () => {
@@ -33,7 +24,6 @@ export default function BookDetail() {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/carts/${thisBook._id}/${count}`,
           {},
-
           {
             headers: {
               Authorization: `Bearer ${isUserLoggedIn?.token}`,
@@ -41,14 +31,12 @@ export default function BookDetail() {
           }
         );
 
-        console.log(res);
-        console.log(cart);
         const updateCart = cart.map((item) => {
           return item.book._id == thisBook._id
             ? { ...item, quantity: count }
             : item;
         });
-        console.log(updateCart);
+
         dispatch(updateProductQuantityInCart(updateCart));
         successToast("Cart updated");
       } catch (err) {

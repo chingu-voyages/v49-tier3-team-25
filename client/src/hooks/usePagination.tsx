@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Book, Transaction } from "../lib/types";
 
 export default function usePagination(items, itemsPerPage: number) {
   const [itemOffset, setItemOffset] = useState(0);

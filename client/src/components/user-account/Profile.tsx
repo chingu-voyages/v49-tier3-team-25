@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 const dummyUser = {
   firstName: "John",
@@ -8,8 +10,14 @@ const dummyUser = {
 
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
+  const user = useAppSelector((state: RootState) => state.auth.value);
+  const firstName = user.fullName.split(" ")[0];
+  const lastName = user.fullName.split(" ")[1];
+
   const [form, setForm] = useState({
-    ...dummyUser,
+    firstName,
+    lastName,
+    email: user.email,
     newPassword: "",
     confirmPassword: "",
   });

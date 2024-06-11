@@ -1,30 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import axios from "axios";
 import { addBookToWishlist } from "../redux/features/wishlist/wishlistSlice";
-import { setAllBooks } from "../redux/features/books/booksSlice";
 import { removeBookFromWishlist } from "../redux/features/wishlist/wishlistSlice";
 import { useNavigate } from "react-router-dom";
-import Success from "./modals/Success";
 import { addProductToCart } from "../redux/features/cart/cartSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function BookCard({ book }) {
   const dispatch = useAppDispatch();
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
-  const allBooks = useAppSelector((state) => state.books.value);
   const wishlist = useAppSelector((state) => state.wishlist.value);
   const cart = useAppSelector((state) => state.cart.value);
-  // console.log(isUserLoggedIn);
-  const [showSuccessToast, setSuccessToast] = useState(false);
-  const [showWarningToast, setWarningToast] = useState("");
-  const [showErrorToast, setErrorToast] = useState("");
-
-  const [error, setText] = useState("");
   const location = useLocation();
-  const navigate = useNavigate();
   const warningToast = (text) => toast.warn(text);
   const errorToast = (text) => toast.error(text);
   const successToast = (text) => toast.success(text);
@@ -40,20 +30,18 @@ export default function BookCard({ book }) {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/carts/${book._id}/1`,
           {},
-
           {
             headers: {
               Authorization: `Bearer ${isUserLoggedIn?.token}`,
             },
           }
         );
-        console.log(book);
+
         const bookToAdd = {
           book,
           quantity: res.data.data.quantity,
         };
 
-        console.log(res);
         dispatch(addProductToCart(bookToAdd));
         successToast("Book has been added to cart!");
       } catch (err) {
@@ -72,7 +60,6 @@ export default function BookCard({ book }) {
   };
 
   const addToWishlist = async () => {
-    console.log("clicked");
     if (isUserLoggedIn) {
       try {
         const res = await axios.post(
@@ -85,17 +72,11 @@ export default function BookCard({ book }) {
           }
         );
 
-        console.log(res);
         dispatch(addBookToWishlist(book));
-
         successToast("book added to wishlist");
       } catch (err) {
         console.log(err);
-
         errorToast("Book already in Wishlist");
-        // setTimeout(() => {
-        //   setErrorToast("");
-        // }, 2000);
       }
     } else {
       warningToast("Login to add to Wishlist");
@@ -106,7 +87,6 @@ export default function BookCard({ book }) {
     try {
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/wishlists/${book._id}`,
-
         {
           headers: {
             Authorization: `Bearer ${isUserLoggedIn?.token}`,
@@ -114,9 +94,7 @@ export default function BookCard({ book }) {
         }
       );
 
-      console.log(res);
       const updatedWishlist = wishlist.filter((item) => item._id !== book._id);
-      console.log(updatedWishlist);
       dispatch(removeBookFromWishlist(updatedWishlist));
     } catch (err) {
       console.log(err);
@@ -124,7 +102,7 @@ export default function BookCard({ book }) {
   };
 
   return (
-    <div className="flex flex-col bg-white border shadow-sm rounded-xl relative ">
+    <div className="flex flex-col bg-white border shadow-sm rounded-xl relative w-44">
       {location.pathname === "/account/wishlist" && (
         <button
           className="absolute top-3 right-0 sm:right-2 md:right-3 p-[2px] rounded-full bg-accent flex items-center justify-center"
@@ -175,7 +153,7 @@ export default function BookCard({ book }) {
       <Link to={`/shop/${book.title}`} className="cursor-pointer">
         <div className="flex justify-center items-center ">
           <img
-            className=" mt-3 h-44"
+            className=" mt-3 h-52 object-cover w-36"
             src={book.imageUrls[2]}
             // src={"https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"}
             alt="Image Description"

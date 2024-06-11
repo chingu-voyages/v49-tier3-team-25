@@ -1,8 +1,13 @@
 import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
 import Breadcrumb from "../Breadcrumb";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 export default function UserAccountLayout() {
+  const user = useAppSelector((state: RootState) => state.auth.value);
+  const firstName = user.fullName.split(" ")[0];
+
   return (
     <div className="px-4 md:px-8 mx-auto">
       <div className="flex justify-between items-center">
@@ -32,7 +37,7 @@ export default function UserAccountLayout() {
         />
         <div>
           <span>
-            Welcome <span className="text-accent">User</span>
+            Welcome <span className="text-accent">{firstName}</span>
           </span>
         </div>
       </div>

@@ -1,27 +1,12 @@
-import React from "react";
-
-const dummyData = [
-  {
-    item: "book 1",
-    price: 20,
-    quantity: 1,
-  },
-  {
-    item: "book 2",
-    price: 40,
-    quantity: 2,
-  },
-  {
-    item: "book 3",
-    price: 25,
-    quantity: 1,
-  },
-];
+import { useAppSelector } from "../../redux/hooks";
 
 export default function Summary() {
-  const subtotal = dummyData.reduce((acc, curr) => {
-    return (acc = acc + curr.quantity * curr.price);
+  const cart = useAppSelector((state) => state.cart.value);
+
+  const subtotal = cart?.reduce((acc, curr) => {
+    return (acc = acc + curr.quantity * 25);
   }, 0);
+
   return (
     // <!-- Invoice -->
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
@@ -48,23 +33,21 @@ export default function Summary() {
 
             <div className="hidden sm:block border-b border-gray-200 dark:border-neutral-700"></div>
 
-            {dummyData.map((item) => (
+            {cart.map((item) => (
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 <div className="col-span-full sm:col-span-2">
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                     Item
                   </h5>
                   <p className="font-medium text-gray-800 dark:text-neutral-200">
-                    {item.item}
+                    {item?.book?.title}
                   </p>
                 </div>
                 <div>
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                     Price
                   </h5>
-                  <p className="text-gray-800 dark:text-neutral-200">
-                    ${item.price}
-                  </p>
+                  <p className="text-gray-800 dark:text-neutral-200">$25</p>
                 </div>
                 <div>
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
@@ -79,7 +62,7 @@ export default function Summary() {
                     Subtotal
                   </h5>
                   <p className="sm:text-end text-gray-800 dark:text-neutral-200">
-                    ${item.price}
+                    ${item.quantity * 25}
                   </p>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "../components/home/Carousel";
 import BookList from "../components/home/BookList";
 import GenreList from "../components/home/GenreList";
@@ -9,45 +9,32 @@ import { RootState } from "../redux/store";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import { setCart } from "../redux/features/cart/cartSlice";
 import { setWishlist } from "../redux/features/wishlist/wishlistSlice";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 export default function Home() {
   const [error, setError] = useState("");
   const allBooks = useAppSelector((state: RootState) => state.books.value);
+  const cart = useAppSelector((state: RootState) => state.cart.value);
   const wishlistBooks = useAppSelector(
     (state: RootState) => state.wishlist.value
   );
-  const user = useAppSelector((state) => state.auth.value);
-  const cart = useAppSelector((state) => state.cart.value);
-
   const dispatch = useAppDispatch();
-  console.log(allBooks);
-  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    // const user = JSON.parse(localStorage.getItem("user"));
-    // console.log(user);
-    // if (user) {
-    //   dispatch(setCredentials(user));
-    // }
-  }, [dispatch]);
+    // check if user token in local storage
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    if (user) {
+      dispatch(setCredentials(user));
+    }
 
-  useEffect(() => {
-    console.log("fetched");
+    // books
     const getAllBooks = async () => {
       try {
         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
-        // const allBooks = res.data.data.map((book) => ({
-        //   ...book,
-        //   isFav: false,
-        // }));
-        // const allBooks = [...wishlistBooks, ...res.data.data];
-        console.log(res.data.data);
-        let x = res.data.data.slice(4, res.data.data.length + 1);
-
-        console.log(x);
-        dispatch(setAllBooks(x));
-        setFetched(true);
+        const booksToSet = res.data.data.slice(4, res.data.data.length + 1);
+        dispatch(setAllBooks(booksToSet));
       } catch (err) {
         console.log(err);
         setError("Sorry, books cannot be viewed at this time.");
@@ -57,15 +44,8 @@ export default function Home() {
     if (allBooks.length === 0) {
       getAllBooks();
     }
-  }, []);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
-    if (user) {
-      dispatch(setCredentials(user));
-    }
-
+    // cart
     const getCart = async () => {
       try {
         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/carts`, {
@@ -74,7 +54,6 @@ export default function Home() {
           },
         });
 
-        console.log(res);
         dispatch(setCart(res.data.data.items));
       } catch (err) {
         console.log(err);
@@ -85,6 +64,7 @@ export default function Home() {
       getCart();
     }
 
+    // wishlist
     const getWishlist = async () => {
       try {
         const res = await axios(
@@ -96,7 +76,6 @@ export default function Home() {
           }
         );
 
-        console.log(res);
         dispatch(setWishlist(res.data.data));
       } catch (err) {
         console.log(err);
@@ -117,7 +96,10 @@ export default function Home() {
         <div>
           {" "}
           <BookList title={"Best Selling Books"} bookData={allBooks} />
-          <BookList title={"Explore Our Books"} bookData={allBooks} />
+          <BookList
+            title={"Explore Our Books"}
+            bookData={[...allBooks].reverse()}
+          />
         </div>
       )}
     </div>

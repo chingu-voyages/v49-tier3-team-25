@@ -1,8 +1,5 @@
-import React, { useRef, useState } from "react";
-import {
-  decrementProductInCart,
-  updateProductQuantityInCart,
-} from "../redux/features/cart/cartSlice";
+import { useRef, useState } from "react";
+import { updateProductQuantityInCart } from "../redux/features/cart/cartSlice";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useLocation } from "react-router-dom";
@@ -10,19 +7,15 @@ import { toast } from "react-toastify";
 
 export default function Count({ item }) {
   const [count, setCount] = useState(item.quantity ? item.quantity : 0);
-  console.log(item);
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  console.log(location);
-
   const cart = useAppSelector((state: RootState) => state.cart.value);
-  const successToast = (text) => toast.success(text);
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
+  const location = useLocation();
+  const successToast = (text) => toast.success(text);
   const inputRef = useRef(null);
+
   function increment() {
     setCount((prev) => prev + 1);
-    console.log(count);
-
     if (location.pathname.includes("cart")) {
       updateCart("inc");
     }
@@ -30,8 +23,6 @@ export default function Count({ item }) {
 
   function decrement() {
     setCount((prev) => prev - 1);
-    console.log();
-
     if (location.pathname.includes("cart")) {
       updateCart("dec");
     }
@@ -46,7 +37,6 @@ export default function Count({ item }) {
             item.book._id
           }/${number}`,
           {},
-
           {
             headers: {
               Authorization: `Bearer ${isUserLoggedIn?.token}`,
@@ -54,42 +44,16 @@ export default function Count({ item }) {
           }
         );
 
-        console.log(res);
-        console.log(cart);
         successToast("Cart updated");
         const updateCart = cart.map((book) => {
-          //   console.log(book.book._id);
-          //   console.log(book.book._id);
-          //   console.log(book.book._id == item.book._id);
-          //   console.log(number);
           return book.book._id == item.book._id
             ? { ...book, quantity: number }
             : book;
         });
-        console.log(updateCart);
         dispatch(updateProductQuantityInCart(updateCart));
-        // setSuccessToast(true);
-        // setTimeout(() => {
-        //   setSuccessToast(false);
-        // }, 1000);
       } catch (err) {
         console.log(err);
-        // console.log(err.response.data.message);
-        // if (
-        //   err.response.data.message ===
-        //   "Quantity remains unchanged. No update needed."
-        // ) {
-        //   setErrorToast("Book already in cart. Go to cart to change quantity");
-        //   setTimeout(() => {
-        //     setErrorToast("");
-        //   }, 2000);
-        // }
       }
-    } else {
-      // setWarningToast("Cart");
-      // setTimeout(() => {
-      //   setWarningToast("");
-      // }, 2000);
     }
   };
 

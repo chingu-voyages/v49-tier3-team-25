@@ -1,27 +1,17 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  removeProductFromCart,
-  setCart,
-} from "../../redux/features/cart/cartSlice";
+import { setCart } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
 
 export default function ConfirmationModal() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.value);
   const cart = useAppSelector((state) => state.cart.value);
-  console.log(cart);
-
-  const isUserLoggedIn = user?.token;
-  console.log(user.token);
 
   const remove = async (id) => {
-    // console.log(id);
     try {
-      console.log("in try");
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
-
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -29,11 +19,6 @@ export default function ConfirmationModal() {
         }
       );
 
-      console.log(res);
-      // console.log(cart);
-      // const updatedCart = cart.filter((item) => item.book._id !== id);
-
-      // console.log(updatedCart);
       dispatch(setCart([]));
     } catch (err) {
       console.log(err);
@@ -41,13 +26,11 @@ export default function ConfirmationModal() {
   };
 
   const clearCart = () => {
-    console.log("clear");
     cart.forEach((item) => {
-      // console.log(item.book._id);
-
       remove(item.book._id);
     });
   };
+
   return (
     <>
       <div className="text-center">

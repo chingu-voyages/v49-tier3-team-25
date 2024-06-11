@@ -1,8 +1,6 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-
 import { logout } from "../redux/features/auth/authSlice";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const userLinks = [
@@ -47,10 +45,10 @@ export default function Header() {
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
   const wishlist = useAppSelector((state) => state.wishlist.value);
   const cart = useAppSelector((state) => state.cart.value);
-  // console.log(isUserLoggedIn);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const genericHamburgerLine = `h-1 w-5 ${

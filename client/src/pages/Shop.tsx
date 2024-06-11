@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SearchSortFilter from "../components/shop/SearchSortFilter";
 import BookCard from "../components/BookCard";
 import Pagination from "../components/Pagination";
 import usePagination from "../hooks/usePagination";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setAllBooks } from "../redux/features/books/booksSlice";
+import { useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 
 export default function Shop() {
   const allBooks = useAppSelector((state: RootState) => state.books.value);
@@ -15,6 +15,7 @@ export default function Shop() {
     filteredData,
     8
   );
+
   const handleOnChange = (e) => {
     setFilteredData(
       allBooks.filter((book) =>
@@ -66,12 +67,12 @@ export default function Shop() {
             ))}{" "}
           </div>
           {/* <!-- Pagination */}
-          <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
+          {/* <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
             <Pagination
               handlePageClick={handlePageClick}
               pageCount={pageCount}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -2,53 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import axios from "axios";
-import {
-  removeProductFromCart,
-  setCart,
-} from "../redux/features/cart/cartSlice";
-import { HSInputNumber } from "preline";
+import { removeProductFromCart } from "../redux/features/cart/cartSlice";
 import Count from "../components/Count";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.value);
   const cart = useAppSelector((state) => state.cart.value);
-  console.log(cart);
 
-  const isUserLoggedIn = user?.token;
-  console.log(user.token);
-  // const [count, setCount] = useState(0);
   const subtotal = cart?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity * 25);
   }, 0);
-  const inputRef = useRef(null);
-  // const removeFromCart = async (id) => {
-  //   console.log(id);
-  //   try {
-  //     const res = await axios.delete(
-  //       `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${isUserLoggedIn?.token}`,
-  //         },
-  //       }
-  //     );
-
-  //     console.log(res);
-  //     const updatedCart = cart.filter((item) => item._id !== id);
-  //     console.log(updatedCart);
-  //     dispatch(removeProductFromCart(updatedCart));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const remove = async (id) => {
-    // console.log(id);
     try {
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
-
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -56,23 +25,13 @@ export default function Cart() {
         }
       );
 
-      console.log(res);
-      console.log(cart);
       const updatedCart = cart.filter((item) => item.book._id !== id);
-
-      console.log(updatedCart);
       dispatch(removeProductFromCart(updatedCart));
     } catch (err) {
       console.log(err);
     }
   };
 
-  // function handleonclick() {
-  //   console.log("ccc");
-  //   console.log(inputRef.current);
-  //   // const count = HSInputNumber.getInstance(inputRef.current);
-  //   // console.log(count);
-  // }
   return (
     // <!-- Invoice -->
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">

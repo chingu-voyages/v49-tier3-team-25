@@ -1,4 +1,3 @@
-import React from "react";
 import PaymentDetails from "../components/checkout/PaymentDetails";
 import Summary from "../components/checkout/Summary";
 

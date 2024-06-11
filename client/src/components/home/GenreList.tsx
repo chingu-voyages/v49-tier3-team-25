@@ -1,4 +1,3 @@
-import React from "react";
 import GenreCard from "./GenreCard";
 import { Link } from "react-router-dom";
 

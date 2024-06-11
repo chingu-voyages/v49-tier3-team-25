@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
-import { useDispatch } from "react-redux";
 
 export const Signup = () => {
   const [name, setName] = useState("");
@@ -18,16 +17,14 @@ export const Signup = () => {
     e.preventDefault();
     setError("");
     const data = { fullName: name, email, password };
-    console.log(data);
+
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/users/signup`,
         data
       );
-      console.log(res);
       if (res.status === 201) {
         localStorage.setItem("user", JSON.stringify(res.data.data));
-
         dispatch(setCredentials(res.data.data));
         navigate("/");
       }

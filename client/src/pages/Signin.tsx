@@ -19,15 +19,12 @@ const Signin = () => {
     setError("");
 
     const data = { email, password };
-    console.log(data);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/users/login`,
         data
       );
-      console.log(res);
       localStorage.setItem("user", JSON.stringify(res.data.data));
-
       dispatch(setCredentials(res.data.data));
       navigate("/");
     } catch (err) {
