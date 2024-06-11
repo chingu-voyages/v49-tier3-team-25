@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Count({ item }) {
   const [count, setCount] = useState(item.quantity ? item.quantity : 0);
@@ -15,7 +16,7 @@ export default function Count({ item }) {
   console.log(location);
 
   const cart = useAppSelector((state: RootState) => state.cart.value);
-
+  const successToast = (text) => toast.success(text);
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
   const inputRef = useRef(null);
   function increment() {
@@ -55,6 +56,7 @@ export default function Count({ item }) {
 
         console.log(res);
         console.log(cart);
+        successToast("Cart updated");
         const updateCart = cart.map((book) => {
           //   console.log(book.book._id);
           //   console.log(book.book._id);

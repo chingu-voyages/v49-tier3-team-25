@@ -8,6 +8,7 @@ import {
 } from "../redux/features/cart/cartSlice";
 import axios from "axios";
 import Count from "../components/Count";
+import { toast } from "react-toastify";
 
 export default function BookDetail() {
   const { title } = useParams();
@@ -49,7 +50,7 @@ export default function BookDetail() {
         });
         console.log(updateCart);
         dispatch(updateProductQuantityInCart(updateCart));
-        successToast("Book has been added to cart!");
+        successToast("Cart updated");
       } catch (err) {
         console.log(err);
         console.log(err.response.data.message);
@@ -57,7 +58,7 @@ export default function BookDetail() {
           err.response.data.message ===
           "Quantity remains unchanged. No update needed."
         ) {
-          errorToast("Book already in cart. Go to cart to change quantity");
+          warningToast("This book of this quantity already in cart");
         }
       }
     } else {
@@ -74,6 +75,7 @@ export default function BookDetail() {
           <img
             className="rounded-xl"
             src={thisBook.imageUrls[2]}
+            // src={"https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"}
             alt="Image Description"
           />
         </div>
@@ -164,6 +166,7 @@ export default function BookDetail() {
                 <button
                   className="mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none "
                   onClick={addToCart}
+                  disabled={!count}
                 >
                   Add to Cart
                 </button>

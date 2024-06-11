@@ -1,0 +1,52 @@
+{
+  "title": "Poirot Investigates",
+  "author": "Agatha Christie",
+  "description": "First there was the mystery of the film star and the diamond… then came the suicide that was murder… the mystery of the absurdly chaep flat… a suspicious death in a locked gun-room… a million dollar bond robbery… the curse of a pharoahs tomb… a jewel robbery by the sea… the abduction of a Prime Minister… the disappearance of a banker… a phone call from a dying man… and, finally, the mystery of the missing will. What links these fascinating cases? Only the brilliant deductive powers of Hercule Poirot!",
+  "imageUrls": [
+    "https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg",
+    "https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg",
+    "https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"
+  ],
+  "isbn": "{% faker finance.routingNumber %}1000",
+  "publisher": {
+    "name": "{% faker name.fullName %}",
+    "location": "{% faker address.city %}"
+  },
+  "published_date": "{% faker datatype.datetime %}",
+  "language": "{% faker address.country %}",
+  "pages": 100,
+  "genres": [
+    "Fantasy",
+    "Mystery"
+  ],
+  "tags": [
+    "{% faker music.genre %}",
+    "{% faker music.genre %}"
+  ],
+  "formats": [
+    {
+      "format": "paperback",
+      "price": 10,
+      "discount": 0,
+      "quantity": 5
+    },
+    {
+      "format": "hardcover",
+      "price": 25.5,
+      "discount": 0,
+      "quantity": 5
+    },
+    {
+      "format": "ebook",
+      "price": 8,
+      "discount": 0.5,
+      "quantity": 5
+    },
+    {
+      "format": "audiobook",
+      "price": 30.25,
+      "discount": 0,
+      "quantity": 10
+    }
+  ]
+}

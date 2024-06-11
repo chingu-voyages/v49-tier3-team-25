@@ -27,7 +27,7 @@ export default function BookCard({ book }) {
   const navigate = useNavigate();
   const warningToast = (text) => toast.warn(text);
   const errorToast = (text) => toast.error(text);
-  const successToast = (text) => toast.info(text);
+  const successToast = (text) => toast.success(text);
 
   const addToCart = async () => {
     const alreadyInCart = cart.find((item) => item.book._id == book._id);
@@ -47,9 +47,14 @@ export default function BookCard({ book }) {
             },
           }
         );
+        console.log(book);
+        const bookToAdd = {
+          book,
+          quantity: res.data.data.quantity,
+        };
 
         console.log(res);
-        dispatch(addProductToCart(book));
+        dispatch(addProductToCart(bookToAdd));
         successToast("Book has been added to cart!");
       } catch (err) {
         console.log(err);
@@ -259,6 +264,7 @@ export default function BookCard({ book }) {
           <img
             className="w-1/2 h-auto mt-3 "
             src={book.imageUrls[2]}
+            // src={"https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"}
             alt="Image Description"
           />
         </div>

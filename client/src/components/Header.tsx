@@ -126,9 +126,11 @@ export default function Header() {
               className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
             >
               {/* count only visible when logged in and counter higher than 0 */}
-              <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-                {wishlist.length}
-              </div>
+              {wishlist.length > 0 && (
+                <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+                  {wishlist.length}
+                </div>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -153,9 +155,11 @@ export default function Header() {
               className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
             >
               {/* count only visible when logged in and counter higher than 0 */}
-              <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
-                {cart.length}
-              </div>
+              {cart.length > 0 && (
+                <div className="w-4 h-4 bg-accent text-white rounded-full flex justify-center items-center text-xs absolute top-[1px] right-[1px]">
+                  {cart.length}
+                </div>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"

@@ -25,20 +25,20 @@ export const cartSlice = createSlice({
     updateProductQuantityInCart: (state, action) => {
       state.value = action.payload;
     },
-    decrementProductInCart: (state, action) => {
-      state.value = state.value.map((productInCart) =>
-        productInCart.slug === action.payload.slug
-          ? { ...productInCart, quantity: productInCart.quantity - 1 }
-          : productInCart
-      );
-    },
-    incrementProductInCart: (state, action) => {
-      state.value = state.value.map((productInCart) =>
-        productInCart.slug === action.payload.slug
-          ? { ...productInCart, quantity: productInCart.quantity + 1 }
-          : productInCart
-      );
-    },
+    // decrementProductInCart: (state, action) => {
+    //   state.value = state.value.map((productInCart) =>
+    //     productInCart.slug === action.payload.slug
+    //       ? { ...productInCart, quantity: productInCart.quantity - 1 }
+    //       : productInCart
+    //   );
+    // },
+    // incrementProductInCart: (state, action) => {
+    //   state.value = state.value.map((productInCart) =>
+    //     productInCart.slug === action.payload.slug
+    //       ? { ...productInCart, quantity: productInCart.quantity + 1 }
+    //       : productInCart
+    //   );
+    // },
     removalAllFromCart: (state) => {
       state.value = initialState.value;
     },

@@ -1,5 +1,6 @@
 import React from "react";
 import ConfirmationModal from "./ConfirmationModal";
+import { Link } from "react-router-dom";
 
 export default function PaymentDetails() {
   return (
@@ -123,12 +124,12 @@ export default function PaymentDetails() {
         </form>
 
         <div className="mt-5 flex justify-end gap-x-2">
-          <button
-            type="button"
+          <Link
+            to={"/cart"}
             className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
           >
-            Cancel
-          </button>
+            Go back
+          </Link>
 
           <ConfirmationModal />
         </div>

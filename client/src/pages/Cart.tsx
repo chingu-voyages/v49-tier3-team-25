@@ -16,6 +16,7 @@ export default function Cart() {
   console.log(cart);
 
   const isUserLoggedIn = user?.token;
+  console.log(user.token);
   // const [count, setCount] = useState(0);
   const subtotal = cart?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity * 25);
@@ -42,22 +43,25 @@ export default function Cart() {
   //   }
   // };
 
-  const remove = async () => {
+  const remove = async (id) => {
     // console.log(id);
     try {
       const res = await axios.delete(
-        "https://chingu-bookstore.up.railway.app/carts/665b4bb7cf33c8adf0b5a5d6",
+        `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
+
         {
           headers: {
-            Authorization: `Bearer ${isUserLoggedIn?.token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       );
 
       console.log(res);
-      // const updatedCart = cart.filter((item) => item._id !== id);
-      // console.log(updatedCart);
-      // dispatch(removeProductFromCart(updatedCart));
+      console.log(cart);
+      const updatedCart = cart.filter((item) => item.book._id !== id);
+
+      console.log(updatedCart);
+      dispatch(removeProductFromCart(updatedCart));
     } catch (err) {
       console.log(err);
     }
@@ -119,7 +123,7 @@ export default function Cart() {
                         </svg>
                       </button>
                       <p className="font-medium text-gray-800 dark:text-neutral-200">
-                        {item.book.title}
+                        {item?.book?.title}
                       </p>
                     </div>
                   </div>
