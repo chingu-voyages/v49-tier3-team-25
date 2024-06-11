@@ -41,9 +41,12 @@ export default function Home() {
         //   ...book,
         //   isFav: false,
         // }));
-        const allBooks = [...wishlistBooks, ...res.data.data];
-        console.log(allBooks);
-        dispatch(setAllBooks(allBooks));
+        // const allBooks = [...wishlistBooks, ...res.data.data];
+        console.log(res.data.data);
+        let x = res.data.data.slice(4, res.data.data.length + 1);
+
+        console.log(x);
+        dispatch(setAllBooks(x));
         setFetched(true);
       } catch (err) {
         console.log(err);

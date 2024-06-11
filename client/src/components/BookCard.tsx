@@ -124,94 +124,7 @@ export default function BookCard({ book }) {
   };
 
   return (
-    <div className="flex flex-col bg-white border shadow-sm rounded-xl relative w-56">
-      {/* <!-- Error Toast --> */}
-      {showErrorToast && (
-        <div
-          className="max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
-          role="alert"
-        >
-          <div className="flex p-4">
-            <div className="flex-shrink-0">
-              <svg
-                className="flex-shrink-0 size-4 text-red-500 mt-0.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
-              </svg>
-            </div>
-            <div className="ms-3">
-              <p className="text-sm text-gray-700 dark:text-neutral-400">
-                {showErrorToast}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* <!-- End Toast --> */}
-
-      {/* <!-- Warning Toast --> */}
-      {showWarningToast && (
-        <div
-          className="max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
-          role="alert"
-        >
-          <div className="flex p-4">
-            <div className="flex-shrink-0">
-              <svg
-                className="flex-shrink-0 size-4 text-yellow-500 mt-0.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
-              </svg>
-            </div>
-            <div className="ms-3">
-              <p className="text-sm text-gray-700 dark:text-neutral-400">
-                Please Login to add to {showWarningToast}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* <!-- End Toast --> */}
-
-      {/* <!-- Success Toast --> */}
-      {showSuccessToast && (
-        <div
-          className="max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
-          role="alert"
-        >
-          <div className="flex p-4">
-            <div className="flex-shrink-0">
-              <svg
-                className="flex-shrink-0 size-4 text-teal-500 mt-0.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
-              </svg>
-            </div>
-            <div className="ms-3">
-              <p className="text-sm text-gray-700 dark:text-neutral-400">
-                Successfully added!
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* <!-- End Toast --> */}
-
+    <div className="flex flex-col bg-white border shadow-sm rounded-xl relative ">
       {location.pathname === "/account/wishlist" && (
         <button
           className="absolute top-3 right-0 sm:right-2 md:right-3 p-[2px] rounded-full bg-accent flex items-center justify-center"
@@ -262,7 +175,7 @@ export default function BookCard({ book }) {
       <Link to={`/shop/${book.title}`} className="cursor-pointer">
         <div className="flex justify-center items-center ">
           <img
-            className="w-1/2 h-auto mt-3 "
+            className=" mt-3 h-44"
             src={book.imageUrls[2]}
             // src={"https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"}
             alt="Image Description"

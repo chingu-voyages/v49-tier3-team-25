@@ -13,7 +13,7 @@ export default function Shop() {
 
   const { currentItems, pageCount, handlePageClick } = usePagination(
     filteredData,
-    10
+    8
   );
   const handleOnChange = (e) => {
     setFilteredData(
