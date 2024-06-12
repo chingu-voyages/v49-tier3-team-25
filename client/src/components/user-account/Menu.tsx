@@ -73,7 +73,7 @@ const menuLinks = [
 
 export default function Menu() {
   const dispatch = useAppDispatch();
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [, setIsUserDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const activeLink =
