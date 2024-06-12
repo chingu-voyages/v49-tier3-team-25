@@ -1,4 +1,3 @@
-import React from "react";
 import GenreCard from "./GenreCard";
 import { Link } from "react-router-dom";
 
@@ -199,18 +198,20 @@ export default function GenreList() {
 
         {/* book cards */}
         <div className="flex justify-center items-center md:hidden lg:hidden xl:hidden gap-2 mt-2">
-          {mobileSlicedGenreData.map((genre) => (
-            <GenreCard genre={genre} />
+          {mobileSlicedGenreData.map((genre, index) => (
+            <div key={index}>
+              <GenreCard genre={genre} key={genre.genre} />
+            </div>
           ))}
         </div>
         <div className="hidden justify-center items-center md:flex lg:hidden xl:hidden gap-2 mt-2">
           {tabletSlicedGenreData.map((genre) => (
-            <GenreCard genre={genre} />
+            <GenreCard genre={genre} key={genre.genre} />
           ))}
         </div>
         <div className=" hidden justify-center items-center lg:flex gap-2 md:gap-5 mt-2">
           {desktopSlicedGenreData.map((genre) => (
-            <GenreCard genre={genre} />
+            <GenreCard genre={genre} key={genre.genre} />
           ))}
         </div>
       </div>

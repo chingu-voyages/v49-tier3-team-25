@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Carousel() {
@@ -22,20 +21,24 @@ export default function Carousel() {
                 See More
               </Link>
               <div className="flex gap-3 justify-center items-center">
-                <img src="placeholder-book-cover.jpg" alt="" className="" />
                 <img
-                  src="placeholder-book-cover.jpg"
+                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
                   alt=""
+                  className="book cover"
+                />
+                <img
+                  src="https://covers.openlibrary.org/b/olid/OL37044871M-M.jpg"
+                  alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"
+                  alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  alt="book cover"
                   className="hidden lg:block"
                 />
               </div>
@@ -50,20 +53,24 @@ export default function Carousel() {
                 See More
               </Link>
               <div className="flex gap-3 justify-center items-center">
-                <img src="placeholder-book-cover.jpg" alt="" className="" />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  alt="book cover"
+                  className="book cover"
+                />
+                <img
+                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
+                  alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL35354586M-M.jpg"
+                  alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL24218918M-M.jpg"
+                  alt="book cover"
                   className="hidden lg:block"
                 />
               </div>
@@ -78,20 +85,24 @@ export default function Carousel() {
                 See More
               </Link>
               <div className="flex gap-3 justify-center items-center">
-                <img src="placeholder-book-cover.jpg" alt="" className="" />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL10490570M-M.jpg"
+                  alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL35354586M-M.jpg"
+                  alt="book cover"
+                  className="hidden sm:block md:block lg:block"
+                />
+                <img
+                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
+                  alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="placeholder-book-cover.jpg"
-                  alt=""
+                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  alt="book cover"
                   className="hidden lg:block"
                 />
               </div>
@@ -113,9 +124,9 @@ export default function Carousel() {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="m15 18-6-6 6-6"></path>
           </svg>
@@ -136,9 +147,9 @@ export default function Carousel() {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="m9 18 6-6-6-6"></path>
           </svg>
