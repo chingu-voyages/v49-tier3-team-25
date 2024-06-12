@@ -92,7 +92,7 @@ export default function Home() {
       {error ? (
         <p className="text-accent text-center">{error}</p>
       ) : (
-        <div>
+        <div className=" flex flex-col gap-6">
           {" "}
           <BookList title={"Best Selling Books"} bookData={allBooks} />
           <BookList
