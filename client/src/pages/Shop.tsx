@@ -13,7 +13,7 @@ export default function Shop() {
 
   const [filteredData, setFilteredData] = useState(allBooks);
 
-  const { currentItems } = usePagination(filteredData, 8);
+  // const { currentItems } = usePagination(filteredData, 8);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredData(
@@ -63,7 +63,7 @@ export default function Shop() {
           />
           {/* book cards */}
           <div className="flex flex-wrap justify-center items-center  gap-2 mt-2">
-            {currentItems.map((book: Book, index: number) => (
+            {filteredData.map((book: Book, index: number) => (
               <div key={index}>
                 <BookCard book={book} />
               </div>
