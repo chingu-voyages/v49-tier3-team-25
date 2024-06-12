@@ -1,15 +1,17 @@
 import { useState } from "react";
-
-const dummyUser = {
-  firstName: "John",
-  lastName: "Smith",
-  email: "john@gmail.com",
-};
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
+  const user = useAppSelector((state: RootState) => state.auth.value);
+  const firstName = user.fullName.split(" ")[0];
+  const lastName = user.fullName.split(" ")[1];
+
   const [form, setForm] = useState({
-    ...dummyUser,
+    firstName,
+    lastName,
+    email: user.email,
     newPassword: "",
     confirmPassword: "",
   });
@@ -25,7 +27,9 @@ export default function Profile() {
   const handleCancel = () => {
     setIsEditMode(false);
     setForm({
-      ...dummyUser,
+      firstName,
+      lastName,
+      email: user.email,
       newPassword: "",
       confirmPassword: "",
     });

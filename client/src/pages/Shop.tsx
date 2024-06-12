@@ -1,268 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SearchSortFilter from "../components/shop/SearchSortFilter";
-import BookCard from "../components/BookCard";
-import Pagination from "../components/Pagination";
-import usePagination from "../hooks/usePagination";
-
-const placeholderBooks = [
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-  {
-    title: "title 1",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 25,
-    rating: 3,
-  },
-  {
-    title: "title 2",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title 3",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 50,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 14,
-    rating: 3,
-  },
-  {
-    title: "abc title",
-    author: "author 2",
-    image: "placeholder-book-cover.jpg",
-    price: 10,
-    rating: 1,
-  },
-  {
-    title: "title of book",
-    author: "author 3",
-    image: "placeholder-book-cover.jpg",
-    price: 60,
-    rating: 4,
-  },
-  {
-    title: "book title",
-    author: "author 1",
-    image: "placeholder-book-cover.jpg",
-    price: 75,
-    rating: 3,
-  },
-];
+import BookCard from "../components/shared/BookCard";
+import { useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
+import { Book } from "../lib/types";
 
 export default function Shop() {
-  const [filteredData, setFilteredData] = useState(placeholderBooks);
-  console.log(filteredData);
-  const { currentItems, pageCount, handlePageClick } = usePagination(
-    filteredData,
-    10
+  const allBooks: Book[] = useAppSelector(
+    (state: RootState) => state.books.value
   );
-  const handleOnChange = (e) => {
+
+  const [filteredData, setFilteredData] = useState(allBooks);
+
+  // const { currentItems } = usePagination(filteredData, 8);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredData(
-      placeholderBooks.filter((book) =>
-        book.title.toLowerCase().includes(e.target.value)
+      allBooks.filter(
+        (book) =>
+          book.title.toLowerCase().includes(e.target.value) ||
+          book.author.toLowerCase().includes(e.target.value)
       )
     );
   };
@@ -297,7 +54,7 @@ export default function Shop() {
       <div className="mt-5">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700 p-5 flex flex-col ">
           <SearchSortFilter
-            handleOnChange={(e) => handleOnChange(e)}
+            handleOnChange={handleOnChange}
             sortTitleAZ={sortTitleAZ}
             sortTitleZA={sortTitleZA}
             sortAuthorAZ={sortAuthorAZ}
@@ -305,17 +62,19 @@ export default function Shop() {
           />
           {/* book cards */}
           <div className="flex flex-wrap justify-center items-center  gap-2 mt-2">
-            {currentItems.map((book) => (
-              <BookCard book={book} />
+            {filteredData.map((book: Book, index: number) => (
+              <div key={index}>
+                <BookCard book={book} />
+              </div>
             ))}{" "}
           </div>
           {/* <!-- Pagination */}
-          <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
+          {/* <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
             <Pagination
               handlePageClick={handlePageClick}
               pageCount={pageCount}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

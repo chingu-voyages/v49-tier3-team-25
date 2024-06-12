@@ -1,4 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hooks";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useState } from "react";
 
 const menuLinks = [
   {
@@ -69,11 +72,18 @@ const menuLinks = [
 ];
 
 export default function Menu() {
+  const dispatch = useAppDispatch();
+  const [, setIsUserDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
   const activeLink =
     "inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium  border border-gray-200 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg text-white bg-accent";
 
-  const logout = () => {
-    // add logout out logic
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch(logout());
+    setIsUserDropdownOpen(false);
+    navigate("/signin");
   };
 
   return (
@@ -110,7 +120,7 @@ export default function Menu() {
           <path d="M15 12h-12l3 -3" />
           <path d="M6 15l-3 -3" />
         </svg>
-        <button onClick={logout} className="text-left">
+        <button onClick={handleLogout} className="text-left">
           Logout
         </button>
       </div>

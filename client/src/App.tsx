@@ -23,44 +23,50 @@ import BookDetail from "./pages/BookDetail";
 import ScrollToTop from "./hooks/useScrollToTop";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import { ReduxProvider } from "./redux/provider";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <ScrollToTop>
-        <Routes>
-          <Route path="/" element={<Wrapper />}>
-            <Route index element={<Home />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/:title" element={<BookDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
+        <ReduxProvider>
+          <Routes>
+            <Route path="/" element={<Wrapper />}>
+              <Route index element={<Home />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/shop/:title" element={<BookDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
 
-            <Route path="/account" element={<UserAccountLayout />}>
-              <Route index path="profile" element={<ProfilePage />} />
-              <Route path="wishlist" element={<WishlistPage />} />
-              <Route path="orders" element={<OrdersPage />} />
-              <Route path="orders/:id" element={<OrderDetailPage />} />
+              <Route path="/account" element={<ProtectedRoute />}>
+                <Route path="/account" element={<UserAccountLayout />}>
+                  <Route index path="profile" element={<ProfilePage />} />
+                  <Route path="wishlist" element={<WishlistPage />} />
+                  <Route path="orders" element={<OrdersPage />} />
+                  <Route path="orders/:id" element={<OrderDetailPage />} />
+                </Route>
+              </Route>
             </Route>
-          </Route>
-          <Route path="/admin" element={<Admin />}>
-            <Route index element={<Dashboard />} />
-            <Route
-              index
-              path="order-management"
-              element={<OrderManagement />}
-            />
-            <Route index path="customers" element={<Customers />} />
-            <Route path="customers/:name" element={<CustomerDetail />} />
-            <Route index path="products" element={<Products />} />
-            <Route path="products/:title" element={<ProductDetail />} />
-            <Route path="products/add" element={<AddNew />} />
-          </Route>
-        </Routes>
+            <Route path="/admin" element={<Admin />}>
+              <Route index element={<Dashboard />} />
+              <Route
+                index
+                path="order-management"
+                element={<OrderManagement />}
+              />
+              <Route index path="customers" element={<Customers />} />
+              <Route path="customers/:name" element={<CustomerDetail />} />
+              <Route index path="products" element={<Products />} />
+              <Route path="products/:title" element={<ProductDetail />} />
+              <Route path="products/add" element={<AddNew />} />
+            </Route>
+          </Routes>
+        </ReduxProvider>
       </ScrollToTop>
     </Router>
   );

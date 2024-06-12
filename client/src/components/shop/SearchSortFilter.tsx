@@ -1,4 +1,10 @@
-import React from "react";
+interface Props {
+  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  sortTitleAZ: () => void;
+  sortTitleZA: () => void;
+  sortAuthorAZ: () => void;
+  sortAuthorZA: () => void;
+}
 
 export default function SearchSortFilter({
   handleOnChange,
@@ -6,7 +12,7 @@ export default function SearchSortFilter({
   sortTitleZA,
   sortAuthorAZ,
   sortAuthorZA,
-}) {
+}: Props) {
   return (
     <div className="flex flex-col md:flex-row md:justify-between">
       {/* <!-- Input --> */}
@@ -20,7 +26,7 @@ export default function SearchSortFilter({
             id="hs-as-table-product-review-search"
             name="hs-as-table-product-review-search"
             className="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Search"
+            placeholder="Search by title or author"
             onChange={handleOnChange}
           />
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
@@ -32,9 +38,9 @@ export default function SearchSortFilter({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
@@ -63,10 +69,10 @@ export default function SearchSortFilter({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-switch-vertical"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="icon icon-tabler icons-tabler-outline icon-tabler-switch-vertical"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M3 8l4 -4l4 4" />
@@ -120,84 +126,6 @@ export default function SearchSortFilter({
             </div>
           </div>
         </div>
-        {/* filter */}
-        {/* <div
-          className="hs-dropdown [--placement:bottom-right] relative inline-block"
-          data-hs-dropdown-auto-close="inside"
-        >
-          <button
-            id="hs-as-table-table-filter-dropdown"
-            type="button"
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-          >
-            <svg
-              className="flex-shrink-0 size-3.5"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M3 6h18" />
-              <path d="M7 12h10" />
-              <path d="M10 18h4" />
-            </svg>
-            Filter
-          </button>
-          <div
-            className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700"
-            aria-labelledby="hs-as-table-table-filter-dropdown"
-          >
-            <div className="divide-y divide-gray-200 dark:divide-neutral-700">
-              <label
-                htmlFor="hs-as-filters-dropdown-all"
-                className="flex py-2.5 px-3"
-              >
-                <input
-                  type="checkbox"
-                  className="shrink-0 mt-0.5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                  id="hs-as-filters-dropdown-all"
-                  checked
-                />
-                <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
-                  All
-                </span>
-              </label>
-              <label
-                htmlFor="hs-as-filters-dropdown-published"
-                className="flex py-2.5 px-3"
-              >
-                <input
-                  type="checkbox"
-                  className="shrink-0 mt-0.5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                  id="hs-as-filters-dropdown-published"
-                />
-                <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
-                  Published
-                </span>
-              </label>
-              <label
-                htmlFor="hs-as-filters-dropdown-pending"
-                className="flex py-2.5 px-3"
-              >
-                <input
-                  type="checkbox"
-                  className="shrink-0 mt-0.5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                  id="hs-as-filters-dropdown-pending"
-                />
-                <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
-                  Pending
-                </span>
-              </label>
-            </div>
-          </div>
-        </div> */}
-
-        {/* end filter */}
       </div>
     </div>
   );

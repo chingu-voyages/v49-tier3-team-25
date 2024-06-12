@@ -1,14 +1,48 @@
+import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { setCredentials } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmitSignin = async (e: FormEvent) => {
     e.preventDefault();
+    setError("");
+    setPending(true);
+
     const data = { email, password };
-    console.log(data);
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/users/login`,
+        data
+      );
+      localStorage.setItem("user", JSON.stringify(res.data.data));
+      dispatch(setCredentials(res.data.data));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          setError(error?.response.data.message);
+          setPending(false);
+        }
+      } else {
+        console.error(error);
+        setPending(false);
+      }
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -38,16 +72,23 @@ const Signin = () => {
               className="border-b-2 border-neutral-400 outline-none py-3"
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            {error && (
+              <p className="text-red-500 text-sm">
+                Email and password combination is wrong, please try again.
+              </p>
+            )}
+
             <div className="flex justify-between items-center">
               <button
                 type="submit"
-                className="w-2/5 mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
+                className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
               >
-                Log In
+                {pending ? "Logging in..." : "Log In"}
               </button>
-              <a href="#" className="text-accent text-lg">
+              {/* <a href="#" className="text-accent text-lg">
                 Forget Password?
-              </a>
+              </a> */}
             </div>
             <div className="flex">
               <div>Don't have an account?</div>

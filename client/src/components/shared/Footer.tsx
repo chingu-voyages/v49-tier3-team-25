@@ -262,6 +262,11 @@ export default function Footer() {
               </Link>
             </p>
             <p className="text-xs text-gray-400">
+              <Link to="https://openlibrary.org/dev/docs/api/covers">
+                Book info and covers from Open Library Acknowledgement
+              </Link>
+            </p>
+            <p className="text-xs text-gray-400">
               Figma Community Files Acknowledgements:
               <Link
                 to="https://www.figma.com/community/file/1219312065205187851"

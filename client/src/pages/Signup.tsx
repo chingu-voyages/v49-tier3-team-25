@@ -1,31 +1,56 @@
 import { FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setCredentials } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
+
+  const successToast = (text: string) => toast.success(text);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
-    const data = { username: name, email, password };
-    const signupURL = `${import.meta.env.VITE_SERVER_URL}/signup`;
-    const response = await fetch(signupURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(response);
-    if (!response.ok) {
-      throw new Error("Something went wrong");
+    setError("");
+    setPending(true);
+    const data = { fullName: name, email, password };
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/users/signup`,
+        data
+      );
+      if (res.status === 201) {
+        localStorage.setItem("user", JSON.stringify(res.data.data));
+        dispatch(setCredentials(res.data.data));
+        navigate("/signin");
+        successToast("Successully registered! Please sign in.");
+      }
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response && error?.response.data.message) {
+          setError(error?.response.data.message);
+          setPending(false);
+        } else if (error.response && error?.response.data.error) {
+          setError(error?.response.data.error);
+          setPending(false);
+        }
+      } else {
+        console.error(error);
+        setPending(false);
+      }
+    } finally {
+      setPending(false);
     }
-    const responseData = await response.json();
-    if (response.status !== 201) {
-      console.error(responseData.message);
-    }
-    console.log(responseData);
-    console.log("Account created");
   };
 
   return (
@@ -55,18 +80,37 @@ export const Signup = () => {
               className="border-b-2 border-neutral-400 outline-none py-3"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="border-b-2 border-neutral-400 outline-none py-3"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="flex flex-col">
+              <input
+                type="password"
+                placeholder="Password"
+                className="border-b-2 border-neutral-400 outline-none py-3"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span className="text-xs text-gray-500">
+                Password must be at least 8 characters
+              </span>
+            </div>
+
+            {error && (
+              <p className="text-red-500 text-sm">{error}. Please try again.</p>
+            )}
+
             <button
               type="submit"
               className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
             >
-              Create Account
+              {pending ? "Creating Account..." : "Create Account"}
             </button>
+            <div className="flex">
+              <div>Have an account?</div>
+              <Link
+                to="/signin"
+                className="ml-3 font-bold underline underline-offset-4"
+              >
+                Log in
+              </Link>
+            </div>
           </form>
         </div>
       </div>
