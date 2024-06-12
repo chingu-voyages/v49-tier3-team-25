@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import usePagination from "../../hooks/usePagination";
-import BookCard from "../BookCard";
-import Pagination from "../Pagination";
+// import usePagination from "../../hooks/usePagination";
+import BookCard from "../shared/BookCard";
+// import Pagination from "../shared/Pagination";
 import { useAppSelector } from "../../redux/hooks";
+import { Book } from "../../lib/types";
 
 export default function Wishlist() {
   const wishlist = useAppSelector((state) => state.wishlist.value);
-  console.log(wishlist);
-  const { currentItems, pageCount, handlePageClick } = usePagination(
-    wishlist,
-    3
-  );
+  // console.log(wishlist);
+  // const { currentItems, pageCount, handlePageClick } = usePagination(
+  //   wishlist,
+  //   3
+  // );
 
   return (
     <>
@@ -23,14 +23,14 @@ export default function Wishlist() {
 
         {/* book cards */}
         <div className="flex gap-2 flex-wrap">
-          {currentItems.map((book) => (
-            <BookCard book={book} />
+          {wishlist?.map((book: Book) => (
+            <BookCard book={book} key={book._id} />
           ))}
         </div>
         {/* <!-- Pagination */}
-        <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
+        {/* <div className="px-6 py-4  gap-3 flex justify-center items-center border-t border-gray-200 ">
           <Pagination handlePageClick={handlePageClick} pageCount={pageCount} />
-        </div>
+        </div> */}
       </div>
     </>
   );

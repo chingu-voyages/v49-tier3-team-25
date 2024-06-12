@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import { logout } from "../../redux/features/auth/authSlice";
+import { useState } from "react";
 
 const menuLinks = [
   {
@@ -72,13 +73,7 @@ const menuLinks = [
 
 export default function Menu() {
   const dispatch = useAppDispatch();
-  const isUserLoggedIn = useAppSelector((state) => state.auth.value);
-  const wishlist = useAppSelector((state) => state.wishlist.value);
-  const cart = useAppSelector((state) => state.cart.value);
-  // console.log(isUserLoggedIn);
-
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const activeLink =

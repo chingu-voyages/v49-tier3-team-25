@@ -1,7 +1,7 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { logout } from "../redux/features/auth/authSlice";
+import { logout } from "../../redux/features/auth/authSlice";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const userLinks = [
   {
@@ -67,11 +67,11 @@ export default function Header() {
 
   const handleUserIconClick = () => {
     // if no user redirect to sign in,
-    if (!isUserLoggedIn) {
+    if (!isUserLoggedIn.token) {
       navigate("/signin");
     }
     // if user logged in, show dropdown
-    if (isUserLoggedIn) {
+    if (isUserLoggedIn.token) {
       setIsUserDropdownOpen((prev) => !prev);
     }
   };
@@ -118,7 +118,7 @@ export default function Header() {
         {/* <!-- Icon Links Group --> */}
         <div className="flex items-center gap-x-3 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3 ">
           {/* heart icon */}
-          {isUserLoggedIn && (
+          {isUserLoggedIn.token && (
             <Link
               to="/account/wishlist" // link to wishlist page
               className="py-2 px-2 inline-flex items-center gap-x-2 text-black relative"
@@ -147,7 +147,7 @@ export default function Header() {
             </Link>
           )}
           {/* cart icon */}
-          {isUserLoggedIn && (
+          {isUserLoggedIn.token && (
             <Link
               to="/cart" // link to cart page
               className="py-2 px-2 inline-flex items-center gap-x-2  text-black relative"
@@ -184,7 +184,7 @@ export default function Header() {
               onClick={handleUserIconClick}
               type="button"
               className={`py-1 px-1 inline-flex items-center gap-x-2  text-black  ${
-                isUserLoggedIn && "bg-accent rounded-full text-white"
+                isUserLoggedIn.token && "bg-accent rounded-full text-white"
               }`}
             >
               <svg

@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
-import Breadcrumb from "../Breadcrumb";
+import Breadcrumb from "./Breadcrumb";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 
 export default function UserAccountLayout() {
   const user = useAppSelector((state: RootState) => state.auth.value);
-  const firstName = user.fullName.split(" ")[0];
+  const firstName = user?.fullName.split(" ")[0];
 
   return (
     <div className="px-4 md:px-8 mx-auto">

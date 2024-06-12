@@ -2,7 +2,6 @@ import aboutBookImg from "/about-book-img.jpg";
 
 export default function About() {
   return (
-    //
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 md:pr-0 lg:pl-8 lg:py-14 mx-auto">
       {/* <!-- Grid --> */}
       <div className="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">

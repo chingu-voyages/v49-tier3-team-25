@@ -4,10 +4,10 @@ import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 
 const ProtectedRoute = () => {
-  const user = useAppSelector((state: RootState) => state.auth.value);
+  const user = useAppSelector((state: RootState) => state?.auth.value);
 
   // show unauthorized screen if no user is found in redux store
-  if (!user?.token) {
+  if (!user) {
     return (
       <div className="max-w-[50rem] flex flex-col mx-auto size-full">
         {/* <!-- ========== MAIN CONTENT ========== --> */}

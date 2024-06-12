@@ -1,10 +1,18 @@
+interface Props {
+  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  sortTitleAZ: () => void;
+  sortTitleZA: () => void;
+  sortAuthorAZ: () => void;
+  sortAuthorZA: () => void;
+}
+
 export default function SearchSortFilter({
   handleOnChange,
   sortTitleAZ,
   sortTitleZA,
   sortAuthorAZ,
   sortAuthorZA,
-}) {
+}: Props) {
   return (
     <div className="flex flex-col md:flex-row md:justify-between">
       {/* <!-- Input --> */}
@@ -18,7 +26,7 @@ export default function SearchSortFilter({
             id="hs-as-table-product-review-search"
             name="hs-as-table-product-review-search"
             className="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-            placeholder="Search"
+            placeholder="Search by title or author"
             onChange={handleOnChange}
           />
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
@@ -30,9 +38,9 @@ export default function SearchSortFilter({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
@@ -61,10 +69,10 @@ export default function SearchSortFilter({
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-switch-vertical"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="icon icon-tabler icons-tabler-outline icon-tabler-switch-vertical"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M3 8l4 -4l4 4" />

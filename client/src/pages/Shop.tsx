@@ -1,25 +1,26 @@
 import { useState } from "react";
 import SearchSortFilter from "../components/shop/SearchSortFilter";
-import BookCard from "../components/BookCard";
-import Pagination from "../components/Pagination";
+import BookCard from "../components/shared/BookCard";
 import usePagination from "../hooks/usePagination";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
+import { Book } from "../lib/types";
 
 export default function Shop() {
-  const allBooks = useAppSelector((state: RootState) => state.books.value);
+  const allBooks: Book[] = useAppSelector(
+    (state: RootState) => state.books.value
+  );
 
   const [filteredData, setFilteredData] = useState(allBooks);
 
-  const { currentItems, pageCount, handlePageClick } = usePagination(
-    filteredData,
-    8
-  );
+  const { currentItems } = usePagination(filteredData, 8);
 
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredData(
-      allBooks.filter((book) =>
-        book.title.toLowerCase().includes(e.target.value)
+      allBooks.filter(
+        (book) =>
+          book.title.toLowerCase().includes(e.target.value) ||
+          book.author.toLowerCase().includes(e.target.value)
       )
     );
   };
@@ -54,7 +55,7 @@ export default function Shop() {
       <div className="mt-5">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-900 dark:border-neutral-700 p-5 flex flex-col ">
           <SearchSortFilter
-            handleOnChange={(e) => handleOnChange(e)}
+            handleOnChange={handleOnChange}
             sortTitleAZ={sortTitleAZ}
             sortTitleZA={sortTitleZA}
             sortAuthorAZ={sortAuthorAZ}
@@ -62,8 +63,10 @@ export default function Shop() {
           />
           {/* book cards */}
           <div className="flex flex-wrap justify-center items-center  gap-2 mt-2">
-            {currentItems.map((book) => (
-              <BookCard book={book} />
+            {currentItems.map((book: Book, index: number) => (
+              <div key={index}>
+                <BookCard book={book} />
+              </div>
             ))}{" "}
           </div>
           {/* <!-- Pagination */}

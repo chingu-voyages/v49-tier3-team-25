@@ -1,16 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { ProductInCart } from "../../../interfaces";
+import { Book } from "../../../lib/types";
 
-// export interface CartState {
-//   value: ProductInCart[];
-// }
+export interface WishlistState {
+  value: Book[];
+}
 
-// const initialState: CartState = {
-//   value: [],
-// };
-
-const initialState = {
+const initialState: WishlistState = {
   value: [],
 };
 

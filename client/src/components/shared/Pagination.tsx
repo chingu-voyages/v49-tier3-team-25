@@ -1,5 +1,6 @@
 import ReactPaginate from "react-paginate";
 
+// @ts-expect-error - not sure handlePageClick type
 export default function Pagination({ handlePageClick, pageCount }) {
   return (
     <ReactPaginate

@@ -1,14 +1,17 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const successToast = (text: string) => toast.success(text);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -26,11 +29,20 @@ export const Signup = () => {
       if (res.status === 201) {
         localStorage.setItem("user", JSON.stringify(res.data.data));
         dispatch(setCredentials(res.data.data));
-        navigate("/");
+        navigate("/signin");
+        successToast("Successully registered! Please sign in.");
       }
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.error);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.error(error.response);
+        if (error.response) {
+          setError(error?.response.data.error);
+        }
+      } else {
+        console.error(error);
+      }
     }
   };
 
@@ -85,6 +97,15 @@ export const Signup = () => {
             >
               Create Account
             </button>
+            <div className="flex">
+              <div>Have an account?</div>
+              <Link
+                to="/signin"
+                className="ml-3 font-bold underline underline-offset-4"
+              >
+                Log in
+              </Link>
+            </div>
           </form>
         </div>
       </div>

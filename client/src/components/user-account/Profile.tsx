@@ -2,12 +2,6 @@ import { useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 
-const dummyUser = {
-  firstName: "John",
-  lastName: "Smith",
-  email: "john@gmail.com",
-};
-
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
   const user = useAppSelector((state: RootState) => state.auth.value);
@@ -33,7 +27,9 @@ export default function Profile() {
   const handleCancel = () => {
     setIsEditMode(false);
     setForm({
-      ...dummyUser,
+      firstName,
+      lastName,
+      email: user.email,
       newPassword: "",
       confirmPassword: "",
     });

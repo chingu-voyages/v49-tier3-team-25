@@ -1,17 +1,30 @@
 import { useRef, useState } from "react";
-import { updateProductQuantityInCart } from "../redux/features/cart/cartSlice";
+import { updateProductQuantityInCart } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { RootState } from "../../redux/store";
+import { Book, User } from "../../lib/types";
 
-export default function Count({ item }) {
+interface Props {
+  item: {
+    book: Book;
+    quantity: number;
+    _id: string;
+  };
+}
+
+export default function Count({ item }: Props) {
+  // console.log(item);
   const [count, setCount] = useState(item.quantity ? item.quantity : 0);
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state: RootState) => state.cart.value);
-  const isUserLoggedIn = useAppSelector((state) => state.auth.value);
+  const isUserLoggedIn: User | null = useAppSelector(
+    (state) => state.auth.value
+  );
   const location = useLocation();
-  const successToast = (text) => toast.success(text);
+  const successToast = (text: string) => toast.success(text);
   const inputRef = useRef(null);
 
   function increment() {
@@ -28,18 +41,18 @@ export default function Count({ item }) {
     }
   }
 
-  const updateCart = async (type) => {
+  const updateCart = async (type: string) => {
     if (isUserLoggedIn) {
       try {
         const number = type === "dec" ? count - 1 : count + 1;
-        const res = await axios.post(
+        await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/carts/${
             item.book._id
           }/${number}`,
           {},
           {
             headers: {
-              Authorization: `Bearer ${isUserLoggedIn?.token}`,
+              Authorization: `Bearer ${isUserLoggedIn.token}`,
             },
           }
         );

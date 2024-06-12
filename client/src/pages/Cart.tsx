@@ -1,29 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import axios from "axios";
 import { removeProductFromCart } from "../redux/features/cart/cartSlice";
-import Count from "../components/Count";
+import Count from "../components/cart/Count";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.value);
   const cart = useAppSelector((state) => state.cart.value);
-
+  // console.log(cart);
   const subtotal = cart?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity * 25);
   }, 0);
 
-  const remove = async (id) => {
+  const remove = async (id: string) => {
     try {
-      const res = await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/carts/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/carts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      });
 
       const updatedCart = cart.filter((item) => item.book._id !== id);
       dispatch(removeProductFromCart(updatedCart));
@@ -36,7 +32,6 @@ export default function Cart() {
     // <!-- Invoice -->
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
       <div className="sm:w-11/12 lg:w-3/4 mx-auto">
-        <button onClick={remove}>del</button>
         <span className="text-xl font-bold text-accent pb-2 ">Your Cart</span>
         {/* <!-- Table --> */}
         <div className="mt-6">
@@ -60,7 +55,10 @@ export default function Cart() {
 
             {cart.length > 0 &&
               cart.map((item) => (
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                <div
+                  className="grid grid-cols-3 sm:grid-cols-5 gap-2"
+                  key={item._id}
+                >
                   <div className="col-span-full sm:col-span-2">
                     <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                       Item

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
@@ -26,7 +26,7 @@ export default function Wrapper() {
       {!location.pathname.includes("dashboard") && <Header />}
       <main className="flex-grow">
         <ToastContainer
-          position="top-right"
+          position="top-center"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}

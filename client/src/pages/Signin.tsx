@@ -27,9 +27,15 @@ const Signin = () => {
       localStorage.setItem("user", JSON.stringify(res.data.data));
       dispatch(setCredentials(res.data.data));
       navigate("/");
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          setError(error?.response.data.message);
+        }
+      } else {
+        console.error(error);
+      }
     }
   };
 

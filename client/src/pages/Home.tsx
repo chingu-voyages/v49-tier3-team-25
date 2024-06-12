@@ -19,12 +19,11 @@ export default function Home() {
   );
   const dispatch = useAppDispatch();
 
-  useEffect(() => {}, []);
-
+  // NEED TO FIX - added if statement to call functions as the useeffect seems to run every time homepage is viewed?
   useEffect(() => {
     // check if user token in local storage
-    const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    const user = JSON.parse(localStorage.getItem("user") || '""');
+    // console.log(user);
     if (user) {
       dispatch(setCredentials(user));
     }

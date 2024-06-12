@@ -5,24 +5,27 @@ import { RootState } from "../redux/store";
 import { updateProductQuantityInCart } from "../redux/features/cart/cartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Book } from "../lib/types";
 
 export default function BookDetail() {
   const { title } = useParams();
-  const allBooks = useAppSelector((state: RootState) => state.books.value);
+  const allBooks: Book[] = useAppSelector(
+    (state: RootState) => state.books.value
+  );
   const cart = useAppSelector((state: RootState) => state.cart.value);
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(0);
   const thisBook = allBooks.find((book) => book.title == title);
   const isUserLoggedIn = useAppSelector((state) => state.auth.value);
 
-  const warningToast = (text) => toast.warn(text);
-  const successToast = (text) => toast.info(text);
+  const warningToast = (text: string) => toast.warn(text);
+  const successToast = (text: string) => toast.info(text);
 
   const addToCart = async () => {
     if (isUserLoggedIn) {
       try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/carts/${thisBook._id}/${count}`,
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/carts/${thisBook?._id}/${count}`,
           {},
           {
             headers: {
@@ -32,25 +35,30 @@ export default function BookDetail() {
         );
 
         const updateCart = cart.map((item) => {
-          return item.book._id == thisBook._id
+          return item.book._id == thisBook?._id
             ? { ...item, quantity: count }
             : item;
         });
 
         dispatch(updateProductQuantityInCart(updateCart));
         successToast("Cart updated");
-      } catch (err) {
-        console.log(err);
-        console.log(err.response.data.message);
-        if (
-          err.response.data.message ===
-          "Quantity remains unchanged. No update needed."
-        ) {
-          warningToast("This book of this quantity already in cart");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(error.status);
+          console.error(error.response);
+          if (
+            error.response &&
+            error?.response.data.message ===
+              "Quantity remains unchanged. No update needed."
+          ) {
+            warningToast("This book of this quantity already in cart");
+          } else {
+            warningToast("Please login to add to cart");
+          }
+        } else {
+          console.error(error);
         }
       }
-    } else {
-      warningToast("Please login to add to cart");
     }
   };
 
@@ -62,8 +70,7 @@ export default function BookDetail() {
         <div className="flex items-center justify-center">
           <img
             className="rounded-xl"
-            src={thisBook.imageUrls[2]}
-            // src={"https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"}
+            src={thisBook?.imageUrls[2]}
             alt="Image Description"
           />
         </div>
@@ -74,14 +81,14 @@ export default function BookDetail() {
             {/* <!-- Title --> */}
             <div className="space-y-2 md:space-y-4">
               <h2 className="font-bold text-3xl lg:text-4xl text-gray-800 dark:text-neutral-200">
-                {thisBook.title}
+                {thisBook?.title}
               </h2>
               <span className="text-sm sm:text-base text-gray-500 dark:text-neutral-500">
-                {thisBook.author}
+                {thisBook?.author}
               </span>
 
               <p className="text-gray-500 dark:text-neutral-500">
-                {thisBook.description}
+                {thisBook?.description}
               </p>
             </div>
             {/* <!-- End Title --> */}
@@ -90,7 +97,6 @@ export default function BookDetail() {
             <ul className="flex flex-row gap-5  ">
               <li className="flex space-x-3">
                 {/* <!-- Input Number --> */}
-                {/* <Count item={item} /> */}
                 <div
                   className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700"
                   data-hs-input-number=""

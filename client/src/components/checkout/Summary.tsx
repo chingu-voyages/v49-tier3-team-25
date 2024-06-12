@@ -2,7 +2,7 @@ import { useAppSelector } from "../../redux/hooks";
 
 export default function Summary() {
   const cart = useAppSelector((state) => state.cart.value);
-
+  // console.log(cart);
   const subtotal = cart?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity * 25);
   }, 0);
@@ -34,7 +34,10 @@ export default function Summary() {
             <div className="hidden sm:block border-b border-gray-200 dark:border-neutral-700"></div>
 
             {cart.map((item) => (
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+              <div
+                className="grid grid-cols-3 sm:grid-cols-5 gap-2"
+                key={item._id}
+              >
                 <div className="col-span-full sm:col-span-2">
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                     Item
