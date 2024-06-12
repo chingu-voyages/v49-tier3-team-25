@@ -90,10 +90,10 @@ If you encounter any issues or have suggestions for improvements, please don't h
 
 <h2 id="pages">V. Acknowledgments</h2>
 
-Book info and covers from Open Library Acknowledgement:
+Book info and covers from Open Library:
 - [Open Library](https://openlibrary.org/dev/docs/api/covers)
    
-  Figma Community Files Acknowledgements:
+Figma Community Files:
 - [MD Rimel](https://www.figma.com/community/file/1219312065205187851)
 - [Templatecookie](https://www.figma.com/community/file/1271751279140741643/clicon-ecommerce-marketplace-website-figma-template-community?searchSessionId=lw5puqu4-tt7lc69ffa)
 - [Shristi Singh](https://www.figma.com/community/file/1307034280604606485/admin-dashboard-e-commerce-design)
