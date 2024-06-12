@@ -90,7 +90,8 @@ If you encounter any issues or have suggestions for improvements, please don't h
 
 <h2 id="pages">V. Acknowledgments</h2>
 
-- [Book info and covers from Open Library Acknowledgement](https://openlibrary.org/dev/docs/api/covers)
+Book info and covers from Open Library Acknowledgement:
+- [Open Library](https://openlibrary.org/dev/docs/api/covers)
    
   Figma Community Files Acknowledgements:
 - [MD Rimel](https://www.figma.com/community/file/1219312065205187851)
