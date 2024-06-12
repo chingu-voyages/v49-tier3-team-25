@@ -1,6 +1,6 @@
 <h1 id="readme-top">Book Corner</h1>
 
-<p class="header">Book Corner is an online bookstore where you view books, add/remove books to your wishlist, and add/remove books to your cart.</p>
+<p class="header">Book Corner is an online bookstore where you sign up, sign in, view books, add/remove books to your wishlist, and add/remove books to your cart.</p>
 
 </br>
 
@@ -24,12 +24,12 @@
 
 - **User Registration**: Sign up page.
 - **User Authentication**: Allow existing users to log in using their credentials.
-- **User Profile**: Users can view profile information, including name, email, and address.
+- **User Profile**: Users can view profile information, such as name and email.
 - **Wishlist page**: User can add and delete products from wishlist.
 
 ### Book Management
 
-- **Book Listing**: Display a list of books available in the bookstore on the shop page.
+- **Book Listing**: Displays a list of books available in the bookstore on the shop page.
 - **Filter**: Users can dynamically filter their search results by title or author.
 - **Sort**: Users can sort books by title or author alphabetically.
 - **Book Details**: Users can view detailed information about each book, such as title, author, price, description, and image.
