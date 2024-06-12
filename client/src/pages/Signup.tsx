@@ -10,6 +10,7 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
 
   const successToast = (text: string) => toast.success(text);
 
@@ -19,6 +20,7 @@ export const Signup = () => {
   const onSubmitSignup = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setPending(true);
     const data = { fullName: name, email, password };
 
     try {
@@ -35,14 +37,19 @@ export const Signup = () => {
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
-        console.log(error.status);
-        console.error(error.response);
-        if (error.response) {
+        if (error.response && error?.response.data.message) {
+          setError(error?.response.data.message);
+          setPending(false);
+        } else if (error.response && error?.response.data.error) {
           setError(error?.response.data.error);
+          setPending(false);
         }
       } else {
         console.error(error);
+        setPending(false);
       }
+    } finally {
+      setPending(false);
     }
   };
 
@@ -86,16 +93,14 @@ export const Signup = () => {
             </div>
 
             {error && (
-              <p className="text-red-500 text-sm">
-                Data is invalid, please try again.
-              </p>
+              <p className="text-red-500 text-sm">{error}. Please try again.</p>
             )}
 
             <button
               type="submit"
               className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
             >
-              Create Account
+              {pending ? "Creating Account..." : "Create Account"}
             </button>
             <div className="flex">
               <div>Have an account?</div>
