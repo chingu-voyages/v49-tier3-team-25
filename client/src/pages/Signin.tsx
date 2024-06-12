@@ -10,6 +10,7 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Signin = () => {
   const onSubmitSignin = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setPending(true);
 
     const data = { email, password };
     try {
@@ -32,10 +34,14 @@ const Signin = () => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           setError(error?.response.data.message);
+          setPending(false);
         }
       } else {
         console.error(error);
+        setPending(false);
       }
+    } finally {
+      setPending(false);
     }
   };
 
@@ -78,7 +84,7 @@ const Signin = () => {
                 type="submit"
                 className="w-full mt-3 bg-accent hover:bg-accentDarker text-white py-4 rounded-md"
               >
-                Log In
+                {pending ? "Logging in..." : "Log In"}
               </button>
               {/* <a href="#" className="text-accent text-lg">
                 Forget Password?
