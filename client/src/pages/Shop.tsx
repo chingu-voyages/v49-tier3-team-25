@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SearchSortFilter from "../components/shop/SearchSortFilter";
 import BookCard from "../components/shared/BookCard";
-import usePagination from "../hooks/usePagination";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { Book } from "../lib/types";
