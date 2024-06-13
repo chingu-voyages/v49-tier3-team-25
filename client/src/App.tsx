@@ -26,7 +26,6 @@ import Checkout from "./pages/Checkout";
 import { ReduxProvider } from "./redux/provider";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import AdminSignin from "./pages/admin/AdminSignin";
-import AdminSignup from "./pages/admin/AdminSignup";
 import { AdminRegister } from "./pages/admin/AdminRegister";
 
 function App() {

@@ -2,7 +2,6 @@ import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import { setAdminCredentials } from "../../redux/features/adminAuth/adminAuthSlice";
 import { useAppDispatch } from "../../redux/hooks";
 

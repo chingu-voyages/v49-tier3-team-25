@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
-import logoIcon from "/dashboard/logo.svg";
-// https://www.preline.co/docs/frameworks-react.html
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import "preline/preline";
 import { IStaticMethods } from "preline/preline";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -21,10 +18,11 @@ declare global {
 
 const Header = () => {
   const adminUser = useAppSelector((state: RootState) => state.adminAuth.value);
-  const location = useLocation();
   console.log(adminUser);
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     // check if user token in local storage
     const user = JSON.parse(localStorage.getItem("adminUser") || '""');
@@ -172,24 +170,6 @@ const Header = () => {
                       {adminUser.email}
                     </p>
                   </div>
-                  {/* <a
-                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-                    href="#"
-                  >
-                    Newsletter
-                  </a>
-                  <a
-                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-                    href="#"
-                  >
-                    Purchases
-                  </a>
-                  <a
-                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-                    href="#"
-                  >
-                    Downloads
-                  </a> */}
                   <div className="mt-2 py-2 first:pt-0 last:pb-0">
                     <button
                       className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
@@ -209,6 +189,3 @@ const Header = () => {
 };
 
 export default Header;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
