@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Pagination from "../../../components/Pagination";
+import Pagination from "../../../components/shared/Pagination";
 import usePagination from "../../../hooks/usePagination";
 import { Link } from "react-router-dom";
 
@@ -81,6 +81,30 @@ export default function Table() {
     );
   };
 
+  const sortTitleAZ = () => {
+    setFilteredData((prev) =>
+      [...prev].sort((a, b) => a.title.localeCompare(b.title))
+    );
+  };
+
+  const sortTitleZA = () => {
+    setFilteredData((prev) =>
+      [...prev].sort((a, b) => b.title.localeCompare(a.title))
+    );
+  };
+
+  const sortAuthorAZ = () => {
+    setFilteredData((prev) =>
+      [...prev].sort((a, b) => a.author.localeCompare(b.author))
+    );
+  };
+
+  const sortAuthorZA = () => {
+    setFilteredData((prev) =>
+      [...prev].sort((a, b) => b.author.localeCompare(a.author))
+    );
+  };
+
   const deleteCustomer = () => {
     // delete logic
   };
@@ -132,6 +156,84 @@ export default function Table() {
                   </div>
                 </div>
                 {/* <!-- End Input --> */}
+
+                {/* select and filter */}
+                <div className="flex flex-col md:flex-row gap-3">
+                  {/* select */}
+                  <div
+                    className="hs-dropdown [--placement:bottom-right] relative inline-block"
+                    data-hs-dropdown-auto-close="inside"
+                  >
+                    <button
+                      id="hs-as-table-table-filter-dropdown"
+                      type="button"
+                      className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="icon icon-tabler icons-tabler-outline icon-tabler-switch-vertical"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 8l4 -4l4 4" />
+                        <path d="M7 4l0 9" />
+                        <path d="M13 16l4 4l4 -4" />
+                        <path d="M17 10l0 10" />
+                      </svg>
+                      Sort
+                    </button>
+                    <div
+                      className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700"
+                      aria-labelledby="hs-as-table-table-filter-dropdown"
+                    >
+                      <div className="divide-y divide-gray-200 dark:divide-neutral-700 ">
+                        <label
+                          htmlFor="hs-as-filters-dropdown-all"
+                          className="flex py-2.5 px-3 hover:bg-gray-200 cursor-pointer"
+                          onClick={sortTitleAZ}
+                        >
+                          <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
+                            Title A-Z
+                          </span>
+                        </label>
+                        <label
+                          htmlFor="hs-as-filters-dropdown-published"
+                          className="flex py-2.5 px-3 hover:bg-gray-200 cursor-pointer"
+                          onClick={sortTitleZA}
+                        >
+                          <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
+                            Title Z-A
+                          </span>
+                        </label>
+                        <label
+                          htmlFor="hs-as-filters-dropdown-pending"
+                          className="flex py-2.5 px-3 hover:bg-gray-200 cursor-pointer"
+                          onClick={sortAuthorAZ}
+                        >
+                          <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
+                            Author A-Z
+                          </span>
+                        </label>
+                        <label
+                          htmlFor="hs-as-filters-dropdown-pending"
+                          className="flex py-2.5 px-3 hover:bg-gray-200 cursor-pointer"
+                          onClick={sortAuthorZA}
+                        >
+                          <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
+                            Author Z-A
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* <!-- End Header --> */}
 
@@ -233,7 +335,7 @@ export default function Table() {
                                   className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
                                   to={`/admin/customers/${customer.name}`}
                                 >
-                                  See More
+                                  Customer Details
                                 </Link>
                               </div>
                               <div className="py-2 first:pt-0 last:pb-0">

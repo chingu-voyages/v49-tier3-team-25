@@ -25,12 +25,16 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { ReduxProvider } from "./redux/provider";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import AdminSignin from "./pages/admin/AdminSignin";
+import AdminSignup from "./pages/admin/AdminSignup";
+import { AdminRegister } from "./pages/admin/AdminRegister";
 
 function App() {
   return (
     <Router>
       <ScrollToTop>
         <ReduxProvider>
+          {/* bookstore routes */}
           <Routes>
             <Route path="/" element={<Wrapper />}>
               <Route index element={<Home />} />
@@ -52,13 +56,12 @@ function App() {
                 </Route>
               </Route>
             </Route>
+            {/* admin dashboard routes */}
             <Route path="/admin" element={<Admin />}>
               <Route index element={<Dashboard />} />
-              <Route
-                index
-                path="order-management"
-                element={<OrderManagement />}
-              />
+              <Route path="signup" element={<AdminRegister />} />
+              <Route path="signin" element={<AdminSignin />} />
+              <Route index path="orders" element={<OrderManagement />} />
               <Route index path="customers" element={<Customers />} />
               <Route path="customers/:name" element={<CustomerDetail />} />
               <Route index path="products" element={<Products />} />
