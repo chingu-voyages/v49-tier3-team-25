@@ -23,6 +23,18 @@ const Admin = () => {
   }, [location.pathname]);
   console.log(location.pathname);
 
+  useEffect(() => {
+    const getAllBooks = async () => {
+      try {
+        const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
+        const booksToSet = res.data.data.slice(4, res.data.data.length + 1);
+        dispatch(setAllBooks(booksToSet));
+      } catch (err) {
+        console.log(err);
+        // setError("Sorry, books cannot be viewed at this time.");
+      }
+    };
+
   return (
     <div className="bg-stone-100">
       {!location.pathname.includes("sign") && (
