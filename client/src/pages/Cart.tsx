@@ -8,9 +8,9 @@ export default function Cart() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.value);
   const cart = useAppSelector((state) => state.cart.value);
-  // console.log(cart);
+  console.log(cart);
   const subtotal = cart?.reduce((acc, curr) => {
-    return (acc = acc + curr.quantity * 25);
+    return (acc = acc + curr.quantity * curr.book.salePrice);
   }, 0);
 
   const remove = async (id: string) => {
@@ -89,8 +89,7 @@ export default function Cart() {
                       Price
                     </h5>
                     <p className="text-gray-800 dark:text-neutral-200">
-                      {/* ${item.price} */}
-                      $25
+                      ${item?.book?.salePrice}
                     </p>
                   </div>
                   <div>
@@ -106,7 +105,7 @@ export default function Cart() {
                       Subtotal
                     </h5>
                     <p className="sm:text-end text-gray-800 dark:text-neutral-200">
-                      ${item.quantity * 25}
+                      ${item?.quantity * item?.book?.salePrice}
                     </p>
                   </div>
                 </div>
