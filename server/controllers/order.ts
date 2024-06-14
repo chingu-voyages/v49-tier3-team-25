@@ -86,7 +86,6 @@ export const changeStatus = catchAsync(async (req, res) => {
 
     const response = { 
         message: 'Change status order successful.',
-        data: foundOrder,
     };
 
     res.status(httpStatus.OK).send(response);
