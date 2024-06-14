@@ -11,10 +11,13 @@ export const booksSlice = createSlice({
     setAllBooks: (state, action) => {
       state.value = action.payload;
     },
+    addBookToBooks: (state, action) => {
+      state.value.push(action.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAllBooks } = booksSlice.actions;
+export const { setAllBooks, addBookToBooks } = booksSlice.actions;
 
 export default booksSlice.reducer;

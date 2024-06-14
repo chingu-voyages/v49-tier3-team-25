@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "../../../components/shared/Pagination";
 import usePagination from "../../../hooks/usePagination";
 import { Link } from "react-router-dom";
@@ -6,39 +6,27 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
 import { setAllBooks } from "../../../redux/features/books/booksSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { Book } from "../../../lib/types";
 
 export default function Table() {
-  const allBooks = useAppSelector((state: RootState) => state.books.value);
-  console.log(allBooks);
+  const allBooks: Book[] = useAppSelector(
+    (state: RootState) => state.books.value
+  );
+  const adminUser = useAppSelector((state: RootState) => state.adminAuth.value);
+  const dispatch = useAppDispatch();
+  const successToast = (text: string) => toast.success(text);
+
+  const [error, setError] = useState("");
   const [filteredData, setFilteredData] = useState(allBooks);
   const { currentItems, pageCount, handlePageClick } = usePagination(
     filteredData,
     5
   );
 
-  const dispatch = useAppDispatch();
-  const [error, setError] = useState("");
-
-  // useEffect(() => {
-  //   const getAllBooks = async () => {
-  //     try {
-  //       const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
-  //       const booksToSet = res.data.data.slice(4, res.data.data.length + 1);
-  //       dispatch(setAllBooks(booksToSet));
-  //     } catch (err) {
-  //       console.log(err);
-  //       setError("Sorry, books cannot be viewed at this time.");
-  //     }
-  //   };
-
-    if (allBooks.length === 0) {
-      getAllBooks();
-    }
-  }, []);
-
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredData(
-      mockData.filter(
+      allBooks.filter(
         (product) =>
           product.title.toLowerCase().includes(e.target.value) ||
           product.author.toLowerCase().includes(e.target.value)
@@ -70,8 +58,20 @@ export default function Table() {
     );
   };
 
-  const deleteProduct = () => {
-    // delete logic
+  const deleteProduct = async (id: string) => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/books/${id}`, {
+        headers: {
+          Authorization: `Bearer ${adminUser?.token}`,
+        },
+      });
+      const updatedBooks = allBooks.filter((item) => item._id !== id);
+      dispatch(setAllBooks(updatedBooks));
+      setFilteredData(updatedBooks);
+      successToast("Book has been deleted!");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -244,7 +244,7 @@ export default function Table() {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                      {currentItems.map((product) => (
+                      {currentItems.map((product: Book) => (
                         <tr className="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                           {/* title */}
                           <td className="size-px whitespace-nowrap align-top">
@@ -296,7 +296,7 @@ export default function Table() {
                                     </span>
                                     <Link
                                       className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
-                                      to={`/admin/products/${product.title}`}
+                                      to={`/admin/products/${product._id}`}
                                     >
                                       Product Details
                                     </Link>
@@ -304,7 +304,7 @@ export default function Table() {
                                   <div className="py-2 first:pt-0 last:pb-0">
                                     <button
                                       className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-red-500 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
-                                      onClick={deleteProduct}
+                                      onClick={() => deleteProduct(product._id)}
                                     >
                                       Delete
                                     </button>

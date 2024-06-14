@@ -52,7 +52,7 @@ export default function Breadcrumb({
   capitalizeLinks,
 }: TBreadCrumbProps) {
   const paths = useLocation();
-  const pathNames = paths.pathname.split("/").filter((path: string) => path);
+  let pathNames = paths.pathname.split("/").filter((path: string) => path);
 
   return (
     <div className="">
