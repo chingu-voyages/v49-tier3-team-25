@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 const orderActivityData = [
   {
     icon: (
@@ -129,31 +129,14 @@ const orderActivityData = [
   },
 ];
 
-const productData = [
-  {
-    bookTitle: "book 1 title",
-    quantity: 1,
-    price: 25,
-  },
-  {
-    bookTitle: "book 2 title",
-    quantity: 2,
-    price: 10,
-  },
-  {
-    bookTitle: "book 3 title",
-    quantity: 4,
-    price: 20,
-  },
-];
-
 const total = productData.reduce((acc, curr) => {
   return (acc = acc + curr.quantity * curr.price);
 }, 0);
 
 export default function OrderDetail() {
   const { id } = useParams();
-
+  const location = useLocation();
+  const thisOrder = location.state.state;
   return (
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
       {/* invoice number and total */}
@@ -161,11 +144,14 @@ export default function OrderDetail() {
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 ">#{id}</h2>
           <span className="text-xs text-gray-500 ">
-            4 Products &#8226; Ordered on January 1 24 at 7:00 AM
+            {thisOrder.items.length} Products &#8226; Ordered on{" "}
+            {thisOrder.orderDate.slice(0, 10)}
           </span>
         </div>
         <div className="inline-flex gap-x-2">
-          <h2 className="text-3xl font-semibold text-accent ">${total}</h2>
+          <h2 className="text-3xl font-semibold text-accent ">
+            ${thisOrder.total}
+          </h2>
         </div>
       </div>
 
@@ -215,7 +201,7 @@ export default function OrderDetail() {
 
         <div className="hidden sm:block border-b border-gray-200 "></div>
 
-        {productData.map((product) => (
+        {thisOrder.items.map((product) => (
           <div
             key={product.bookTitle}
             className="grid grid-cols-3 sm:grid-cols-5 gap-2"
@@ -224,7 +210,7 @@ export default function OrderDetail() {
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
                 Item
               </h5>
-              <p className="font-medium text-gray-800 ">{product.bookTitle}</p>
+              <p className="font-medium text-gray-800 ">{product.book.title}</p>
             </div>
             <div>
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
@@ -236,14 +222,14 @@ export default function OrderDetail() {
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
                 Rate
               </h5>
-              <p className="text-gray-800 ">${product.price}</p>
+              <p className="text-gray-800 ">${product.book.salePrice}</p>
             </div>
             <div>
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
                 Amount
               </h5>
               <p className="sm:text-end text-gray-800 ">
-                ${product.price * product.quantity}
+                ${product.book.salePrice * product.quantity}
               </p>
             </div>
           </div>
@@ -284,13 +270,17 @@ export default function OrderDetail() {
                 Billing details:
               </dt>
               <dd className="font-medium text-gray-800 ">
-                <span className="block font-semibold">Sara Williams</span>
+                <span className="block font-semibold">
+                  {thisOrder.recipientProfile.firstName}{" "}
+                  {thisOrder.recipientProfile.lastName}
+                </span>
                 <address className="not-italic font-normal">
-                  280 Suzanne Throughway,
+                  {thisOrder.recipientAddress.city}
                   <br />
-                  Breannabury, OR 45801,
+                  {thisOrder.recipientAddress.street}
                   <br />
-                  United States
+                  {thisOrder.recipientAddress.state}{" "}
+                  {thisOrder.recipientAddress.zipcode}
                   <br />
                 </address>
               </dd>
@@ -301,13 +291,17 @@ export default function OrderDetail() {
                 Shipping details:
               </dt>
               <dd className="font-medium text-gray-800 ">
-                <span className="block font-semibold">Sara Williams</span>
+                <span className="block font-semibold">
+                  {thisOrder.recipientProfile.firstName}{" "}
+                  {thisOrder.recipientProfile.lastName}
+                </span>
                 <address className="not-italic font-normal">
-                  280 Suzanne Throughway,
+                  {thisOrder.recipientAddress.city}
                   <br />
-                  Breannabury, OR 45801,
+                  {thisOrder.recipientAddress.street}
                   <br />
-                  United States
+                  {thisOrder.recipientAddress.state}{" "}
+                  {thisOrder.recipientAddress.zipcode}
                   <br />
                 </address>
               </dd>

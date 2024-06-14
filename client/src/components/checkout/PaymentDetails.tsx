@@ -1,7 +1,54 @@
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 import ConfirmationModal from "./ConfirmationModal";
 import { Link } from "react-router-dom";
+import { setCart } from "../../redux/features/cart/cartSlice";
+import { addOrderToOrders } from "../../redux/features/orders/ordersSlice";
 
 export default function PaymentDetails() {
+  const user = useAppSelector((state: RootState) => state.auth.value);
+  const dispatch = useAppDispatch();
+  const firstName = user.fullName.split(" ")[0];
+  const lastName = user.fullName.split(" ")[1];
+
+  const handlePayment = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/orders/checkout`,
+        {
+          recipientProfile: {
+            firstName: firstName,
+            lastName: lastName,
+            email: user.email,
+            phone: "1234567",
+          },
+          recipientAddress: {
+            street: "street",
+            city: "city",
+            state: "state",
+            zipCode: "zip",
+          },
+          paymentMethod: {
+            type: "DEBIT_CARD",
+            bankName: "bank",
+            cardHolderName: `${firstName} ${lastName}`,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log(res);
+      dispatch(setCart([]));
+      dispatch(addOrderToOrders(res.data.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     // <!-- Card Section -->
     <div className="max-w-2xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -142,7 +189,7 @@ export default function PaymentDetails() {
             Go back
           </Link>
 
-          <ConfirmationModal />
+          <ConfirmationModal handlePayment={handlePayment} />
         </div>
       </div>
       {/* <!-- End Card --> */}
