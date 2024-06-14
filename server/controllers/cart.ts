@@ -14,10 +14,9 @@ export const getCartDetail = async (userId: string) => {
         .filter(cart => cart.item)
         .map((cart) => {   
             const item = cart.toObject().item as any; 
-            // Assume the price and discount are for the hardcover variant
-            const { price, discount } = item.formats[1]
+            const { salePrice, discount } = item
 
-            const discountedPrice = price - (price * discount);
+            const discountedPrice = salePrice - (salePrice * discount);
             const subtotal = discountedPrice * cart.quantity;
             total += subtotal; 
             
