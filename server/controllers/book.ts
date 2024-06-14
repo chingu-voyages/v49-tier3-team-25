@@ -1,132 +1,112 @@
-import { format } from "path";
+import httpStatus from "http-status";
 import { Book } from "../models/book";
-import { Request, Response, NextFunction } from "express";
-import { catchAsync } from "../utils";
+import { ApiError, catchAsync } from "../utils";
+import { validateObjectId } from "../helpers";
 
-export const createBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const title = req.body.title;
-    const author = req.body.author;
-    const description = req.body.description;
-    const imageUrls = req.body.imageUrls;
-    const isbn = req.body.isbn;
-    const publisher = req.body.publisher;
-    const published_date = req.body.published_date;
-    const language = req.body.language;
-    const pages = req.body.pages;
-    const genres = req.body.genres;
-    const tags = req.body.tags;
-    const formats = req.body.formats;
+export const createBook = catchAsync(async (req, res) => {
+    const { 
+        title, 
+        author, 
+        description, 
+        imageUrls, 
+        genres, 
+        sku, 
+        stockQuantity, 
+        costPrice, 
+        salePrice, 
+        discount, 
+        tags } = req.body
     const decodedAdmin = (req as any).decoded;
 
     const book = new Book({
-        title: title,
-        author: author,
-        description: description,
-        imageUrls: imageUrls,
-        isbn: isbn,
-        publisher: publisher,
-        published_date: published_date,
-        language: language,
-        pages: pages,
-        genres: genres,
-        tags: tags,
-        formats: formats,
+        title,
+        author,
+        description,
+        imageUrls,
+        genres,
+        sku,
+        stockQuantity,
+        costPrice,
+        salePrice,
+        discount,
+        tags,
         createdBy: decodedAdmin._id,
     });
 
-    const result = await book.save();
+    await book.save();
+
+    const result = await Book.findById(book._id).select('-createdBy'); 
+
     const response = {
-        message: "Book created successfully.",
-        result: result
+        message: "Create book successfully.",
+        result
     };
 
-    res.status(201).send(response);
+    res.status(httpStatus.OK).send(response);
 });
 
-export const getBooks = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const getBooks = catchAsync(async (req, res) => {
+    const books = await Book.find().select('-createdBy');
 
-    const books = await Book.find({});
     const response = {
-        message: "This is the list of all the books",
+        message: "Get all books successful.",
         data: books
     };
 
-    res.status(200).send(response);
-
+    res.status(httpStatus.OK).send(response);
 });
 
-
-export const getBookById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
-    const bookId = req.params.bookId;
-
-    const book = await Book.findById(bookId);
+export const getBookById = catchAsync(async (req, res) => {
+    const bookId = validateObjectId(req.params.bookId);
+    
+    const book = await Book.findById(bookId, '-createdBy');
+    if (!book) throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
 
     const response = {
-        message: "Get Book Data Successfull",
+        message: "Get book successfull",
         data: book
     }
 
-    res.status(200).send(response);
-
+    res.status(httpStatus.OK).send(response);
 });
 
-export const deleteBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const deleteBook = catchAsync(async (req, res) => {
+    const bookId = validateObjectId(req.params.bookId);
 
-    const bookId = req.params.bookId;
-
-    const deleted = await Book.deleteOne({ _id: bookId });
+    const book = await Book.findByIdAndDelete(bookId);
+    if (!book) throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
 
     const response = {
-        message: 'Deletion is Successfull',
-        data: deleted
+        message: 'Delete book successfull',
     }
 
-    res.status(200).send(response);
-
+    res.status(httpStatus.OK).send(response);
 });
 
-export const updateBook = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const bookId = req.params.bookId;
-    const decodedAdmin = (req as any).decoded;
-
+export const updateBook = catchAsync(async (req, res) => {
+    const bookId = validateObjectId(req.params.bookId);
+    
     const updatedBook = {
         title: req.body.title,
         author: req.body.author,
         description: req.body.description,
         imageUrls: req.body.imageUrls,
-        isbn: req.body.isbn,
-        publisher: req.body.publisher,
-        published_date: req.body.published_date,
-        language: req.body.language,
-        pages: req.body.pages,
         genres: req.body.genres,
+        sku: req.body.sku,
+        stockQuantity: req.body.stockQuantity,
+        costPrice: req.body.costPrice,
+        salePrice: req.body.salePrice,
+        discount: req.body.discount,
         tags: req.body.tags,
-        formats: req.body.formats,
-        createdBy: decodedAdmin._id,
     }
+    
+    const newBook = await Book.findByIdAndUpdate(bookId, { $set: updatedBook }, { new: true, select: '-createdBy' });
+    if (!newBook) throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
 
-    try{
-
-        const newBook = await Book.findByIdAndUpdate(bookId, { $set: updatedBook }, { new: true });
-    
-        // console.log(newBook);
-        if(!newBook){
-            return res.status(404).send({ message: "Book not found" });
-        }
-    
-        const response = {
-            message: "Book successfully updated",
-            data: newBook
-        }
-    
-        res.status(200).send(response);
+    const response = {
+        message: "Update book successful.",
+        data: newBook,
     }
-    catch(error){
-        console.log("errors here",error);
-        res.status(500).send({message:"An error occurred while updating the book"});
-
-    }
-
-
+    
+    res.status(httpStatus.OK).send(response);
 });
