@@ -21,7 +21,6 @@ export interface Book {
   tags: string[];
   formats: Format[];
   _id: string;
-  salePrice: number;
   sku: string;
   stockQuantity: number;
   costPrice: number;
