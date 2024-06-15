@@ -18,6 +18,8 @@ declare global {
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
+import { setAllBooks } from "../../redux/features/books/booksSlice";
+import axios from "axios";
 
 const Admin = () => {
   const user = useAppSelector((state: RootState) => state.adminAuth.value);
@@ -34,6 +36,21 @@ const Admin = () => {
     } else if (!user) {
       navigate("/admin/signin");
     }
+  }, []);
+
+  useEffect(() => {
+    const getAllBooks = async () => {
+      try {
+        const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
+        // const booksToSet = res.data.data.slice(4, res.data.data.length + 1);
+        dispatch(setAllBooks(res.data.data));
+      } catch (err) {
+        console.log(err);
+        // setError("Sorry, books cannot be viewed at this time.");
+      }
+    };
+
+    getAllBooks();
   }, []);
 
   return (
