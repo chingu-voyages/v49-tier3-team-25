@@ -8,8 +8,10 @@ import { catchAsync } from "../utils";
 export const getHomeDetails = catchAsync(async (req, res) => {
     const authHeader = req.headers.authorization || '';
     const token = authHeader.slice(7);
-    const decodedUser = token ? verifyToken(token) as any : null;
 
+    let decodedUser: any = null;
+    try { decodedUser = token ? verifyToken(token) as any : null; } catch (error) {}
+    
     const foundUser = await User.findById(decodedUser?._id).populate('wishlists carts');
 
     const wishlistCount = foundUser ? foundUser.wishlists.length: 0;
@@ -35,6 +37,7 @@ export const getHomeDetails = catchAsync(async (req, res) => {
     const response = { 
         message: 'Get home details.',
         data: {
+            isAuthenticated: !!decodedUser,
             badge: {
                 wishlists: wishlistCount,
                 carts: cartCount,
