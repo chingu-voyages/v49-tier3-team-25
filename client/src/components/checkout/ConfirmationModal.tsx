@@ -1,37 +1,11 @@
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setCart } from "../../redux/features/cart/cartSlice";
-import axios from "axios";
 
-export default function ConfirmationModal() {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.value);
-  const cart = useAppSelector((state) => state.cart.value);
-
-  const remove = async (id: string) => {
-    try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/carts/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      });
-
-      dispatch(setCart([]));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const clearCart = () => {
-    cart.forEach((item) => {
-      remove(item.book._id);
-    });
-  };
-
+export default function ConfirmationModal({ handlePayment }) {
   return (
     <>
       <div className="text-center">
         <button
+          onClick={handlePayment}
           type="submit"
           className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
           data-hs-overlay="#hs-subscription-with-image"
@@ -89,7 +63,6 @@ export default function ConfirmationModal() {
 
               <div className="mt-6 flex justify-center gap-x-4">
                 <Link
-                  onClick={clearCart}
                   to={"/"}
                   className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
                   data-hs-overlay="#hs-subscription-with-image"

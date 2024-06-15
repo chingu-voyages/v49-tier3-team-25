@@ -3,6 +3,7 @@ import booksReducer from "./features/books/booksSlice";
 import authReducer from "./features/auth/authSlice";
 import wishlistReducer from "./features/wishlist/wishlistSlice";
 import cartReducer from "./features/cart/cartSlice";
+import orderReducer from "./features/orders/ordersSlice";
 import adminAuthReducer from "./features/adminAuth/adminAuthSlice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authReducer,
     wishlist: wishlistReducer,
     cart: cartReducer,
+    orders: orderReducer,
     adminAuth: adminAuthReducer,
   },
 });
