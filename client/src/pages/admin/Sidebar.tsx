@@ -137,7 +137,7 @@ const Sidebar = () => {
                 Order Management
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 className={({ isActive }) =>
                   `w-full flex items-center gap-x-3.5 py-2 px-2.5 ${
@@ -150,7 +150,7 @@ const Sidebar = () => {
                 <img src={customerIcon} alt="" width={20} height={20} />
                 Customers
               </NavLink>
-            </li>
+            </li> */}
 
             <small className="py-3">Products</small>
 
