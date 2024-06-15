@@ -2,11 +2,10 @@ import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { setAdminCredentials } from "../../redux/features/adminAuth/adminAuthSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
-import { setCredentials } from "../redux/features/auth/authSlice";
-import { useAppDispatch } from "../redux/hooks";
-
-const Signin = () => {
+const AdminSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,12 +22,12 @@ const Signin = () => {
     const data = { email, password };
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/users/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/admins/login`,
         data
       );
-      localStorage.setItem("user", JSON.stringify(res.data.data));
-      dispatch(setCredentials(res.data.data));
-      navigate("/");
+      localStorage.setItem("adminUser", JSON.stringify(res.data.data));
+      dispatch(setAdminCredentials(res.data.data));
+      navigate("/admin");
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
@@ -47,7 +46,7 @@ const Signin = () => {
 
   return (
     <>
-      <div className="flex w-screen">
+      <div className="flex w-screen py-10">
         <div className="w-full ">
           <img src="/book.jpeg" className="rounded-r-2xl h-[700px]" />
         </div>
@@ -57,7 +56,7 @@ const Signin = () => {
             onSubmit={onSubmitSignin}
           >
             <div>
-              <h1 className="text-3xl">Login to Book Brand</h1>
+              <h1 className="text-3xl">Login to Dashboard</h1>
               <h3 className="text-md">Enter your details below</h3>
             </div>
             <input
@@ -93,7 +92,7 @@ const Signin = () => {
             <div className="flex">
               <div>Don't have an account?</div>
               <Link
-                to="/signup"
+                to="/admin/signup"
                 className="ml-3 font-bold underline underline-offset-4"
               >
                 Sign up
@@ -106,4 +105,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default AdminSignin;

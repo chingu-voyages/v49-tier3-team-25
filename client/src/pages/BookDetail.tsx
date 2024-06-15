@@ -87,6 +87,10 @@ export default function BookDetail() {
                 {thisBook?.author}
               </span>
 
+              <p className="font-bold text-lg text-gray-600 dark:text-neutral-500">
+                ${thisBook?.salePrice}
+              </p>
+
               <p className="text-gray-500 dark:text-neutral-500">
                 {thisBook?.description}
               </p>

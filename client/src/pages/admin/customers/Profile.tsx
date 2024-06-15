@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { useAppSelector } from "../../redux/hooks";
-import { RootState } from "../../redux/store";
+import { useParams } from "react-router-dom";
+
+const dummyUser = {
+  firstName: "John",
+  lastName: "Smith",
+  email: "john@gmail.com",
+  address: "123 sreet city 123",
+};
 
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
-  const user = useAppSelector((state: RootState) => state.auth.value);
-  const firstName = user.fullName.split(" ")[0];
-  const lastName = user.fullName.split(" ")[1];
-
   const [form, setForm] = useState({
-    firstName,
-    lastName,
-    email: user.email,
-    newPassword: "",
-    confirmPassword: "",
+    ...dummyUser,
   });
+
+  const { name } = useParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -27,11 +27,7 @@ export default function Profile() {
   const handleCancel = () => {
     setIsEditMode(false);
     setForm({
-      firstName,
-      lastName,
-      email: user.email,
-      newPassword: "",
-      confirmPassword: "",
+      ...dummyUser,
     });
   };
 
@@ -43,15 +39,15 @@ export default function Profile() {
 
   return (
     <div className="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto">
-      <div className="">
-        <h2 className="text-xl font-bold text-accent">
-          {isEditMode ? "Edit Your Profile" : "My Profile"}
-        </h2>
-        <p className="text-sm text-gray-600">
-          Manage your name, password and account settings.
-        </p>
-      </div>
-      <div className="bg-white rounded-xl shadow p-4 sm:p-7 ">
+      <div className="bg-white rounded-xl shadow p-4 sm:p-7 mt-5">
+        <div className="mb-5">
+          <h2 className="text-xl font-bold text-accent">
+            {isEditMode ? `Edit ${name}'s Profile` : `${name}'s Profile`}
+          </h2>
+          <p className="text-sm text-gray-600">
+            Manage customer's account settings.
+          </p>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="grid sm:grid-cols-12 gap-2 sm:gap-6">
             {/* name */}
@@ -111,96 +107,29 @@ export default function Profile() {
                 onChange={handleChange}
               />
             </div>
+          </div>
 
-            {/* password */}
-            {!isEditMode && (
-              <>
-                {" "}
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="account-password"
-                    className="inline-block text-sm text-gray-800 mt-2.5 "
-                  >
-                    Password
-                  </label>
-                </div>
-                <div className="sm:col-span-9">
-                  <div className="space-y-2">
-                    <input
-                      id="account-password"
-                      type="text"
-                      className={`${
-                        isEditMode ? "" : "text-gray-400"
-                      } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-accent focus:ring-accent first-line:disabled:opacity-50 disabled:pointer-events-none `}
-                      placeholder="*********"
-                      readOnly={!isEditMode}
-                      name="password"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* new password */}
-            {isEditMode && (
-              <>
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="account-password"
-                    className="inline-block text-sm text-gray-800 mt-2.5 "
-                  >
-                    New Password
-                  </label>
-                </div>
-                <div className="sm:col-span-9">
-                  <div className="space-y-2">
-                    <input
-                      id="account-password"
-                      type="text"
-                      className={`${
-                        isEditMode ? "" : "text-gray-400"
-                      } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-accent focus:ring-accentdisabled:opacity-50 disabled:pointer-events-none `}
-                      value={form.newPassword}
-                      readOnly={!isEditMode}
-                      name="newPassword"
-                      onChange={handleChange}
-                      hidden
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* confirm password */}
-            {isEditMode && (
-              <>
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="account-password"
-                    className="inline-block text-sm text-gray-800 mt-2.5 "
-                  >
-                    Confirm Password
-                  </label>
-                </div>
-                <div className="sm:col-span-9">
-                  <div className="space-y-2">
-                    <input
-                      id="af-account-password"
-                      type="text"
-                      className={`${
-                        isEditMode ? "" : "text-gray-400"
-                      } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-accent focus:ring-accentdisabled:opacity-50 disabled:pointer-events-none `}
-                      value={form.confirmPassword}
-                      readOnly={!isEditMode}
-                      name="confirmPassword"
-                      onChange={handleChange}
-                      hidden
-                    />
-                  </div>
-                </div>
-              </>
-            )}
+          {/* address */}
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="address"
+              className="inline-block text-sm text-gray-800 mt-2.5"
+            >
+              Address
+            </label>
+          </div>
+          <div className="sm:col-span-9">
+            <input
+              id="address"
+              type="text"
+              className={`${
+                isEditMode ? "" : "text-gray-400"
+              } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-accent focus:ring-accent disabled:opacity-50 disabled:pointer-events-none`}
+              value={form.address}
+              readOnly={!isEditMode}
+              name="address"
+              onChange={handleChange}
+            />
           </div>
 
           <div className="mt-5 flex justify-end gap-x-2">
@@ -224,6 +153,4 @@ export default function Profile() {
       </div>
     </div>
   );
-}
-{
 }

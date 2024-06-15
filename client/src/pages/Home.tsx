@@ -32,8 +32,8 @@ export default function Home() {
     const getAllBooks = async () => {
       try {
         const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/books`);
-        const booksToSet = res.data.data.slice(4, res.data.data.length + 1);
-        dispatch(setAllBooks(booksToSet));
+        // const booksToSet = res.data.data.slice(3, res.data.data.length + 1);
+        dispatch(setAllBooks(res.data.data));
       } catch (err) {
         console.log(err);
         setError("Sorry, books cannot be viewed at this time.");
