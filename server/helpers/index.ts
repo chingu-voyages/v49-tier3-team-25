@@ -34,3 +34,26 @@ export const validateObjectId = (id: string) => {
     if (!mongoose.Types.ObjectId.isValid(id)) throw new ApiError(httpStatus.BAD_REQUEST, "Invalid ID format");
     return id;
 }
+
+enum OrderStatus {
+    PENDING = 'PENDING',
+    CONFIRMED = 'CONFIRMED',
+    PROCESSING = 'PROCESSING',
+    ON_DELIVERY = 'ON_DELIVERY',
+    DELIVERED = 'DELIVERED',
+    CANCELED = 'CANCELED',
+}
+
+export const isValidTransition = (currentStatus: OrderStatus, newStatus: OrderStatus) => {
+    const validTransitions = {
+        PENDING: ['CONFIRMED'],     
+        CONFIRMED: ['PROCESSING'], 
+        PROCESSING: ['ON_DELIVERY'],   
+        ON_DELIVERY: ['DELIVERED'],
+        DELIVERED: [''],
+        CANCELED: [''],
+    };
+
+    return validTransitions[currentStatus].includes(newStatus)
+}
+

@@ -5,10 +5,8 @@ import { User, Book } from "../models";
 import { validateObjectId } from "../helpers";
 import { ApiError, catchAsync } from "../utils";
 
-export const getMyCarts = catchAsync(async (req, res) => {
-    const decodedUser = (req as any).decoded;
-
-    const foundUser = await User.findById(decodedUser._id).populate('carts.item');
+export const getCartDetail = async (userId: string) => {
+    const foundUser = await User.findById(userId).populate('carts.item');
     if (!foundUser) throw new ApiError(httpStatus.BAD_REQUEST, 'User not found.');
     
     let total = 0;
@@ -16,10 +14,9 @@ export const getMyCarts = catchAsync(async (req, res) => {
         .filter(cart => cart.item)
         .map((cart) => {   
             const item = cart.toObject().item as any; 
-            // Assume the price and discount are for the hardcover variant
-            const { price, discount } = item.formats[1]
+            const { salePrice, discount } = item
 
-            const discountedPrice = price - (price * discount);
+            const discountedPrice = salePrice - (salePrice * discount);
             const subtotal = discountedPrice * cart.quantity;
             total += subtotal; 
             
@@ -29,6 +26,13 @@ export const getMyCarts = catchAsync(async (req, res) => {
                 subtotal 
             };
     });
+
+    return { items, total };
+}
+
+export const getMyCarts = catchAsync(async (req, res) => {
+    const decodedUser = (req as any).decoded;
+    const { items, total } = await getCartDetail(decodedUser._id);
 
     const response = { 
         message: 'Get all my carts successful.',

@@ -26,6 +26,8 @@ export interface Book {
   stockQuantity: number;
   costPrice: number;
   discount: number;
+  salePrice: number;
+  quantity: number;
 }
 
 export interface Format {
