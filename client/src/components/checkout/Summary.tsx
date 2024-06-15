@@ -36,7 +36,7 @@ export default function Summary() {
             {cart.map((item) => (
               <div
                 className="grid grid-cols-3 sm:grid-cols-5 gap-2"
-                key={item._id}
+                key={item.book._id}
               >
                 <div className="col-span-full sm:col-span-2">
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">

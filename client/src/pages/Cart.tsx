@@ -8,7 +8,7 @@ export default function Cart() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.value);
   const cart = useAppSelector((state) => state.cart.value);
-  console.log(cart);
+  // console.log(cart);
   const subtotal = cart?.reduce((acc, curr) => {
     return (acc = acc + curr.quantity * curr.book.salePrice);
   }, 0);
@@ -57,7 +57,7 @@ export default function Cart() {
               cart.map((item) => (
                 <div
                   className="grid grid-cols-3 sm:grid-cols-5 gap-2"
-                  key={item._id}
+                  key={item.book._id}
                 >
                   <div className="col-span-full sm:col-span-2">
                     <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
