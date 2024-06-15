@@ -1,7 +1,7 @@
 
 export const mock_orders = [
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -10,7 +10,7 @@ export const mock_orders = [
         status: 'Pending'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -19,7 +19,7 @@ export const mock_orders = [
         status: 'Confirmed'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -28,7 +28,7 @@ export const mock_orders = [
         status: 'Processing'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -37,7 +37,7 @@ export const mock_orders = [
         status: 'Picked'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -46,7 +46,7 @@ export const mock_orders = [
         status: 'Shipped'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -55,7 +55,7 @@ export const mock_orders = [
         status: 'Delivered'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -64,7 +64,7 @@ export const mock_orders = [
         status: 'Pending'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -73,7 +73,7 @@ export const mock_orders = [
         status: 'Pending'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
@@ -82,12 +82,21 @@ export const mock_orders = [
         status: 'Pending'
     },
     {
-        order_id: '#6548',
+        order_id: '6548',
         created: '2 min ago',
         customer: 'Joseph Wheeler',
         total: 654,
         profit: 514,
         percent: 16,
         status: 'Pending'
+    },
+]
+
+export const mock_products = [
+    {
+        product_name: 'Lorem Ipsum',
+        order_id: '6548',
+        Quantity: 2,
+        Price: 400.20,
     },
 ]

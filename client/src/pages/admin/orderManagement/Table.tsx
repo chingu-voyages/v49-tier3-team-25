@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Status from "./Status"
 import { mock_orders } from "./mock_data"
 
@@ -252,13 +253,12 @@ const Table = () => {
                                     className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-40 z-10 bg-white shadow-2xl rounded-lg p-2 mt-2"
                                     >
                                         <div className="py-2 first:pt-0 last:pb-0">
-                                            
-                                            <a
-                                                className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                                                href="#"
+                                            <Link
+                                              className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+                                              to={`/admin/orders/${order.order_id}`}
                                             >
                                             Order Details
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

@@ -27,6 +27,7 @@ import { ReduxProvider } from "./redux/provider";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import AdminSignin from "./pages/admin/AdminSignin";
 import { AdminRegister } from "./pages/admin/AdminRegister";
+import OrderDetails from "./pages/admin/orderManagement/OrderDetails";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
               <Route path="signup" element={<AdminRegister />} />
               <Route path="signin" element={<AdminSignin />} />
               <Route index path="orders" element={<OrderManagement />} />
+              <Route path="orders/:id" element={<OrderDetails />} />
               <Route index path="customers" element={<Customers />} />
               <Route path="customers/:name" element={<CustomerDetail />} />
               <Route index path="products" element={<Products />} />
