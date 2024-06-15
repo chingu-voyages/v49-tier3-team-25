@@ -126,7 +126,7 @@ export default function BookCard({ book }: Props) {
         <div className="flex justify-center items-center ">
           <img
             className=" mt-3 h-52 object-cover w-36"
-            src={book.imageUrls[2]}
+            src={book.imageUrls[0]}
             alt="Image Description"
           />
         </div>
