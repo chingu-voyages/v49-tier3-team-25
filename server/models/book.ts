@@ -57,6 +57,12 @@ const bookSchema = new Schema({
     ref: 'Admin',
     required: true
   },
+  sales: {
+    type: Number,
+    default: 0,
+  },
+}, { 
+  timestamps: true 
 });
 
 export const Book = mongoose.model('Book', bookSchema);

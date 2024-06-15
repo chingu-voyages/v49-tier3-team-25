@@ -1,10 +1,10 @@
 import httpStatus from "http-status";
 
-import { User, Order } from "../models";
+import { User, Order, Book } from "../models";
 
+import { getCartDetail } from "./cart";
 import { isValidTransition, validateObjectId } from "../helpers";
 import { ApiError, catchAsync } from "../utils";
-import { getCartDetail } from "./cart";
 
 export const getAllMyOrders = catchAsync(async (req, res) => {
     const decodedUser = (req as any).decoded;
@@ -36,6 +36,23 @@ export const checkoutCart = catchAsync(async (req, res) => {
 
     const { items, total } = await getCartDetail(decodedUser._id);
     if (items.length < 1) throw new ApiError(httpStatus.BAD_REQUEST, 'Your cart is empty');
+
+    for await (const item of items) {
+        const foundBook = await Book.findById(item.book._id);
+        if (!foundBook) throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+
+        if (foundBook.stockQuantity < item.quantity) throw new ApiError(httpStatus.BAD_REQUEST, `Not enough stock for '${foundBook.title}'.`);
+    };
+
+    for await (const item of items) {
+        const foundBook = await Book.findById(item.book._id);
+        if (!foundBook) throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+
+        foundBook.stockQuantity = foundBook.stockQuantity - item.quantity;
+        foundBook.sales = foundBook.sales + item.quantity;
+
+        await foundBook.save();
+    };
     
     const newOrder = {
         orderDate: new Date(),
@@ -55,7 +72,6 @@ export const checkoutCart = catchAsync(async (req, res) => {
 
     const response = { 
         message: 'Checkout successful.',
-        data: result,
     };
 
     res.status(httpStatus.OK).send(response);
@@ -73,7 +89,17 @@ export const changeStatus = catchAsync(async (req, res) => {
     if (foundOrder.currentStatus === 'DELIVERED') 
         throw new ApiError(httpStatus.BAD_REQUEST, 'Cannot change status of a delivered order.');
 
-    if (status !== "CANCELED") {
+    if (status === 'CANCELED') {
+        for await (const item of foundOrder.items) {
+            const foundBook = await Book.findById(item.book._id);
+            if (!foundBook) throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+    
+            foundBook.stockQuantity = foundBook.stockQuantity + item.quantity;
+            foundBook.sales = foundBook.sales - item.quantity;
+    
+            await foundBook.save();
+        }
+    } else {
         // @ts-ignore
         if (!isValidTransition(foundOrder.currentStatus, status)) 
             throw new ApiError(httpStatus.BAD_REQUEST, `Invalid status transition. Current status: ${foundOrder.currentStatus}`);    
