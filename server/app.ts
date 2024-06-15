@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
 import db from './config/db';
@@ -16,6 +17,9 @@ import { router as CartRouter } from './routes/cart';
 import { router as OrderRouter } from './routes/order';
 
 const app = express();
+
+// use Gzip compression middleware
+app.use(compression());
 
 // parse JSON requests
 app.use(express.json());
