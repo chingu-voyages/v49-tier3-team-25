@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Item } from "../../lib/types";
+
 const orderActivityData = [
   {
     icon: (
@@ -20,7 +22,7 @@ const orderActivityData = [
       </svg>
     ),
     text: "Your order has been confirmed",
-    date: "22 Jan 2024 at 7:32 PM",
+    date: true,
   },
   {
     icon: (
@@ -45,7 +47,7 @@ const orderActivityData = [
       </svg>
     ),
     text: "Your order has been packed",
-    date: "22 Jan 2024 at 7:32 PM",
+    date: true,
   },
   {
     icon: (
@@ -71,7 +73,7 @@ const orderActivityData = [
       </svg>
     ),
     text: "Your order has been picked up for delivery",
-    date: "22 Jan 2024 at 7:32 PM",
+    date: true,
   },
   {
     icon: (
@@ -95,7 +97,7 @@ const orderActivityData = [
       </svg>
     ),
     text: "Your order is on its way",
-    date: "",
+    date: false,
   },
   {
     icon: (
@@ -125,18 +127,15 @@ const orderActivityData = [
       </svg>
     ),
     text: "Your order has been delivered",
-    date: "",
+    date: false,
   },
 ];
-
-const total = productData.reduce((acc, curr) => {
-  return (acc = acc + curr.quantity * curr.price);
-}, 0);
 
 export default function OrderDetail() {
   const { id } = useParams();
   const location = useLocation();
   const thisOrder = location.state.state;
+  console.log(thisOrder);
   return (
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
       {/* invoice number and total */}
@@ -150,7 +149,7 @@ export default function OrderDetail() {
         </div>
         <div className="inline-flex gap-x-2">
           <h2 className="text-3xl font-semibold text-accent ">
-            ${thisOrder.total}
+            ${location.state.total}
           </h2>
         </div>
       </div>
@@ -201,9 +200,9 @@ export default function OrderDetail() {
 
         <div className="hidden sm:block border-b border-gray-200 "></div>
 
-        {thisOrder.items.map((product) => (
+        {thisOrder.items.map((product: Item) => (
           <div
-            key={product.bookTitle}
+            key={product.book.title}
             className="grid grid-cols-3 sm:grid-cols-5 gap-2"
           >
             <div className="col-span-full sm:col-span-2">
@@ -222,14 +221,17 @@ export default function OrderDetail() {
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
                 Rate
               </h5>
-              <p className="text-gray-800 ">${product.book.salePrice}</p>
+              <p className="text-gray-800 ">
+                {" "}
+                ${product.book.salePrice * product.quantity}
+              </p>
             </div>
             <div>
               <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase ">
                 Amount
               </h5>
               <p className="sm:text-end text-gray-800 ">
-                ${product.book.salePrice * product.quantity}
+                ${product.book.salePrice}
               </p>
             </div>
           </div>
@@ -242,14 +244,14 @@ export default function OrderDetail() {
             <dl className="grid sm:grid-cols-5 gap-x-3 text-sm">
               <dt className="col-span-3 text-gray-500 ">Total:</dt>
               <dd className="col-span-2 font-medium text-gray-800 ">
-                ${total}
+                ${location.state.total}
               </dd>
             </dl>
 
             <dl className="grid sm:grid-cols-5 gap-x-3 text-sm">
               <dt className="col-span-3 text-gray-500 ">Amount paid:</dt>
               <dd className="col-span-2 font-medium text-gray-800 ">
-                ${total}
+                ${location.state.total}
               </dd>
             </dl>
 
