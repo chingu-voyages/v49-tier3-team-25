@@ -1,6 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Signup } from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Admin from "./pages/admin";
+import Dashboard from "./pages/admin/dashboard";
+import OrderManagement from "./pages/admin/orderManagement";
+import Customers from "./pages/admin/customers";
+import CustomerDetail from "./pages/admin/customers/CustomerDetail";
+import Products from "./pages/admin/products";
+import ProductDetail from "./pages/admin/products/ProductDetail";
+import AddNew from "./pages/admin/products/AddNew";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Wrapper from "./pages/Wrapper";
@@ -17,12 +25,15 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { ReduxProvider } from "./redux/provider";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import AdminSignin from "./pages/admin/AdminSignin";
+import { AdminRegister } from "./pages/admin/AdminRegister";
 
 function App() {
   return (
     <Router>
       <ScrollToTop>
         <ReduxProvider>
+          {/* bookstore routes */}
           <Routes>
             <Route path="/" element={<Wrapper />}>
               <Route index element={<Home />} />
@@ -43,6 +54,18 @@ function App() {
                   <Route path="orders/:id" element={<OrderDetailPage />} />
                 </Route>
               </Route>
+            </Route>
+            {/* admin dashboard routes */}
+            <Route path="/admin" element={<Admin />}>
+              <Route index element={<Dashboard />} />
+              <Route path="signup" element={<AdminRegister />} />
+              <Route path="signin" element={<AdminSignin />} />
+              <Route index path="orders" element={<OrderManagement />} />
+              <Route index path="customers" element={<Customers />} />
+              <Route path="customers/:name" element={<CustomerDetail />} />
+              <Route index path="products" element={<Products />} />
+              <Route path="products/:title" element={<ProductDetail />} />
+              <Route path="products/add" element={<AddNew />} />
             </Route>
           </Routes>
         </ReduxProvider>
