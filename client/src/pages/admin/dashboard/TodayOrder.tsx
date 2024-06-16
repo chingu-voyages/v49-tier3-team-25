@@ -1,5 +1,3 @@
-// not sure why its not recognising  ReactApexChart from 'react-apexcharts' in TotalSalesAndCosts, TopSellingGenre, and TodayOrder - have commented them out for now
-
 import upIcon from "/dashboard/up.svg";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
