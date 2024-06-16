@@ -24,7 +24,7 @@ export default function Wrapper() {
   return (
     <div className="flex flex-col min-h-screen gap-5 ">
       {!location.pathname.includes("dashboard") && <Header />}
-      <main className="flex-grow">
+      <main className="flex-grow ">
         <ToastContainer
           position="top-center"
           autoClose={5000}
