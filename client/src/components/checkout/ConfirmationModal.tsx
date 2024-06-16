@@ -1,3 +1,5 @@
+// note this component used at the moment
+
 import { Link } from "react-router-dom";
 
 export default function ConfirmationModal({ handlePayment }) {

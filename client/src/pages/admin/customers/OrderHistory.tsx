@@ -1,3 +1,5 @@
+// note this component used at the moment - no customers api
+
 import { Link } from "react-router-dom";
 import Pagination from "../../../components/shared/Pagination";
 import usePagination from "../../../hooks/usePagination";
@@ -133,6 +135,7 @@ export default function OrderHistory() {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
+                  {/* @ts-expect-error - this not shown on app at the moment */}
                   {currentItems.map((transaction) => (
                     <tr key={transaction.order}>
                       <td className="size-px whitespace-nowrap">

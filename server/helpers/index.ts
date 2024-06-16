@@ -57,3 +57,17 @@ export const isValidTransition = (currentStatus: OrderStatus, newStatus: OrderSt
     return validTransitions[currentStatus].includes(newStatus)
 }
 
+export const generateGenres = (genres: string[], limit: number) => {
+    const genreCounts: { [key: string]: number } = genres.reduce((acc: { [key: string]: number }, genre: string) => {
+        acc[genre] = (acc[genre] || 0) + 1;
+        return acc;
+    }, {});
+
+    const sortedGenres = Object.entries(genreCounts)
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([genre]) => genre);
+        
+    return sortedGenres.slice(0, limit);;
+}
+
+
