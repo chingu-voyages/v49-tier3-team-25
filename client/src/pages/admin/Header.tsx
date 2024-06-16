@@ -18,7 +18,6 @@ declare global {
 
 const Header = () => {
   const adminUser = useAppSelector((state: RootState) => state.adminAuth.value);
-  console.log(adminUser);
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

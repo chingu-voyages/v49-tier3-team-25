@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const genres = [
   {
-    genre: "Fiction",
+    genre: "Crime",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ const genres = [
     ),
   },
   {
-    genre: "Cooking",
+    genre: "Adventure",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -81,16 +81,17 @@ const genres = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-chef-hat"
+        className="icon icon-tabler icons-tabler-outline icon-tabler-air-balloon"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z" />
-        <path d="M6.161 17.009l11.839 -.009" />
+        <path d="M10 19m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+        <path d="M12 16c3.314 0 6 -4.686 6 -8a6 6 0 1 0 -12 0c0 3.314 2.686 8 6 8z" />
+        <path d="M12 9m-2 0a2 7 0 1 0 4 0a2 7 0 1 0 -4 0" />
       </svg>
     ),
   },
   {
-    genre: "Biography",
+    genre: "biography",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +115,7 @@ const genres = [
     ),
   },
   {
-    genre: "Travel",
+    genre: "Fantasy",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -126,16 +127,17 @@ const genres = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-plane-arrival"
+        className="icon icon-tabler icons-tabler-outline icon-tabler-moon-stars"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z" />
-        <path d="M3 21h18" />
+        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+        <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+        <path d="M19 11h2m-1 -1v2" />
       </svg>
     ),
   },
   {
-    genre: "Financial",
+    genre: "Fiction",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -147,11 +149,14 @@ const genres = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-moneybag"
+        className="icon icon-tabler icons-tabler-outline icon-tabler-book"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5a3.5 3.5 0 0 1 -3.5 3.5h-1a3.5 3.5 0 0 1 -3.5 -3.5a1.5 1.5 0 0 1 1.5 -1.5z" />
-        <path d="M4 17v-1a8 8 0 1 1 16 0v1a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6l0 13" />
+        <path d="M12 6l0 13" />
+        <path d="M21 6l0 13" />
       </svg>
     ),
   },

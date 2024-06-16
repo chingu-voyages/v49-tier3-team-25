@@ -66,7 +66,7 @@ function App() {
               <Route index path="customers" element={<Customers />} />
               <Route path="customers/:name" element={<CustomerDetail />} />
               <Route index path="products" element={<Products />} />
-              <Route path="products/:title" element={<ProductDetail />} />
+              <Route path="products/:id" element={<ProductDetail />} />
               <Route path="products/add" element={<AddNew />} />
             </Route>
           </Routes>

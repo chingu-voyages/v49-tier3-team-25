@@ -1,3 +1,5 @@
+// note this component used at the moment - no customers api
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 

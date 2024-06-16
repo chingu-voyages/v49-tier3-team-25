@@ -126,7 +126,7 @@ export default function BookCard({ book }: Props) {
         <div className="flex justify-center items-center ">
           <img
             className=" mt-3 h-52 object-cover w-36"
-            src={book.imageUrls[2]}
+            src={book?.imageUrls[0]}
             alt="Image Description"
           />
         </div>
@@ -140,7 +140,9 @@ export default function BookCard({ book }: Props) {
           {book.title}
         </Link>
         <p className="text-sm text-gray-500 line-clamp-1">{book.author}</p>
-        <p className=" text-xs font-medium uppercase text-gray-500 ">$25.00</p>
+        <p className=" text-xs font-medium uppercase text-gray-500 ">
+          ${book.salePrice}
+        </p>
 
         <button
           className="text-xs mt-2 py-2 px-3 inline-flex justify-center items-center gap-x-2 md:text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"

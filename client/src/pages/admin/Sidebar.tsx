@@ -1,6 +1,5 @@
 import homeIcon from "/dashboard/home.svg";
 import orderManagementIcon from "/dashboard/shopping-cart.svg";
-import customerIcon from "/dashboard/customer.svg";
 import addProductIcon from "/dashboard/add-product.svg";
 import allProductsIcon from "/dashboard/all-products.svg";
 import { Link, NavLink } from "react-router-dom";
@@ -137,7 +136,7 @@ const Sidebar = () => {
                 Order Management
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 className={({ isActive }) =>
                   `w-full flex items-center gap-x-3.5 py-2 px-2.5 ${
@@ -150,7 +149,7 @@ const Sidebar = () => {
                 <img src={customerIcon} alt="" width={20} height={20} />
                 Customers
               </NavLink>
-            </li>
+            </li> */}
 
             <small className="py-3">Products</small>
 

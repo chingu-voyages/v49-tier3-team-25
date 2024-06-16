@@ -70,7 +70,7 @@ export const getAdmins = catchAsync(async (req, res) => {
     const admins = await Admin.find().select('-password');
 
     const response = {
-        message: "Get my profile successful.",
+        message: "Get all admins successful.",
         data: admins,
     }
     

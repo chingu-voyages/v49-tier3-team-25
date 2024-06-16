@@ -4,14 +4,14 @@ const initialState = {
   value: [],
 };
 
-export const booksSlice = createSlice({
-  name: "books",
+export const ordersSlice = createSlice({
+  name: "orders",
   initialState,
   reducers: {
-    setAllBooks: (state, action) => {
+    setOrders: (state, action) => {
       state.value = action.payload;
     },
-    addBookToBooks: (state, action) => {
+    addOrderToOrders: (state, action) => {
       // @ts-expect-error - to fix
       state.value.push(action.payload);
     },
@@ -19,6 +19,6 @@ export const booksSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setAllBooks, addBookToBooks } = booksSlice.actions;
+export const { setOrders, addOrderToOrders } = ordersSlice.actions;
 
-export default booksSlice.reducer;
+export default ordersSlice.reducer;

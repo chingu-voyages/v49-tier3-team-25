@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
 import db from './config/db';
@@ -9,11 +10,17 @@ import { errorConverter, errorHandler } from './middleware/error';
 import { router as HealthRouter } from './routes/healthcheck';
 import { router as AdminRouter } from './routes/admin';
 import { router as UserRouter } from './routes/user';
+import { router as HomeRouter } from './routes/home';
+import { router as DashboardRouter } from './routes/dashboard';
 import { router as BookRouter } from './routes/book';
 import { router as WishlistRouter } from './routes/wishlist';
 import { router as CartRouter } from './routes/cart';
+import { router as OrderRouter } from './routes/order';
 
 const app = express();
+
+// use Gzip compression middleware
+app.use(compression());
 
 // parse JSON requests
 app.use(express.json());
@@ -28,9 +35,12 @@ app.use(morgan('dev'));
 app.use('/health', HealthRouter);
 app.use('/admins', AdminRouter);
 app.use('/users', UserRouter);
+app.use('/home', HomeRouter);
+app.use('/dashboard', DashboardRouter);
 app.use('/books', BookRouter);
 app.use('/wishlists', WishlistRouter);
 app.use('/carts', CartRouter);
+app.use('/orders', OrderRouter);
 
 // convert error to ApiError, if needed
 app.use(errorConverter);

@@ -4,7 +4,7 @@ export default function Summary() {
   const cart = useAppSelector((state) => state.cart.value);
   // console.log(cart);
   const subtotal = cart?.reduce((acc, curr) => {
-    return (acc = acc + curr.quantity * 25);
+    return (acc = acc + curr.quantity * curr.book.salePrice);
   }, 0);
 
   return (
@@ -36,7 +36,7 @@ export default function Summary() {
             {cart.map((item) => (
               <div
                 className="grid grid-cols-3 sm:grid-cols-5 gap-2"
-                key={item._id}
+                key={item.book._id}
               >
                 <div className="col-span-full sm:col-span-2">
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
@@ -50,7 +50,10 @@ export default function Summary() {
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                     Price
                   </h5>
-                  <p className="text-gray-800 dark:text-neutral-200">$25</p>
+                  <p className="text-gray-800 dark:text-neutral-200">
+                    {" "}
+                    ${item?.book?.salePrice}
+                  </p>
                 </div>
                 <div>
                   <h5 className="sm:hidden text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
@@ -65,7 +68,7 @@ export default function Summary() {
                     Subtotal
                   </h5>
                   <p className="sm:text-end text-gray-800 dark:text-neutral-200">
-                    ${item.quantity * 25}
+                    ${item?.quantity * item?.book?.salePrice}
                   </p>
                 </div>
               </div>

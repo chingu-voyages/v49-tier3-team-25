@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { IHome } from "../../lib/types";
 
-export default function Carousel() {
+interface Props {
+  homeData: IHome;
+}
+
+export default function Carousel({ homeData }: Props) {
   return (
     // <!-- Slider -->
     <div
@@ -17,27 +22,28 @@ export default function Carousel() {
               <span className="text-4xl text-gray-800 transition duration-700 ">
                 New Arrivals
               </span>
+
               <Link to={"/shop"} className="text-accent mb-4">
                 See More
               </Link>
               <div className="flex gap-3 justify-center items-center">
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
+                  src={homeData?.newArrivals[0].imageUrls[0]}
                   alt=""
                   className="book cover"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL37044871M-M.jpg"
+                  src={homeData?.newArrivals[1].imageUrls[0]}
                   alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL30698173M-M.jpg"
+                  src={homeData?.newArrivals[2].imageUrls[0]}
                   alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  src={homeData?.newArrivals[3].imageUrls[0]}
                   alt="book cover"
                   className="hidden lg:block"
                 />
@@ -54,22 +60,22 @@ export default function Carousel() {
               </Link>
               <div className="flex gap-3 justify-center items-center">
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  src={homeData?.hotDealsBooks[0].imageUrls[0]}
                   alt="book cover"
                   className="book cover"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
+                  src={homeData?.hotDealsBooks[1].imageUrls[0]}
                   alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL35354586M-M.jpg"
+                  src={homeData?.hotDealsBooks[2].imageUrls[0]}
                   alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL24218918M-M.jpg"
+                  src={homeData?.hotDealsBooks[3].imageUrls[0]}
                   alt="book cover"
                   className="hidden lg:block"
                 />
@@ -86,22 +92,22 @@ export default function Carousel() {
               </Link>
               <div className="flex gap-3 justify-center items-center">
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL10490570M-M.jpg"
+                  src={homeData?.trendingBooks[0].imageUrls[0]}
                   alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL35354586M-M.jpg"
+                  src={homeData?.trendingBooks[1].imageUrls[0]}
                   alt="book cover"
                   className="hidden sm:block md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL26439660M-M.jpg"
+                  src={homeData?.trendingBooks[2].imageUrls[0]}
                   alt="book cover"
                   className="hidden md:block lg:block"
                 />
                 <img
-                  src="https://covers.openlibrary.org/b/olid/OL50890407M-M.jpg"
+                  src={homeData?.trendingBooks[3].imageUrls[0]}
                   alt="book cover"
                   className="hidden lg:block"
                 />

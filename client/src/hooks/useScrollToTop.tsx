@@ -1,3 +1,5 @@
+// note this component used at the moment
+
 import { ReactNode, useEffect } from "react";
 import { useLocation } from "react-router";
 
