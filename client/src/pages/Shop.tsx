@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchSortFilter from "../components/shop/SearchSortFilter";
 import BookCard from "../components/shared/BookCard";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { Book } from "../lib/types";
+import { useLocation } from "react-router-dom";
 
 export default function Shop() {
   const allBooks: Book[] = useAppSelector(
@@ -11,34 +12,15 @@ export default function Shop() {
   );
 
   const [filteredData, setFilteredData] = useState(allBooks);
-  const [genreForm, setGenreForm] = useState({
-    Biography: false,
-    Classic: false,
-    Drama: false,
-    Fiction: false,
-    Mystery: false,
-    Romance: false,
-    Thriller: false,
-    adventure: false,
-    anthropology: false,
-    biography: false,
-    business: false,
-    classics: false,
-    dystopian: false,
-    fantasy: false,
-    fiction: false,
-    history: false,
-    mystery: false,
-    philosophy: false,
-    physics: false,
-    productivity: false,
-    romance: false,
-    science: false,
-    scienceFiction: false,
-    thriller: false,
-  });
-  // const { currentItems } = usePagination(filteredData: false, 8);
-  const [x, setx] = useState();
+  const location = useLocation();
+  console.log(location);
+
+  useEffect(() => {
+    if (location?.state?.genre) {
+      filterGenre(location.state.genre);
+    }
+  }, [location.state]);
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilteredData(
       allBooks.filter(
@@ -51,13 +33,13 @@ export default function Shop() {
 
   const sortTitleAZ = () => {
     setFilteredData((prev) =>
-      [...prev].sort((a: false, b) => a.title.localeCompare(b.title))
+      [...prev].sort((a, b) => a.title.localeCompare(b.title))
     );
   };
 
   const sortTitleZA = () => {
     setFilteredData((prev) =>
-      [...prev].sort((a: false, b) => b.title.localeCompare(a.title))
+      [...prev].sort((a, b) => b.title.localeCompare(a.title))
     );
   };
 
@@ -73,30 +55,18 @@ export default function Shop() {
     );
   };
 
-  const FilterGenre = (key) => {
-    const checkedBooks = allBooks.filter((book) => book.genres.includes(key));
-    console.log(checkedBooks);
-    setx((prev) => [...prev, ...checkedBooks]);
-    console.log(x.flat(4));
-    setFilteredData(x.flat(4));
-  };
-
-  const checkedGenres = (e) => {
-    const name = e.target.name;
-    // const value =
-    //   e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    // setGenreForm({
-    //   ...genreForm,
-    //   [name]: value,
-    // });
-    // console.log(genreForm);
-
-    // const keys = Object.keys(genreForm).filter((k) => genreForm[k]);
-    // console.log(keys);
-    // console.log(keys);
-    const keys = ["Crime", "Drama"];
-
-    keys.forEach((key) => FilterGenre(key));
+  const filterGenre = (genre: string) => {
+    if (genre === "all") {
+      setFilteredData(allBooks);
+    } else {
+      setFilteredData(
+        allBooks.filter((book) =>
+          book.genres
+            .map((genre) => genre.toLowerCase())
+            .includes(genre.toLowerCase())
+        )
+      );
+    }
   };
 
   return (
@@ -110,7 +80,7 @@ export default function Shop() {
             sortTitleZA={sortTitleZA}
             sortAuthorAZ={sortAuthorAZ}
             sortAuthorZA={sortAuthorZA}
-            checkedGenres={checkedGenres}
+            filterGenre={filterGenre}
           />
           {/* book cards */}
           <div className="flex flex-wrap justify-center items-center  gap-2 mt-2">

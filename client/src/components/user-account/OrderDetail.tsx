@@ -135,7 +135,7 @@ export default function OrderDetail() {
   const { id } = useParams();
   const location = useLocation();
   const thisOrder = location.state.state;
-  console.log(thisOrder);
+  // console.log(thisOrder);
   return (
     <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
       {/* invoice number and total */}

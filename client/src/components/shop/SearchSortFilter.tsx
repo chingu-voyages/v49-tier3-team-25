@@ -1,13 +1,10 @@
-import { useEffect } from "react";
-import { useAppSelector } from "../../redux/hooks";
-
 interface Props {
   handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   sortTitleAZ: () => void;
   sortTitleZA: () => void;
   sortAuthorAZ: () => void;
   sortAuthorZA: () => void;
-  checkedGenres: () => void;
+  filterGenre: (genre: string) => void;
 }
 
 export default function SearchSortFilter({
@@ -16,29 +13,17 @@ export default function SearchSortFilter({
   sortTitleZA,
   sortAuthorAZ,
   sortAuthorZA,
-  checkedGenres,
+  filterGenre,
 }: Props) {
-  const allBooks = useAppSelector((state: RootState) => state.books.value);
-  console.log(allBooks);
-
-  // const getGenres = allBooks.map((book) => book.genres).flat();
-  // const allGenres = [...new Set(getGenres)].sort();
-
   const allGenres = [
-    "All",
-    "Biography",
-    "Classic",
-    "Crime",
-    "Drama",
-    "Fiction",
-    "Mystery",
-    "Romance",
-    "Thriller",
+    "all",
     "adventure",
     "anthropology",
     "biography",
     "business",
     "classics",
+    "Crime",
+    "Drama",
     "dystopian",
     "fantasy",
     "fiction",
@@ -93,7 +78,7 @@ export default function SearchSortFilter({
       <div className="flex gap-2 justify-center items-center">
         {/* filter */}
         <div
-          className="hs-dropdown [--placement:bottom-right] relative inline-block "
+          className="hs-dropdown [--placement:bottom-right] relative inline-block"
           data-hs-dropdown-auto-close="inside"
         >
           <button
@@ -118,29 +103,28 @@ export default function SearchSortFilter({
               <path d="M10 18h4" />
             </svg>
             Filter Genre
-            <span className="ps-2 text-xs font-semibold text-blue-600 border-s border-gray-200 dark:border-neutral-700 dark:text-blue-500">
-              1
-            </span>
           </button>
+
           <div
-            className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700"
+            className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-48 z-10 bg-white shadow-md rounded-lg mt-2 dark:divide-neutral-700 dark:bg-neutral-800 dark:border dark:border-neutral-700 h-44 overflow-y-auto
+  [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             aria-labelledby="hs-as-table-table-filter-dropdown"
           >
             <div className="divide-y divide-gray-200 dark:divide-neutral-700">
               {allGenres.map((genre) => (
                 <label
-                  htmlFor={`hs-as-filters-dropdown-${genre}`}
-                  className="flex py-2.5 px-3"
+                  htmlFor="hs-as-filters-dropdown-all"
+                  className="flex py-2.5 px-3 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => filterGenre(genre)}
                 >
-                  <input
-                    type="checkbox"
-                    className="shrink-0 mt-0.5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                    id="hs-as-filters-dropdown-published"
-                    onChange={checkedGenres}
-                    name={genre}
-                  />
                   <span className="ms-3 text-sm text-gray-800 dark:text-neutral-200">
-                    {genre}
+                    {genre.charAt(0).toUpperCase() + genre.slice(1)}
                   </span>
                 </label>
               ))}
