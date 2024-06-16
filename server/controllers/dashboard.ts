@@ -36,7 +36,7 @@ export const getDashboardDetails = catchAsync(async (req, res) => {
     const totalProfitPercentageChange = calculatePercentageChange(totalProfitThisWeek, totalProfitLastWeek);
 
     const totalProfit = {
-        value: totalCostThisWeek,
+        value: totalProfitThisWeek,
         percentageChange: totalProfitPercentageChange,
         timePeriod: 'this week',
         comparisonPeriod: 'last week'
