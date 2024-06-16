@@ -276,7 +276,7 @@ export default function PaymentDetails() {
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
               data-hs-overlay="#hs-subscription-with-image"
             >
-              {pending ? "Waiting..." : "Make Payment"}
+              {pending ? "Processing..." : "Make Payment"}
             </button>
           </div>
         </form>
