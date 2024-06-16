@@ -125,7 +125,7 @@ export default function BookCard({ book }: Props) {
       <Link to={`/shop/${book.title}`} className="cursor-pointer">
         <div className="flex justify-center items-center ">
           <img
-            className=" mt-3 h-52 object-cover w-36"
+            className=" mt-3 h-52 object-scale-down w-36"
             src={book?.imageUrls[0]}
             alt="Image Description"
           />
