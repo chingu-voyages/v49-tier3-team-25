@@ -1,6 +1,6 @@
 <h1 id="readme-top">Book Corner</h1>
 
-<p class="header">Book Corner is an online bookstore where you sign up, sign in, view books, add/remove books to your wishlist, and add/remove books to your cart.</p>
+<p class="header">Book Corner is a full stack MERN application, an online bookstore where users can view books, sign up, and sign in to add/remove books to their wishlist, and add/remove books to their cart. It also includes a protected admin dashboard where admins can view books, and add, edit and remove a book.</p>
 
 </br>
 
@@ -12,7 +12,7 @@
     <li><a href="#developers">Developers</a></li>
     <li><a href="#project-link">Project Link</a></li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#pages">Acknowledgments</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -30,22 +30,39 @@
 ### Book Management
 
 - **Book Listing**: Displays a list of books available in the bookstore on the shop page.
-- **Filter**: Users can dynamically filter their search results by title or author.
-- **Sort**: Users can sort books by title or author alphabetically.
+- **Search**: Users can filter books searching by title or author.
+- **Filter**: Users can filter books by genre.
+- **Sort**: Users can alphabetically sort books by title or author .
 - **Book Details**: Users can view detailed information about each book, such as title, author, price, description, and image.
 
 ### Shopping Cart and Checkout
 
 - **Shopping Cart**: Allows users to add books to their shopping cart. Users can change book quantity, and remove a book from the cart.
-- **Checkout Process**: Allow users to proceed to checkout.
+- **Checkout Process**: Allow users to proceed to checkout. When payment is 'processed', the order is saved to the user's order history.
+
+### Order Management
+
+- **Order History**: Users can view their past orders and order details.
+
+### Admin Dashboard
+
+- **Book Management**: Admins can add, edit, and delete books in the inventory. Manage book details such as title, author, description, price, and image.
+- **Order Management**: Admins can view orders (currently UI).
 
 <h2 id="languages">II. Languages and Tools Used</h2>
 
-- **React.js**: React is used for building the user interface, making it dynamic and interactive.
-- **TypeScript**: TypeScript is the primary programming language for building the app's functionality.
+- **Mongodb**
+- **Express**
+- **Nodejs**
+- **React.js**
+- **TypeScript**
+- **Tailwind**
+- **Preline**: Preline UI is an open-source set of prebuilt UI components based on the utility-first Tailwind CSS framework.
 - **React Router**: React Router is used for routing and navigation.
+- **Apex Charts**: ApexCharts.js is a library for creating interactive and customizable charts in JavaScript.
 - **React Toastify**: React Toastify is used for toasts.
-- **Axios**: Axios is used for making HTTP requests to fetch data from external sources.
+- **Axios**
+- **Figma**
 
 <h2 id="developers">III. Developers</h2>
 <a href="https://github.com/dickymr"><img src="https://img.shields.io/badge/dickymr-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/dickymr"><img src="https://img.shields.io/badge/dickymr-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/atmaxstar"><img src="https://img.shields.io/badge/Ivor-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/atsutoshi"><img src="https://img.shields.io/badge/Ivor-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/jeisaRaja"><img src="https://img.shields.io/badge/Jeisa-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/jeisatarigan/"><img src="https://img.shields.io/badge/jeisa-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/jessabc"><img src="https://img.shields.io/badge/jessabc-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://github.com/ShehrozAkbar"><img src="https://img.shields.io/badge/shehroz-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/shehrozakbar"><img src="https://img.shields.io/badge/shehroz-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
