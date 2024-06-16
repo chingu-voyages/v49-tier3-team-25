@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const genres = [
   {
-    genre: "crime",
+    genre: "Crime",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const genres = [
     ),
   },
   {
-    genre: "mystery",
+    genre: "Mystery",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const genres = [
     ),
   },
   {
-    genre: "history",
+    genre: "History",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ const genres = [
     ),
   },
   {
-    genre: "adventure",
+    genre: "Adventure",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ const genres = [
     ),
   },
   {
-    genre: "fantasy",
+    genre: "Fantasy",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ const genres = [
     ),
   },
   {
-    genre: "fiction",
+    genre: "Fiction",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +161,7 @@ const genres = [
     ),
   },
   {
-    genre: "classics",
+    genre: "Classics",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
