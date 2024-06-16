@@ -13,7 +13,6 @@ export default function Shop() {
 
   const [filteredData, setFilteredData] = useState(allBooks);
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     if (location?.state?.genre) {
