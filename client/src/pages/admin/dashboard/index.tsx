@@ -1,9 +1,11 @@
-import TotalSalesAndCosts from "./TotalSalesAndCosts";
+// import TotalSalesAndCosts from "./TotalSalesAndCosts";
 import TotalOrdersAndProfit from "./TotalOrdersAndProfit";
-import TopSellingGenre from "./TopSellingGenre";
+// import TopSellingGenre from "./TopSellingGenre";
 import BestSellingProducts from "./BestSellingProducts";
 import RecentOrders from "./RecentOrders";
-import TodayOrder from "./TodayOrder";
+// import TodayOrder from "./TodayOrder";
+
+// not sure why its not recognising  ReactApexChart from 'react-apexcharts' in TotalSalesAndCosts, TopSellingGenre, and TodayOrder - have commented them out for now
 
 const Dashboard = () => {
   return (
