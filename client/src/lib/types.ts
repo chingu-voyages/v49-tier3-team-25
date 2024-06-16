@@ -44,7 +44,7 @@ export interface Order {
   currentStatus: string;
   items: Item[];
   total: number;
-  timelineStatus?: any[];
+  timelineStatus?: unknown[];
   __v?: number;
 }
 
@@ -93,3 +93,32 @@ export interface RecipientProfile {
   email: string;
   phone: string;
 }
+
+export interface IHome {
+  badge: Badge;
+  newArrivals: Book[];
+  hotDealsBooks: Book[];
+  trendingBooks: Book[];
+  genres: string[];
+  bestSellingBooks: Book[];
+  exploreOurBooks: Book[];
+}
+
+export interface Badge {
+  wishlists: number;
+  carts: number;
+}
+
+// export interface BestSellingBook {
+//   _id: string;
+//   title: string;
+//   author: string;
+//   description: string;
+//   imageUrls: string[];
+//   genres: string[];
+//   sku: string;
+//   salePrice: number;
+//   discount: number;
+//   tags: string[];
+//   __v?: number;
+// }

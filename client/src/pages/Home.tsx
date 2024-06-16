@@ -9,9 +9,11 @@ import { RootState } from "../redux/store";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import { setCart } from "../redux/features/cart/cartSlice";
 import { setWishlist } from "../redux/features/wishlist/wishlistSlice";
+import { IHome } from "../lib/types";
 
 export default function Home() {
   const [error, setError] = useState("");
+  const [homeData, setHomeData] = useState<IHome>();
   const allBooks = useAppSelector((state: RootState) => state.books.value);
   const cart = useAppSelector((state: RootState) => state.cart.value);
   const wishlistBooks = useAppSelector(
@@ -43,6 +45,20 @@ export default function Home() {
     if (allBooks.length === 0) {
       getAllBooks();
     }
+
+    const getHome = async () => {
+      try {
+        const res = await axios(`${import.meta.env.VITE_BACKEND_URL}/home`);
+        console.log(res);
+        setHomeData(res.data.data);
+        // dispatch(setAllBooks(res.data.data));
+      } catch (err) {
+        console.log(err);
+        // setError("Sorry, books cannot be viewed at this time.");
+      }
+    };
+
+    getHome();
 
     // cart
     const getCart = async () => {
@@ -84,21 +100,28 @@ export default function Home() {
       getWishlist();
     }
   }, []);
-
   return (
     <div className="px-4 md:px-8 mx-auto flex flex-col gap-12">
-      <Carousel />
+      {/* @ts-expect-error - to fix */}
+      <Carousel homeData={homeData} />
       <GenreList />
       {error ? (
         <p className="text-accent text-center">{error}</p>
       ) : (
         <div className=" flex flex-col gap-6">
           {" "}
-          <BookList title={"Best Selling Books"} bookData={allBooks} />
-          <BookList
-            title={"Explore Our Books"}
-            bookData={[...allBooks].reverse()}
-          />
+          {homeData && (
+            <BookList
+              title={"Best Selling Books"}
+              bookData={homeData?.bestSellingBooks}
+            />
+          )}
+          {homeData && (
+            <BookList
+              title={"Explore Our Books"}
+              bookData={homeData?.exploreOurBooks}
+            />
+          )}
         </div>
       )}
     </div>
