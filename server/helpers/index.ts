@@ -67,7 +67,36 @@ export const generateGenres = (genres: string[], limit: number) => {
         .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
         .map(([genre]) => genre);
         
-    return sortedGenres.slice(0, limit);;
+    return sortedGenres.slice(0, limit);
+}
+
+export const calculatePercentageChange = (totalThisWeek: number, totalLastWeek: number) => {
+    let percentageChange;
+
+    if (totalThisWeek > totalLastWeek) {
+        percentageChange = ((totalThisWeek - totalLastWeek) / totalLastWeek) * 100;
+    } else {
+        percentageChange = ((totalLastWeek - totalThisWeek) / totalLastWeek) * -100;
+    }
+
+    const roundedPercentageChange = Math.round(percentageChange * 100) / 100;
+
+    return roundedPercentageChange + '%'
+}
+
+// @ts-ignore
+export const calculateTotalCost = (orders) => {
+    let totalCost = 0;
+
+    // @ts-ignore
+    orders.forEach(order => {
+        // @ts-ignore
+        order.items.forEach(item => {
+            totalCost += item.book.costPrice * item.quantity;
+        });
+    });
+
+    return totalCost;
 }
 
 
