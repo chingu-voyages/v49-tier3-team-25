@@ -1,6 +1,5 @@
 import homeIcon from "/dashboard/home.svg";
 import orderManagementIcon from "/dashboard/shopping-cart.svg";
-import customerIcon from "/dashboard/customer.svg";
 import addProductIcon from "/dashboard/add-product.svg";
 import allProductsIcon from "/dashboard/all-products.svg";
 import { Link, NavLink } from "react-router-dom";

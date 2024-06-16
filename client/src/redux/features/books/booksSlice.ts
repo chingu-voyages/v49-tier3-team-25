@@ -12,6 +12,7 @@ export const booksSlice = createSlice({
       state.value = action.payload;
     },
     addBookToBooks: (state, action) => {
+      // @ts-expect-error - to fix
       state.value.push(action.payload);
     },
   },
