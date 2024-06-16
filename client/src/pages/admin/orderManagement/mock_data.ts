@@ -90,3 +90,12 @@ export const mock_orders = [
     status: "Pending",
   },
 ];
+
+export const mock_products = [
+    {
+        product_name: 'Lorem Ipsum',
+        order_id: '6548',
+        Quantity: 2,
+        Price: 400.20,
+    },
+];
