@@ -46,7 +46,33 @@ export const createBook = catchAsync(async (req, res) => {
 });
 
 export const getBooks = catchAsync(async (req, res) => {
-    const books = await Book.find().select('-createdBy');
+    const query: { [key: string]: any } = {};
+
+    const allowedSearchParams: { [key: string]: 'string' | 'number' | 'array' } = {
+        title: 'string',
+        author: 'string',
+        description: 'string',
+        genres: 'array',
+        tags: 'array',
+        stockQuantity: 'number',
+        sales: 'number',
+      };
+
+    for (const [key, value] of Object.entries(req.query)) {
+        if (!allowedSearchParams[key]) return;
+
+        if (allowedSearchParams[key] === 'string' || allowedSearchParams[key] === 'array') {
+            query[key] = { $regex: value, $options: 'i' };
+        }
+
+        if (allowedSearchParams[key] === 'number') {
+            const numValue = Number(value);
+            if (isNaN(numValue)) return;
+            query[key] = numValue;
+        }
+    }
+    
+    const books = await Book.find(query).select('-createdBy');
 
     const response = {
         message: "Get all books successful.",
