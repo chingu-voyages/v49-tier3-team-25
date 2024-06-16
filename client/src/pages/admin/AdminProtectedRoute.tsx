@@ -1,8 +1,7 @@
 // ProtectedRoute.js
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { Link, Outlet } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
-import { useEffect } from "react";
 
 const AdminProtectedRoute = () => {
   const user = useAppSelector((state: RootState) => state?.adminAuth.value);

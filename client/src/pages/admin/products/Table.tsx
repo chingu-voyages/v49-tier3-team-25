@@ -17,7 +17,7 @@ export default function Table() {
   const dispatch = useAppDispatch();
   const successToast = (text: string) => toast.success(text);
 
-  const [error, setError] = useState("");
+  const [error] = useState("");
   const [filteredData, setFilteredData] = useState(allBooks);
   const { currentItems, pageCount, handlePageClick } = usePagination(
     filteredData,

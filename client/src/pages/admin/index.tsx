@@ -16,13 +16,11 @@ declare global {
   }
 }
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { RootState } from "../../redux/store";
+import { useAppDispatch } from "../../redux/hooks";
 import { setAllBooks } from "../../redux/features/books/booksSlice";
 import axios from "axios";
 
 const Admin = () => {
-  const user = useAppSelector((state: RootState) => state.adminAuth.value);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

@@ -13,7 +13,7 @@ export default function PaymentDetails() {
   const successToast = () => toast.success(<ConfirmationToast />);
 
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",

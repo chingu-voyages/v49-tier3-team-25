@@ -1,13 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Book } from "../../../lib/types";
-
-// export interface WishlistState {
-//   value: Book[];
-// }
-
-// const initialState: WishlistState = {
-//   value: [],
-// };
 
 const initialState = {
   value: [],
@@ -21,6 +12,7 @@ export const ordersSlice = createSlice({
       state.value = action.payload;
     },
     addOrderToOrders: (state, action) => {
+      // @ts-expect-error - to fix
       state.value.push(action.payload);
     },
   },
