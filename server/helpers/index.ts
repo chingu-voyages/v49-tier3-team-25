@@ -1,3 +1,4 @@
+// @ts-nocheck
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import httpStatus from "http-status";
@@ -84,13 +85,36 @@ export const calculatePercentageChange = (totalThisWeek: number, totalLastWeek: 
     return roundedPercentageChange + '%'
 }
 
-// @ts-ignore
+export const calculateSalesTimeline = (orders) => {
+    const getDayOfWeek = (isoDateString) => {
+        const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+        const date = new Date(isoDateString);
+        return daysOfWeek[date.getUTCDay()]; // Use getUTCDay() for consistency with ISO dates
+    }
+
+    const dayMap = {
+        SUN: { sales: 0, cost: 0 },
+        MON: { sales: 0, cost: 0 },
+        TUE: { sales: 0, cost: 0 },
+        WED: { sales: 0, cost: 0 },
+        THU: { sales: 0, cost: 0 },
+        FRI: { sales: 0, cost: 0 },
+        SAT: { sales: 0, cost: 0 }
+    };
+      
+      orders.forEach(order => {
+        const day = getDayOfWeek(order.orderDate);
+        dayMap[day].sales += order.total;
+        dayMap[day].cost += order.items.reduce((acc, item) => acc + (item.book.costPrice * item.quantity), 0);
+      });
+      
+     return dayMap;
+}
+
 export const calculateTotalCost = (orders) => {
     let totalCost = 0;
 
-    // @ts-ignore
     orders.forEach(order => {
-        // @ts-ignore
         order.items.forEach(item => {
             totalCost += item.book.costPrice * item.quantity;
         });
