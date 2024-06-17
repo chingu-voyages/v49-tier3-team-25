@@ -69,6 +69,7 @@
 <a href="https://github.com/dickymr"><img src="https://img.shields.io/badge/dickymr-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/dickymr"><img src="https://img.shields.io/badge/dickymr-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/atmaxstar"><img src="https://img.shields.io/badge/Ivor-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/atsutoshi"><img src="https://img.shields.io/badge/Ivor-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/jeisaRaja"><img src="https://img.shields.io/badge/Jeisa-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/jeisatarigan/"><img src="https://img.shields.io/badge/jeisa-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://github.com/jessabc"><img src="https://img.shields.io/badge/jessabc-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://github.com/ShehrozAkbar"><img src="https://img.shields.io/badge/shehroz-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/shehrozakbar"><img src="https://img.shields.io/badge/shehroz-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
 
 <h2 id="project-link">V. Project Link</h2>
+[https://book-corner.up.railway.app]
 
 <h2 id="usage">IV. Usage</h2>
 
