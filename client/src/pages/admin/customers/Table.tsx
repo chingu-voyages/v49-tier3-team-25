@@ -31,37 +31,37 @@ const mockData = [
     created: "July 6, 2024",
   },
   {
-    name: "Sarah abc",
+    name: "Sarah Thompson",
     email: "sarah@email.com",
     phone: "+123 456 678",
     created: "July 6, 2024",
   },
   {
-    name: "Mary Lorem",
+    name: "Mary Smith",
     email: "mary@email.com",
     phone: "+123 456 678",
     created: "Apr 6, 2024",
   },
   {
-    name: "Tim Lksmf",
+    name: "Tim Lee",
     email: "tim@email.com",
     phone: "+123 456 678",
     created: "Mar 6, 2024",
   },
   {
-    name: "Susan Jtusvf",
+    name: "Susan Chase",
     email: "susan@email.com",
     phone: "+123 456 678",
     created: "Feb 6, 2024",
   },
   {
-    name: "Micahel Sfges",
+    name: "Micahel Wheeler",
     email: "micahel@email.com",
     phone: "+123 456 678",
     created: "June 6, 2024",
   },
   {
-    name: "Peter Qwert",
+    name: "Peter Jones",
     email: "peter@email.com",
     phone: "+123 456 678",
     created: "April 6, 2024",
@@ -111,9 +111,8 @@ export default function Table() {
     );
   };
 
-  const deleteCustomer = () => {
-    // delete logic
-  };
+  // const deleteCustomer = () => {
+  // };
 
   return (
     // <!-- Table Section -->
@@ -340,19 +339,22 @@ export default function Table() {
                                 </span>
                                 <Link
                                   className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
-                                  to={`/admin/customers/${customer.name}`}
+                                  to={`/admin/customers/${
+                                    customer.name.split(" ")[0]
+                                  }`}
+                                  state={{ customer }}
                                 >
                                   Customer Details
                                 </Link>
                               </div>
-                              <div className="py-2 first:pt-0 last:pb-0">
+                              {/* <div className="py-2 first:pt-0 last:pb-0">
                                 <button
                                   className="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-red-500 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
                                   onClick={deleteCustomer}
                                 >
                                   Delete
                                 </button>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>

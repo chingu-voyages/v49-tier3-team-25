@@ -1,27 +1,32 @@
-// note this component used at the moment - no customers api
-
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-
-const dummyUser = {
-  firstName: "John",
-  lastName: "Smith",
-  email: "john@gmail.com",
-  address: "123 sreet city 123",
-};
+import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [user, setUser] = useState({});
   const [form, setForm] = useState({
-    ...dummyUser,
+    ...user,
   });
+  const location = useLocation();
 
-  const { name } = useParams();
+  useEffect(() => {
+    const firstName = location.state.customer.name.split(" ")[0];
+    const lastName = location.state.customer.name.split(" ")[1];
+
+    setUser({
+      firstName,
+      lastName,
+      email: location.state.customer.email,
+    });
+  }, []);
+
+  // const { name } = useParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setForm({
-      ...form,
+      ...user,
       [e.target.name]: value,
     });
   };
@@ -29,7 +34,7 @@ export default function Profile() {
   const handleCancel = () => {
     setIsEditMode(false);
     setForm({
-      ...dummyUser,
+      ...form,
     });
   };
 
@@ -44,7 +49,9 @@ export default function Profile() {
       <div className="bg-white rounded-xl shadow p-4 sm:p-7 mt-5">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-accent">
-            {isEditMode ? `Edit ${name}'s Profile` : `${name}'s Profile`}
+            {isEditMode
+              ? `Edit ${location.state.customer.name}'s Profile`
+              : `${location.state.customer.name}'s Profile`}
           </h2>
           <p className="text-sm text-gray-600">
             Manage customer's account settings.
@@ -67,9 +74,10 @@ export default function Profile() {
                   id="account-full-name"
                   type="text"
                   className={`${
-                    isEditMode ? "" : "text-gray-400"
+                    isEditMode ? "" : "text-gray-600"
                   } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-accent focus:ring-accent disabled:opacity-50 disabled:pointer-events-none`}
-                  value={form.firstName}
+                  //  @ts-expect-error - to fix
+                  value={user?.firstName}
                   readOnly={!isEditMode}
                   name="firstName"
                   onChange={handleChange}
@@ -77,9 +85,10 @@ export default function Profile() {
                 <input
                   type="text"
                   className={`${
-                    isEditMode ? "" : "text-gray-400"
+                    isEditMode ? "" : "text-gray-600"
                   } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-accentfocus:ring-accent disabled:opacity-50 disabled:pointer-events-none `}
-                  value={form.lastName}
+                  // @ts-expect-error - to fix
+                  value={user?.lastName}
                   readOnly={!isEditMode}
                   name="lastName"
                   onChange={handleChange}
@@ -101,9 +110,10 @@ export default function Profile() {
                 id="af-account-email"
                 type="email"
                 className={`${
-                  isEditMode ? "" : "text-gray-400"
+                  isEditMode ? "" : "text-gray-600"
                 } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-accent focus:ring-accent disabled:opacity-50 disabled:pointer-events-none`}
-                value={form.email}
+                // @ts-expect-error - to fix
+                value={user?.email}
                 readOnly={!isEditMode}
                 name="email"
                 onChange={handleChange}
@@ -127,7 +137,7 @@ export default function Profile() {
               className={`${
                 isEditMode ? "" : "text-gray-400"
               } py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-accent focus:ring-accent disabled:opacity-50 disabled:pointer-events-none`}
-              value={form.address}
+              // value={form.address}
               readOnly={!isEditMode}
               name="address"
               onChange={handleChange}
@@ -147,6 +157,7 @@ export default function Profile() {
             <button
               type="submit"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-accent text-white hover:bg-accentDarker disabled:opacity-50 disabled:pointer-events-none"
+              disabled
             >
               {isEditMode ? "Save changes" : "Edit Profile"}
             </button>

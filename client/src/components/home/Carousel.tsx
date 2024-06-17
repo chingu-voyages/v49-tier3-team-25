@@ -30,22 +30,22 @@ export default function Carousel({ homeData }: Props) {
                 <img
                   src={homeData?.newArrivals[0].imageUrls[0]}
                   alt=""
-                  className="book cover"
+                  className="h-64"
                 />
                 <img
                   src={homeData?.newArrivals[1].imageUrls[0]}
                   alt="book cover"
-                  className="hidden sm:block md:block lg:block"
+                  className="hidden sm:block md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.newArrivals[2].imageUrls[0]}
                   alt="book cover"
-                  className="hidden md:block lg:block"
+                  className="hidden md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.newArrivals[3].imageUrls[0]}
                   alt="book cover"
-                  className="hidden lg:block"
+                  className="hidden lg:block h-64"
                 />
               </div>
             </div>
@@ -62,22 +62,22 @@ export default function Carousel({ homeData }: Props) {
                 <img
                   src={homeData?.hotDealsBooks[0].imageUrls[0]}
                   alt="book cover"
-                  className="book cover"
+                  className="h-64"
                 />
                 <img
                   src={homeData?.hotDealsBooks[1].imageUrls[0]}
                   alt="book cover"
-                  className="hidden sm:block md:block lg:block"
+                  className="hidden sm:block md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.hotDealsBooks[2].imageUrls[0]}
                   alt="book cover"
-                  className="hidden md:block lg:block"
+                  className="hidden md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.hotDealsBooks[3].imageUrls[0]}
                   alt="book cover"
-                  className="hidden lg:block"
+                  className="hidden lg:block h-64"
                 />
               </div>
             </div>
@@ -94,22 +94,22 @@ export default function Carousel({ homeData }: Props) {
                 <img
                   src={homeData?.trendingBooks[0].imageUrls[0]}
                   alt="book cover"
-                  className="hidden sm:block md:block lg:block"
+                  className="hidden sm:block md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.trendingBooks[1].imageUrls[0]}
                   alt="book cover"
-                  className="hidden sm:block md:block lg:block"
+                  className="hidden sm:block md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.trendingBooks[2].imageUrls[0]}
                   alt="book cover"
-                  className="hidden md:block lg:block"
+                  className="hidden md:block lg:block h-64"
                 />
                 <img
                   src={homeData?.trendingBooks[3].imageUrls[0]}
                   alt="book cover"
-                  className="hidden lg:block"
+                  className="hidden lg:block h-64"
                 />
               </div>
             </div>

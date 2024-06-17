@@ -1,6 +1,6 @@
 export const mock_orders = [
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "2 min ago",
     customer: "Joseph Wheeler",
     total: 61,
@@ -9,7 +9,7 @@ export const mock_orders = [
     status: "Pending",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "10 min ago",
     customer: "Sarah Smith",
     total: 94,
@@ -18,7 +18,7 @@ export const mock_orders = [
     status: "Confirmed",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "20 min ago",
     customer: "Larry Time",
     total: 84,
@@ -27,7 +27,7 @@ export const mock_orders = [
     status: "Processing",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "45 min ago",
     customer: "Mary Jones",
     total: 65,
@@ -36,7 +36,7 @@ export const mock_orders = [
     status: "Picked",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "2 hours ago",
     customer: "Michael Smith",
     total: 64,
@@ -45,7 +45,7 @@ export const mock_orders = [
     status: "Shipped",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "4 hours ago",
     customer: "Barbara Banner",
     total: 124,
@@ -54,7 +54,7 @@ export const mock_orders = [
     status: "Delivered",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "5 hours ago",
     customer: "Tim Lane",
     total: 65,
@@ -63,7 +63,7 @@ export const mock_orders = [
     status: "Pending",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "8 hours ago",
     customer: "Peter Parrot",
     total: 64,
@@ -72,7 +72,7 @@ export const mock_orders = [
     status: "Pending",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "9 hours ago",
     customer: "Claire Thompson",
     total: 64,
@@ -81,7 +81,7 @@ export const mock_orders = [
     status: "Pending",
   },
   {
-    order_id: "#6548",
+    order_id: "6548",
     created: "12 hours ago",
     customer: "Terrence Chase",
     total: 12,
@@ -92,10 +92,10 @@ export const mock_orders = [
 ];
 
 export const mock_products = [
-    {
-        product_name: 'Lorem Ipsum',
-        order_id: '6548',
-        Quantity: 2,
-        Price: 400.20,
-    },
+  {
+    product_name: "Lorem Ipsum",
+    order_id: "6548",
+    Quantity: 2,
+    Price: 400.2,
+  },
 ];
