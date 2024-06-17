@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { setAdminCredentials } from "../../redux/features/adminAuth/adminAuthSlice";
 import { useAppDispatch } from "../../redux/hooks";
@@ -46,7 +46,7 @@ const AdminSignin = () => {
 
   return (
     <>
-      <div className="flex w-screen py-10">
+      <div className="flex w-screen py-10 lg:ps-0">
         <div className="w-full ">
           <img src="/book.jpeg" className="rounded-r-2xl h-[700px]" />
         </div>
@@ -89,7 +89,7 @@ const AdminSignin = () => {
                 Forget Password?
               </a> */}
             </div>
-            <div className="flex">
+            {/* <div className="flex">
               <div>Don't have an account?</div>
               <Link
                 to="/admin/signup"
@@ -97,7 +97,7 @@ const AdminSignin = () => {
               >
                 Sign up
               </Link>
-            </div>
+            </div>  */}
           </form>
         </div>
       </div>

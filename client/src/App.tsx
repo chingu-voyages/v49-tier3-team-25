@@ -26,7 +26,7 @@ import Checkout from "./pages/Checkout";
 import { ReduxProvider } from "./redux/provider";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import AdminSignin from "./pages/admin/AdminSignin";
-import { AdminRegister } from "./pages/admin/AdminRegister";
+// import { AdminRegister } from "./pages/admin/AdminRegister";
 import OrderDetails from "./pages/admin/orderManagement/OrderDetails";
 
 function App() {
@@ -59,7 +59,7 @@ function App() {
             {/* admin dashboard routes */}
             <Route path="/admin" element={<Admin />}>
               <Route index element={<Dashboard />} />
-              <Route path="signup" element={<AdminRegister />} />
+              {/* <Route path="signup" element={<AdminRegister />} /> */}
               <Route path="signin" element={<AdminSignin />} />
               <Route index path="orders" element={<OrderManagement />} />
               <Route path="orders/:id" element={<OrderDetails />} />

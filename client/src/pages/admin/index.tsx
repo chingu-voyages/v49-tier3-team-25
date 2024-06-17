@@ -62,7 +62,11 @@ const Admin = () => {
           </>
         )}
 
-        <div className="w-full lg:ps-64">
+        <div
+          className={`w-full lg:ps-64 ${
+            location.pathname.includes("signin") ? "lg:ps-0" : ""
+          }`}
+        >
           <ToastContainer
             position="top-center"
             autoClose={5000}
