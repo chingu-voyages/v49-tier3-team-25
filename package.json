@@ -1,0 +1,24 @@
+{
+  "name": "v49_bookstore",
+  "version": "1.0.0",
+  "description": "Your project's `readme` is as important to success as your code. For  this reason you should put as much care into its creation and maintenance as you would any other component of the application.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fe": "cd client && npm run dev",
+    "be": "cd server && npm run dev",
+    "dev": "concurrently \"npm run fe\" \"npm run be\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
