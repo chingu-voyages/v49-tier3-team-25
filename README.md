@@ -1,6 +1,6 @@
 <h1 id="readme-top">Book Corner</h1>
 
-<p class="header">Book Corner is a full stack MERN application, an online bookstore where users can view books, sign up, and sign in to add/remove books to their wishlist, and add/remove books to their cart. It also includes a protected admin dashboard where admins can view books, and add, edit and remove a book.</p>
+<p class="header">Book Corner is a full stack MERN application, an online bookstore where users can view books, sign up, and sign in to add/remove books to their wishlist, and add/remove books to their cart. It also includes a protected admin dashboard where admins can view books, and add, edit and remove a book, and view orders (UI) and customers (UI).</p>
 
 </br>
 
@@ -38,7 +38,7 @@
 ### Shopping Cart and Checkout
 
 - **Shopping Cart**: Allows users to add books to their shopping cart. Users can change book quantity, and remove a book from the cart.
-- **Checkout Process**: Allow users to proceed to checkout. When payment is 'processed', the order is saved to the user's order history.
+- **Checkout Process**: Allow users to proceed to checkout.
 
 ### Order Management
 
@@ -48,6 +48,7 @@
 
 - **Book Management**: Admins can add, edit, and delete books in the inventory. Manage book details such as title, author, description, price, and image.
 - **Order Management**: Admins can view orders (currently UI).
+- **Customer Management**: Admins can view customers (currently UI).
 
 <h2 id="languages">II. Languages and Tools Used</h2>
 
