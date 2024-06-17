@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/store";
 import { Link } from "react-router-dom";
 import { setCart } from "../../redux/features/cart/cartSlice";
-import { addOrderToOrders } from "../../redux/features/orders/ordersSlice";
+// import { addOrderToOrders } from "../../redux/features/orders/ordersSlice";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -76,8 +76,9 @@ export default function PaymentDetails() {
         date: "",
         cvv: "",
       });
+      console.log(res);
       dispatch(setCart([]));
-      dispatch(addOrderToOrders(res.data.data));
+      // dispatch(addOrderToOrders(res.data.data));
 
       successToast();
     } catch (err) {

@@ -92,7 +92,7 @@ export default function OrderHistory() {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                  {currentItems.map((transaction: Order) => (
+                  {currentItems?.map((transaction: Order) => (
                     <tr key={transaction._id}>
                       <td className="size-px whitespace-nowrap">
                         <div className="ps-6 py-2"></div>
